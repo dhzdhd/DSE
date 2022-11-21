@@ -40,8 +40,13 @@ Node *insertion(Node *root, int item) /*Insert a node*/
         root->right = insertion(root->right, item);
     return root;
 }
-void search(Node *cur, int item, Node *parent)
+void searchForDel(Node *cur, int item, Node *parent)
 {
+    if (cur == NULL)
+    {
+        cout << "Given element not found \n";
+        return;
+    }
     while (cur != NULL && cur->data != item)
     {
         parent = cur;
@@ -51,11 +56,44 @@ void search(Node *cur, int item, Node *parent)
             cur = cur->right;
     }
 }
+void search(Node *cur, int item)
+{
+    Node *parent = NULL;
+    if (cur == NULL)
+    {
+        cout << "Given element not found \n";
+        return;
+    }
+    while (cur != NULL && cur->data != item)
+    {
+        parent = cur;
+        if (item < cur->data)
+            cur = cur->left;
+        else
+            cur = cur->right;
+    }
+    cout << "Parent of given child \n";
+    if (parent != NULL)
+        cout << parent->data << endl;
+    else
+        cout << "No parent \n";
+
+    cout << "The children of the given element are : \n";
+    if (cur->left != NULL)
+        cout << cur->left->data << endl;
+    else
+        cout << "No left child \n";
+
+    if (cur->right != NULL)
+        cout << cur->right->data << endl;
+    else
+        cout << "No right child \n";
+}
 void deletion(Node *root, int item) /*function to delete a node*/
 {
     Node *parent = NULL;
     Node *cur = root;
-    search(cur, item, parent); /*find the node to be deleted*/
+    searchForDel(cur, item, parent); /*find the node to be deleted*/
     if (cur == NULL)
         return;
     if (cur->left == NULL && cur->right == NULL) /*When node has no children*/
@@ -101,7 +139,9 @@ int main()
     int choice, data;
     cout << "1)insert into the bst \n";
     cout << "2)delete an element \n";
-    cout << "3)Inorder display \n";
+    cout << "3)Search \n";
+    cout << "4)Inorder display \n";
+    cout << "5)Exit \n";
     do
     {
         cout << "Enter your choice \n";
@@ -120,15 +160,21 @@ int main()
             deletion(root, data);
             break;
         case 3:
-            inorder(root);
+            cout << "Enter the element to search \n";
+            cin >> data;
+            search(root, data);
             break;
         case 4:
+            inorder(root);
+            cout << endl;
+            break;
+        case 5:
             break;
         default:
             cout << "Enter a valid choice\n";
             break;
         }
-    } while (choice != 4);
+    } while (choice != 5);
 
     return 0;
 }
