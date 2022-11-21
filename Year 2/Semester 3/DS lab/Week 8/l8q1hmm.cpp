@@ -21,8 +21,7 @@ void insertBeginning(Node *head, int element)
 
 void insertEnd(Node *head, int element)
 {
-	Node *ptr = new Node;
-	ptr = head;
+	Node *ptr = head;
 
 	while (ptr->next != NULL)
 	{
@@ -66,8 +65,7 @@ void insertAfter(Node *head, int data, int element)
 	Node *ptr = new Node;
 	ptr = head;
 
-	while (ptr
-			   ->data != data)
+	while (ptr->data != data)
 	{
 		if (ptr->next == NULL)
 		{
