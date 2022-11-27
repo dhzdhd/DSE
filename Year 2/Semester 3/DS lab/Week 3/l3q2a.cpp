@@ -6,7 +6,7 @@ int main()
 	char str[50];
 
 	cout << "Enter the string\n";
-	gets(str);
+	gets_s(str);
 
 	int count = 0;
 	while (str[count] != '\0')
