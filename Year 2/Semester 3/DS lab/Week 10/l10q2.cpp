@@ -2,125 +2,131 @@
 using namespace std;
 struct node
 {
-    int data;
-    node *left;
-    node *right;
+	int data;
+	node *left;
+	node *right;
 };
 node *insert()
 {
-    int data;
-    node *p;
-
-    cout << "Enter data , -1 if the node has no child \n";
-    cin >> data;
-
-    if (data == -1)
-    {
-        return NULL;
-    }
-
-    p = new node;
-    p->data = data;
-
-    cout << "Enter the left child of : " << data << endl;
-    p->left = insert();
-
-    cout << "Enter the right child of : " << data << endl;
-    p->right = insert();
-
-    return p;
+	int data;
+	node *p;
+	cout << "Enter data , -1 if the node has no child \n";
+	cin >> data;
+	if (data == -1)
+	{
+		return NULL;
+	}
+	p = new node;
+	p->data = data;
+	cout << "Enter the left child of : " << data << endl;
+	p->left = insert();
+	cout << "Enter the right child of : " << data << endl;
+	p->right = insert();
+	return p;
 }
-
-int leafNode(node *root)
+int maxDepth(node *node)
 {
-
-    if (root == NULL)
-    {
-        return 0;
-    }
-    else if (root->left == NULL && root->right == NULL)
-    {
-        return 1;
-    }
-    else
-    {
-        return leafNode(root->left) + leafNode(root->right);
-    }
+	if (node == NULL)
+		return 0;
+	else
+	{
+		if (maxDepth(node->left) > maxDepth(node->right))
+			return (maxDepth(node->left) + 1);
+		else
+			return (maxDepth(node->right) + 1);
+	}
 }
-
-// Search Inorder
-void bfs(node *temp, int element)
+void findParent(node *node, int val, int parent)
 {
-    node *queue[100];
-
-    int count = 0;
-    int front = 0;
-    int rear = 1;
-
-    queue[0] = temp;
-    while (temp->data != element)
-    {
-        if (temp->left != NULL)
-        {
-            queue[rear] = temp->left;
-            rear++;
-        }
-        if (temp->right != NULL)
-        {
-            queue[rear] = temp->right;
-            rear++;
-        }
-        count++;
-
-        temp = queue[front];
-        front++;
-    }
+	if (node == NULL)
+		return;
+	if (node->data == val)
+	{
+		cout << parent;
+	}
+	else
+	{
+		findParent(node->left, val, node->data);
+		findParent(node->right, val, node->data);
+	}
 }
-
-void printParent(node *temp, int element)
+int printAncestorsOfNode(struct node *root, int num)
 {
-}
+	if (root == NULL)
+		return 0;
 
-void printDepth(node *temp)
+	if (root->data == num)
+		return 1;
+
+	if (printAncestorsOfNode(root->left, num) ||
+		printAncestorsOfNode(root->right, num))
+	{
+		cout << root->data << " ";
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+void InOrder(node *temp)
 {
+	if (temp != NULL)
+	{
+		InOrder(temp->left);
+		cout << " " << temp->data;
+		InOrder(temp->right);
+	}
 }
-
-void printAncestors(node *temp, int element)
-{
-}
-
 int main()
 {
-    node *root = NULL;
-    int choice;
-    cout << "1) insert into the binary tree \n";
-    cout << "2) print parent of element \n";
-    cout << "3) print depth of tree \n";
-    cout << "4) print ancestors of a node \n";
-    cout << "5) Exit \n";
-    do
-    {
-        cout << "Enter your choice \n";
-        cin >> choice;
+	node *root = NULL;
+	int data;
+	int choice;
+	int parent;
+	cout << "1) create binary tree \n";
+	cout << "2) parent of an element \n";
+	cout << "3) depth of the tree \n";
+	cout << "4) ancestors of the given node \n";
+	cout << "5) Inorder display \n";
+	cout << "6) Exit \n";
+	do
+	{
+		cout << "Enter your choice \n";
+		cin >> choice;
 
-        switch (choice)
-        {
-        case 1:
-            root = insert();
-            break;
-        case 2:
-            InOrder(root);
-            cout << endl;
-            break;
-        case 5:
-            cout << "The no of leaf nodes are :\n";
-            cout << leafNode(root) << endl;
-            break;
-        case 6:
-            break;
-        }
+		switch (choice)
+		{
+		case 1:
+			root = insert();
+			break;
+		case 2:
+			cout << "Enter a element to find the parent : \n";
+			cin >> data;
+			cout << "The parent of the given element is : \n";
+			findParent(root, data, parent);
+			cout << endl;
+			break;
+		case 3:
+			cout << "The depth of the tree is : \n";
+			cout << maxDepth(root) << endl;
+			break;
+		case 4:
+			cout << "Enter the element whose ancestors are to be found \n";
+			cin >> data;
+			cout << "The ancestors of the given element are : \n";
+			printAncestorsOfNode(root, data);
+			break;
+		case 5:
+			InOrder(root);
+			cout << endl;
+			break;
+			;
+		case 6:
+			break;
+		}
 
-    } while (choice != 6);
+	} while (choice != 6);
 
-    return 0;
+	return 0;
 }

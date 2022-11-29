@@ -1,127 +1,262 @@
 #include <iostream>
 using namespace std;
-
-struct Node
+struct node
 {
-	Node *next;
-	Node *previous;
 	int data;
+	node *prev;
+	node *next;
 };
-
-void insertRear(Node *head, int data)
+void insertRear(node *head, int data)
 {
-	Node *temp = new Node;
-	temp->data = data;
-	temp->next = NULL;
+	node *newNode = new node;
+	node *last = head;
+	newNode->data = data;
+	newNode->next = NULL;
 
-	Node *cur = head;
-
-	while (cur->next != NULL)
+	if (head->next == NULL)
 	{
-		cur = cur->next;
-	}
-
-	cur->next = temp;
-	temp->previous = cur;
-}
-
-void deleteRear(Node *head)
-{
-	Node *cur = head;
-
-	if (cur->next == NULL)
-	{
-		cout << "Underflow\n";
+		newNode->prev = NULL;
+		head->next = newNode;
 		return;
 	}
-
-	while (cur->next->next != NULL)
+	while (last->next != NULL)
 	{
-		cur = cur->next;
+		last = last->next;
 	}
+	last->next = newNode;
+	newNode->prev = last;
+}
+void insertAfter(node *head, int element, int data)
+{
+	node *temp = head->next;
 
-	Node *temp = cur->next;
-	cur->next = NULL;
+	while (temp->data != element)
+	{
+		if (temp->next == NULL)
+		{
+			cout << "The given element is not present in the list\n";
+			return;
+		}
+		temp = temp->next;
+	}
+	if (temp->next == NULL)
+	{
+		node *newNode = new node;
+		newNode->data = data;
+		newNode->next = NULL;
+		newNode->prev = temp;
+		temp->next = newNode;
+	}
+	else
+	{
+		node *newNode = new node;
+		newNode->data = data;
+		newNode->next = temp->next;
+		temp->next = newNode;
+		newNode->prev = temp;
+		newNode->next->prev = newNode;
+	}
+}
+void insertBefore(node *head, int element, int data)
+{
+	node *temp = head->next;
+	while (temp->data != element)
+	{
+		temp = temp->next;
+	}
+	if (temp->prev == NULL)
+	{
+		node *newNode = new node;
+		head->next = newNode;
+		newNode->data = data;
+		newNode->prev = NULL;
+		temp->prev = newNode;
+		newNode->next = temp;
+	}
+	else
+	{
+		node *newNode = new node;
+		newNode->data = data;
+		newNode->prev = temp->prev;
+		temp->prev = newNode;
+		newNode->next = temp;
+		newNode->prev->next = newNode;
+	}
+}
+void printList(node *head)
+{
+	node *temp = head->next;
+	cout << "Traversing forward :\n";
+	while (temp->next != NULL)
+	{
+		cout << " " << temp->data << " ";
+		temp = temp->next;
+	}
+	cout << temp->data << endl;
+	cout << "Traversing Backward:\n";
+	while (temp->prev != NULL)
+	{
+		cout << " " << temp->data << " ";
+		temp = temp->prev;
+	}
+	cout << temp->data << endl;
+}
+void deleteRear(node *head)
+{
+	node *temp = head->next;
+	if (head->next == NULL)
+	{
+		cout << "The list is empty \n";
+		return;
+	}
+	if (temp->next == NULL)
+	{
+		head->next = NULL;
+		delete temp;
+		return;
+	}
+	while (temp->next != NULL)
+	{
+		temp = temp->next;
+	}
+	temp->prev->next = NULL;
 	delete temp;
 }
-
-void insertAfter(Node *head, int data, int element)
+void deleteAfter(node *head, int element)
 {
-	Node *cur = head;
-	Node *temp = new Node;
-	temp->data = data;
-
-	while (cur != NULL && cur->data != element)
+	node *temp = head->next;
+	if (head->next == NULL)
 	{
-		cur = cur->next;
-	}
-
-	if (cur == NULL)
-	{
-		cout << "Not found!\n";
+		cout << "The list is empty \n";
 		return;
 	}
-
-	temp->next = cur->next;
-	temp->previous = cur;
-	cur->next->previous = temp;
-	cur->next = temp;
-}
-
-void insertBefore(Node *head, int data, int element)
-{
-	Node *cur = head;
-	Node *temp = new Node;
-	temp->data = data;
-
-	while (cur->next != NULL && cur->next->data != element)
+	while (temp->data != element)
 	{
-		cur = cur->next;
+		temp = temp->next;
+		if (temp == NULL)
+		{
+			cout << "Element is not present in the list\n";
+			return;
+		}
+		else
+		{
+			continue;
+		}
 	}
-
-	if (cur->next == NULL)
+	temp = temp->next;
+	if (temp->next == NULL)
 	{
-		cout << "Not found!\n";
+		temp->prev->next = NULL;
+		delete temp;
+	}
+	else if (temp == NULL)
+	{
+		cout << "Nothing to delete after the element\n";
 		return;
 	}
-
-	temp->next = cur->next;
-	temp->previous = cur;
-	cur->next->previous = temp;
-	cur->next = temp;
-}
-
-void print(Node *head)
-{
-	Node *cur = head->next;
-
-	if (cur == NULL)
+	else
 	{
-		cout << "Empty\n";
+		temp->prev->next = temp->next;
+		temp->next->prev = temp->prev;
+		delete temp;
+	}
+}
+void deleteBefore(node *head, int element)
+{
+	node *temp = head->next;
+	if (temp == NULL)
+	{
+		cout << "List is empty \n";
 		return;
 	}
-
-	while (cur->next != NULL)
+	while (temp->next->data != element)
 	{
-		cout << cur->data << " ";
-		cur = cur->next;
+		temp = temp->next;
+		if (temp->next == NULL)
+		{
+			cout << "The element is not in the list \n";
+			return;
+		}
+		else
+		{
+			continue;
+		}
 	}
-	cout << cur->data << endl;
+	if (temp->prev == NULL)
+	{
+		head->next = temp->next;
+		temp->next->prev = NULL;
+		delete temp;
+	}
+	else
+	{
+		temp->prev->next = temp->next;
+		temp->next->prev = temp->prev;
+		delete temp;
+	}
 }
-
 int main()
 {
-	Node *head = new Node;
+	int choice, data, element;
+	node *head = new node;
 	head->next = NULL;
-	head->previous = NULL;
-
-	insertRear(head, 10);
-	insertRear(head, 20);
-	insertAfter(head, 50, 10);
-	insertBefore(head, 59, 20);
-	print(head);
-	deleteRear(head);
-	print(head);
-
-	return 0;
+	cout << "1.Insert Rear \n";
+	cout << "2.Delete Rear \n";
+	cout << "3.Insert After \n";
+	cout << "4.Delete After \n";
+	cout << "5.Insert Before \n";
+	cout << "6.Delete Before \n";
+	cout << "7.Display list\n";
+	cout << "8.Exit\n";
+	do
+	{
+		cout << "Enter your choice\n";
+		cin >> choice;
+		switch (choice)
+		{
+		case 1:
+			cout << "Enter data :\n";
+			cin >> data;
+			insertRear(head, data);
+			break;
+		case 2:
+			deleteRear(head);
+			cout << "deleted rear\n";
+			break;
+		case 3:
+			cout << "Enter data:\n";
+			cin >> data;
+			cout << "Enter the element after which the data is to be inserted\n";
+			cin >> element;
+			insertAfter(head, element, data);
+			break;
+		case 4:
+			cout << "Enter the element after which the data is to be deleted\n";
+			cin >> element;
+			deleteAfter(head, element);
+			cout << "Element deleted\n";
+			break;
+		case 5:
+			cout << "Enter data:\n";
+			cin >> data;
+			cout << "Enter the element before which the data is to be inserted.\n";
+			cin >> element;
+			insertBefore(head, element, data);
+			break;
+		case 6:
+			cout << "Enter the element before which the data is to be deleted\n";
+			cin >> element;
+			deleteBefore(head, element);
+			cout << "Element deleted\n";
+			break;
+		case 7:
+			printList(head);
+			break;
+		case 8:
+			break;
+		default:
+			cout << "Wrong choice!\n";
+			break;
+		}
+	} while (choice != 8);
 }

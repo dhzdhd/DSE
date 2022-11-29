@@ -3,12 +3,11 @@ using namespace std;
 
 int factorial(int num)
 {
-	if (num == 1 || num == 0)
-
+	if (num == 1)
+	{
 		return 1;
-
-	else
-		return factorial(num - 1) * num;
+	}
+	return num * factorial(num - 1);
 }
 
 int main()
