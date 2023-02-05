@@ -1,118 +1,150 @@
 #include <iostream>
 using namespace std;
-
-struct Node {
+struct Node
+{
     int data;
     Node *left;
     Node *right;
 };
 
-Node* create(int item) {
-    Node* node = new Node;
-    node->data = item;
-    node->left = node->right = NULL;
-    return node;
+void preOrder(Node *temp)
+{
+    if (temp != NULL)
+    {
+        cout << " " << temp->data;
+        preOrder(temp->left);
+        preOrder(temp->right);
+    }
 }
 
-void preorder(Node *root) {
-    if(root==NULL)
-        return;
-
-    cout<<root->data<<" ";
-    preorder(root->left);
-    preorder(root->right);
+void inOrder(Node *temp)
+{
+    if (temp != NULL)
+    {
+        inOrder(temp->left);
+        cout << " " << temp->data;
+        inOrder(temp->right);
+    }
 }
 
-void postorder(Node *root) {
-    if(root==NULL)
-        return;
-
-    postorder(root->left);
-    postorder(root->right);
-    cout<<root->data<<" ";
+void postOrder(Node *temp)
+{
+    if (temp != NULL)
+    {
+        postOrder(temp->left);
+        postOrder(temp->right);
+        cout << " " << temp->data;
+    }
 }
 
-void inorder(Node *root) {
+Node *create()
+{
+    int data;
+    Node *p;
+
+    cout << "Enter data , -1 if the Node has no child \n";
+    cin >> data;
+
+    if (data == -1)
+    {
+        return NULL;
+    }
+
+    p = new Node;
+    p->data = data;
+
+    cout << "Enter the left child of : " << data << endl;
+    p->left = create();
+
+    cout << "Enter the right child of : " << data << endl;
+    p->right = create();
+
+    return p;
+}
+
+bool ifNodeExists(Node *temp, int key)
+{
+    if (temp == NULL)
+        return false;
+    if (temp->data == key)
+        return true;
+    bool res1 = ifNodeExists(temp->left, key);
+    if (res1)
+        return true;
+    bool res2 = ifNodeExists(temp->right, key);
+    return res2;
+}
+
+Node *insertion(Node *root, int item) /*Insert a Node*/
+{
     if (root == NULL)
-        return;
-
-    inorder(root->left);
-    cout<< root->data << " ";
-    inorder(root->right);
-}
-
-Node* insertion(Node* root, int item) {
-    if (root == NULL)
-        return create(item);
-    if (item < root->data)
+    {
+        root = new Node;
+        root->data = item;
+        root->left = root->right = NULL;
+    }
+    else if (item < root->data)
         root->left = insertion(root->left, item);
     else
         root->right = insertion(root->right, item);
     return root;
 }
 
-void search(Node* cur, int data) {
-    Node* temp = cur;
-    while (temp!=NULL) {
-        if(temp->data==data) {
-            cout<<"Key found\n";
-            return;
+int main()
+{
+    Node *bintree;
+    Node *bst = NULL;
+    int key, choice, tr;
+    cout << "Creating the binary tree \n";
+    bintree = create();
+    cout << "1)Enter key \n";
+    cout << "2)inorder\n";
+    cout << "3)preorder \n";
+    cout << "4)postOrder \n";
+    cout << "5)Exit \n";
+    do
+    {
+        cout << "Enter choice :\n";
+        cin >> choice;
+        switch (choice)
+        {
+        case 1:
+            cout << "Enter a key\n";
+            cin >> key;
+            if (ifNodeExists(bintree, key))
+            {
+                cout << "Element present \n";
+            }
+            else
+            {
+                bst = insertion(bst, key);
+            }
+            break;
+        case 2:
+            cout << "Binary tree:\n";
+            inOrder(bintree);
+            cout << "\nBST\n";
+            inOrder(bst);
+            break;
+        case 3:
+            cout << "Binary tree:\n";
+            preOrder(bintree);
+            cout << "BST\n";
+            preOrder(bst);
+            cout << endl;
+            break;
+        case 4:
+            cout << "Binary tree:\n";
+            postOrder(bintree);
+            cout << "BST\n";
+            postOrder(bst);
+            break;
+        case 5:
+            break;
+        default:
+            cout << "Enter a valid number \n";
         }
-        else if(temp->data>data) {
-            temp=temp->left;
 
-        }
-        else if(temp->data<data) {
-            temp=temp->right;
-        }
-    }
-    cout<<"Element not found \n";
-    insertion(cur, data);
-}
-
-int main() {
-    Node* root = NULL;
-    int choice,data;
-    cout<<"1)Insert \n";
-    cout<<"2)Search \n";
-    cout<<"3)Inorder display \n";
-    cout<<"4)Preorder display \n";
-    cout<<"5)Postorder display \n";
-    cout<<"6)Exit \n";
-    do{
-        cout<<"Enter your choice \n";
-        cin>>choice;
-
-        switch(choice){
-            case 1:
-                cout<<"Enter the element \n";
-                cin>>data;
-                root = insertion(root,data);
-                break;
-            case 2:
-                cout<<"Enter the element to search \n";
-                cin>>data;
-                search(root,data);
-                break;
-            case 3:
-                inorder(root);
-                cout<<endl;
-                break;
-            case 4:
-                preorder(root);
-                cout<<endl;
-                break;
-            case 5:
-                postorder(root);
-                cout<<endl;
-                break;
-            case 6:
-                break;
-            default:
-                cout<<"Enter a valid choice\n";
-                break;
-        }
-    } while(choice != 6);
-
+    } while (choice != 5);
     return 0;
 }
