@@ -7,13 +7,15 @@ struct Node {
 };
 
 struct Graph {
-    int vertices;
+    int count;
+    int vertexList[100];
     Node *list[100];
 };
 
 void display(Graph *graph) {
-    for (int i = 0; i < graph->vertices; i++) {
-        Node *temp = graph->list[i];
+    for (int i = 0; i < graph->count; i++) {
+
+        Node *temp = graph->list[graph->vertexList[i]];
         while (temp->next != NULL) {
             cout << temp->vertex << " ";
             temp = temp->next;
@@ -30,7 +32,8 @@ void addVertex(Graph *graph, int vertex) {
     node->vertex = vertex;
 
     graph->list[vertex] = node;
-    graph->vertices++;
+    graph->vertexList[graph->count] = vertex;
+    graph->count++;
 }
 
 void addEdge(Graph *graph, int v1, int v2) {
@@ -60,8 +63,7 @@ int main() {
     int choice;
 
     Graph *graph = new Graph;
-    graph->vertices = 0;
-
+    graph->count = 0;
 
     cout << "Enter choice\n";
     cout << "1) Insert vertex\n";
