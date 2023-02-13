@@ -58,6 +58,25 @@ void addVertex(Graph *graph, int vertex)
 
 void addEdge(Graph *graph, int v1, int v2)
 {
+    bool flag1 = false;
+    bool flag2 = false;
+    for (int i = 0; i < graph->count; i++)
+    {
+        if (v1 == graph->vertexList[i])
+        {
+            flag1 = true;
+        }
+        if (v2 == graph->vertexList[i])
+        {
+            flag2 = true;
+        }
+    }
+
+    if (!flag1 || !flag2)
+    {
+        return;
+    }
+
     Node *tempV1 = graph->list[v1];
     Node *tempV2 = graph->list[v2];
 
