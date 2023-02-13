@@ -1,8 +1,14 @@
 #include <iostream>
 using namespace std;
 
-void addEdge(int **graph, int v1, int v2)
+void addEdge(int **graph, int size, int v1, int v2)
 {
+    if (v1 >= size || v2 >= size)
+    {
+        cout << "Input greater than matrix defined!\n";
+        return;
+    }
+
     graph[v1][v2] = 1;
     graph[v2][v1] = 1;
 }
@@ -23,7 +29,7 @@ int main()
 {
     int choice;
     int n;
-    cout << "Enter size";
+    cout << "Enter size ";
     cin >> n;
 
     int **graph = new int *[n];
@@ -54,7 +60,7 @@ int main()
             cin >> v1;
             cin >> v2;
 
-            addEdge(graph, v1, v2);
+            addEdge(graph, n, v1, v2);
             break;
         }
         case 2:
