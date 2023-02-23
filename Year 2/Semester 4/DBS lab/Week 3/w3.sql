@@ -10,14 +10,14 @@ INSERT INTO emp VALUES(102, 'VIJAY', 'BTECH', 9887875779, 'vijay@digisol.com', '
 
 # PRIMARY KEY violated
 # Change 106 to another value to resolve
-INSERT INTO emp VALUES(115, 'RAJ', 'MSC', 9887875877, 'raj@digisol.com', 'PROJECT LEADER', 120000, 110);
+INSERT INTO emp VALUES(115, 'RAJ', 'MSC', 9887875877, 'raj@digisol.com', 'PRJOECT LEADER', 120000, 110);
 
 # PRIMARY KEY violated
 # Change 102 to another value to resolve
-INSERT INTO emp VALUES(114, 'RAKESH', 'MTECH', 9807875877, 'rakesh@digisol.com', 'PROJECT LEADER', 120000, 110);
+INSERT INTO emp VALUES(114, 'RAKESH', 'MTECH', 9807875877, 'rakesh@digisol.com', 'PROJEACT LEADER', 120000, 110);
 
-# UNIQUE email violated and valid designation violated
-# Rename email and designation
+# valid designation violated
+# Rename designation
 INSERT INTO emp VALUES(108, 'RAKESH', 'MTECH', 9807875827, 'rakesh1@digisol.com', 'DEVELOPER', 100000, 110);
 
 # UNIQUE qualification violated
@@ -32,7 +32,7 @@ INSERT INTO emp VALUES(113, 'ATUL', 'MTECH', 9807805877, 'atul@digisol.com', 'TE
 # Rename email
 INSERT INTO emp VALUES(111, 'RAJ', 'MTECH', 9807875270, 'raj1@digisol.com', 'DEVELOPER', 100000, 110);
 
-INSERT INTO emp VALUES(101, 'RAVI', 'MTECH', 9887875778, 'ravi@digisol.com', 'PROJECT LEADER', 120000, 102);
+INSERT INTO emp VALUES(101, 'RAVI', 'MTECH', 9887875778, 'ravi@digisol.com', 'PROJEACT LEADER', 120000, 102);
 
 # PRIMARY KEY violated
 # Change 108 to another value to resolve
@@ -74,7 +74,6 @@ INSERT INTO client VALUES('C5', 'AKS', '+81-66822903', 'eee@aks.com');
 # Change phoneno valid phoneno
 INSERT INTO client VALUES('C6', 'GKS', '+81-75628982', 'fff@gks.com');
 
-# ??? & asks for values ???
 INSERT INTO client VALUES('C7', 'B&B', '+91-64839839', 'ggg@bb.com');
 
 # CHECK phone format failed
@@ -220,7 +219,7 @@ UPDATE emp SET email = 'rajesh@digisol.com' WHERE empcode = 100;
 
 # 3.11
 
-UPDATE work_exp SET prjid = 'P9' where empcode = 111;
+UPDATE work_exp SET prjid = 'P9' WHERE empcode = 111;
 
 
 # 3.12
@@ -251,3 +250,4 @@ UPDATE emp SET empcode = 106 WHERE empcode = 108;
 
 # UNQ violated
 UPDATE emp SET empcode = 118 WHERE empcode = 108;
+COMMIT;
