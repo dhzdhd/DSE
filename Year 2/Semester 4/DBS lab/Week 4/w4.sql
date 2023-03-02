@@ -147,6 +147,6 @@ WHERE STRAT_DATE BETWEEN '01-JAN-2020' AND '31-DEC-2020';
 SELECT e.name
 FROM emp e JOIN emp_skill s ON e.empcode = s.empno
 WHERE s.skillid IN
-	((SELECT skillid
+	(SELECT skillid
 	FROM emp_skill
-	WHERE empno = 101));
+	WHERE empno = 101);
