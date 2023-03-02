@@ -16,7 +16,7 @@ CREATE TABLE skill (
 CREATE TABLE emp_skill (
     empno NUMBER(3) CONSTRAINT FK_EMPNO REFERENCES emp(empcode),
     skillid CHAR(3) CONSTRAINT FK_SKILLID REFERENCES skill(skillid) ON DELETE CASCADE,
-    skillexperience NUMBER(3) CONSTRAINT SKILLEXP_POSITIVE CHECK(skillexperience > 0)
+    skill_experience NUMBER(3) CONSTRAINT SKILLEXP_POSITIVE CHECK(skill_experience > 0)
 );
 
 CREATE TABLE client (
@@ -28,13 +28,13 @@ CREATE TABLE client (
 CREATE TABLE prj_details (
     prjid CHAR(3) CONSTRAINT PK_PRJID PRIMARY KEY CHECK(prjid LIKE 'P%'),
     prj_name VARCHAR2(10),
-    start_date DATE,
+    strat_date DATE,
     end_date DATE,
     actual_end_date DATE,
     lead_by_empcode NUMBER(3) CONSTRAINT FK_LEAD_EMP REFERENCES emp(empcode),
     budget_allocated NUMBER(10, 1),
     actual_budget NUMBER(10, 1),
-    CONSTRAINT END_DATE_GARTER_START_DATE CHECK(end_date > start_date),
+    CONSTRAINT END_DATE_GARTER_START_DATE CHECK(end_date > strat_date),
     CONSTRAINT ACTUAL_DATE_LARGER CHECK(actual_end_date >= end_date)
 );
 
