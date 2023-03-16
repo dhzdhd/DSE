@@ -39,8 +39,8 @@ WHERE relationship = 'DAGHTER';
 # 5.5
 SELECT DISTINCT name
 FROM emp e
-    join work_exp w on e.empcode = w.empcode
-    join prj_details p on w.prjid = p.prjid
+    JOIN work_exp w ON e.empcode = w.empcode
+    JOIN prj_details p ON w.prjid = p.prjid
 WHERE name NOT IN (
         SELECT name
         FROM work_exp w
@@ -51,7 +51,7 @@ WHERE name NOT IN (
     );
 
 # 5.6
-SELECT name
+SELECT DISTINCT name
 FROM emp e
     JOIN emp_skill s ON e.empcode = s.empno
 WHERE s.skillid = SOME (
@@ -62,7 +62,7 @@ WHERE s.skillid = SOME (
     );
 
 # 5.7
-SELECT name
+SELECT DISTINCT name
 FROM emp
     NATURAL JOIN work_exp
 WHERE work_experience > ALL (
@@ -91,9 +91,11 @@ WHERE
                     empcode = 100
             )
             AND w.clientid IN (
-                SELECT clientid
+                SELECT
+                    clientid
                 FROM work_exp
-                WHERE empcode = 100
+                WHERE
+                    empcode = 100
             )
     );
 
@@ -137,20 +139,16 @@ GROUP BY prj_name
 ORDER BY count(empcode) DESC;
 
 # 5.12
-#
-SELECT prj_name
+SELECT DISTINCT prj_name
 FROM work_exp w
     JOIN prj_details p ON w.prjid = p.prjid
-WHERE EXISTS (
+WHERE 2 < (
         SELECT
-            pp.prj_name,
-            count(ww.empcode) empcount
+            count(ww.empcode)
         FROM work_exp ww
             JOIN prj_details pp ON ww.prjid = pp.prjid
         WHERE
             pp.prjid = p.prjid
-        GROUP BY pp.prj_name
-        HAVING empcount > 2
     );
 
 # 5.13
