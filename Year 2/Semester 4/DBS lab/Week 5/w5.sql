@@ -204,6 +204,45 @@ CREATE VIEW
         skill_experience
     ) AS
 SELECT
+    e.name,
+    s.skillname,
+    sk.skill_experience
+FROM emp_skill sk
+    JOIN emp e ON sk.empno = e.empcode
+    JOIN skill s ON sk.skillid = s.skillid
+WHERE sk.skill_experience > 18;
+
+UPDATE emp_skill_experience
+SET skill_experience = 5
+WHERE employee_name = 'BHASKAR';
+
+-- * Rows are updated. Selecting * shows no rows as the constraint on the view (>18) is no longer satisfied
 
 # 5.19
-CREATE
+CREATE VIEW
+    emp_designation(empno, name, salary) AS
+SELECT empcode, name, salary
+FROM emp
+WHERE
+    designation IN (
+        'DEVELOPER',
+        'PROJEACT LEADER',
+        'PRJOECT LEADER'
+    );
+
+UPDATE emp_designation SET salary = 300000 WHERE name = 'MANISH';
+
+-- * Rows are updated.
+
+# 5.20
+SELECT DISTINCT ee.name, (
+        SELECT
+            count(w.empcode)
+        FROM emp e
+            JOIN work_exp w ON e.empcode = w.empcode
+        GROUP BY e.name
+        HAVING
+            e.name = ee.name
+    ) project_count
+FROM emp ee
+    JOIN work_exp w ON ee.empcode = w.empcode;
