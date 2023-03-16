@@ -31,22 +31,23 @@ WHERE prjid IN (
     );
 
 # 5.4
-SELECT name
+SELECT DISTINCT name
 FROM emp e
     JOIN family_dependents f ON e.empcode = f.empno
 WHERE relationship = 'DAGHTER';
 
 # 5.5
-#
 SELECT DISTINCT name
-FROM emp
-WHERE name IN (
+FROM emp e
+    join work_exp w on e.empcode = w.empcode
+    join prj_details p on w.prjid = p.prjid
+WHERE name NOT IN (
         SELECT name
         FROM work_exp w
             JOIN prj_details p ON w.prjid = p.prjid
             JOIN emp e ON e.empcode = w.empcode
         WHERE
-            prj_name != 'SPYDER'
+            prj_name = 'SPYDER'
     );
 
 # 5.6
@@ -76,29 +77,39 @@ WHERE work_experience > ALL (
 # 5.8
 SELECT DISTINCT name
 FROM emp e
-    JOIN work_exp w ON e.empcode = w.empcode
-WHERE NOT EXISTS (
+WHERE
+    e.empcode != 100
+    AND EXISTS (
         SELECT *
-        FROM
-            work_exp ww,
-            emp ee
+        FROM work_exp w
         WHERE
-            ee.empcode != 100
-            AND ww.prjid != w.prjid
-            AND ww.clientid != w.clientid
+            e.empcode = w.empcode
+            AND w.prjid IN (
+                SELECT prjid
+                FROM work_exp
+                WHERE
+                    empcode = 100
+            )
+            AND w.clientid IN (
+                SELECT clientid
+                FROM work_exp
+                WHERE empcode = 100
+            )
     );
 
 # 5.9
 SELECT DISTINCT name
 FROM emp e
-    JOIN work_exp w ON e.empcode = w.empcode
-WHERE NOT EXISTS (
+WHERE
+    e.empcode != 106
+    AND NOT EXISTS (
         SELECT *
-        FROM work_exp
-        WHERE w.prjid NOT IN (
+        FROM work_exp w
+        WHERE
+            e.empcode = w.empcode
+            AND prjid NOT IN (
                 SELECT prjid
-                FROM emp
-                    NATURAL JOIN work_exp
+                FROM work_exp
                 WHERE
                     empcode = 106
             )
@@ -107,13 +118,12 @@ WHERE NOT EXISTS (
 # 5.10
 SELECT p.prj_name
 FROM prj_details p
-WHERE prj_id IN (
-        SELECT prj_id
-        FROM prj_details
-            JOIN work_exp w ON prj_details.prjid = w.prjid
-            JOIN emp e ON e.empcode = w.empcode
+WHERE p.budget_allocated > (
+        SELECT sum(salary)
+        FROM emp e
+            JOIN work_exp w ON e.empcode = w.empcode
         WHERE
-            p.budget_allocated > sum(e.salary)
+            w.prjid = p.prjid
     );
 
 # 5.11
