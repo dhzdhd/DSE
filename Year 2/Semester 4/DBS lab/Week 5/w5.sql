@@ -207,7 +207,7 @@ SET
 # 5.18
 CREATE VIEW
     emp_skill_experience(
-        employee_name,
+        name,
         skill_name,
         skill_experience
     ) AS
@@ -218,13 +218,12 @@ SELECT
 FROM emp_skill sk
     JOIN emp e ON sk.empno = e.empcode
     JOIN skill s ON sk.skillid = s.skillid
-WHERE sk.skill_experience > 18;
+WHERE sk.skill_experience > 20;
 
 UPDATE emp_skill_experience
-SET skill_experience = 5
-WHERE employee_name = 'BHASKAR';
+SET skill_experience = 5;
 
--- * Rows are updated. Selecting * shows no rows as the constraint on the view (>18) is no longer satisfied
+-- * No rows to update. Selecting * shows no rows as the constraint on the view (>20) is no longer satisfied
 
 # 5.19
 CREATE VIEW
