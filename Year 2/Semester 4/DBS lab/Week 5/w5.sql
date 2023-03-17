@@ -183,7 +183,10 @@ SELECT
     e.name,
     p.budget_allocated,
     p.prj_name
-FROM emp e, prj_details p;
+FROM work_exp w
+    JOIN emp e ON w.empcode = e.empcode
+    JOIN prj_details p ON w.prjid = p.prjid
+WHERE e.empcode = 110;
 
 INSERT INTO emp_prj
 SELECT
