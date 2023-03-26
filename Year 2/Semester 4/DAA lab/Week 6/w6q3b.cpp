@@ -58,7 +58,7 @@ int main()
 		}
 	}
 
-	cout << "Topological Sort: ";
+	cout << "Topological sort\n";
 	topologicalSort(graph, indegree, n);
 
 	cout << endl;

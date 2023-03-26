@@ -29,7 +29,7 @@ void topologicalSort(int **graph, int *indegree, int *visited, int n)
             dfs(i, visited, n, stack, m, graph);
         }
     }
-    cout << "Topological Sort Order: ";
+    cout << "Topological sort order\n";
     for (int i = n - 1; i >= 0; i--)
     {
         cout << stack[i] << " ";
@@ -66,7 +66,6 @@ int main()
         visited[i] = 0;
     }
 
-    cout << "Topological Sort: ";
     topologicalSort(graph, indegree, visited, n);
 
     cout << endl;
