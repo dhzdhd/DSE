@@ -1,12 +1,12 @@
 #include <iostream>
 using namespace std;
 
-int count = 0;
+int countt = 0;
 
 void dfs(int v, int n, int *visited, int **graph)
 {
-	count++;
-	visited[v] = count;
+	countt++;
+	visited[v] = countt;
 
 	for (int i = 0; i < n; i++)
 	{
@@ -51,7 +51,7 @@ int main()
 	}
 	cout << endl;
 
-	count = 0;
+	countt = 0;
 	for (int i = 0; i < n; i++)
 	{
 		if (visited[i] == 0)

@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-int count;
+int countt;
 
 struct QueueRepr
 {
@@ -50,8 +50,8 @@ int front(QueueRepr *inst)
 
 void bfs(int v, int n, int *visited, int **graph)
 {
-    count++;
-    visited[v] = count;
+    countt++;
+    visited[v] = countt;
 
     QueueRepr queue;
     queue.maxSize = n;
@@ -67,8 +67,8 @@ void bfs(int v, int n, int *visited, int **graph)
             int frt = front(&queue);
             if (graph[frt][i] == 1 && visited[i] == 0)
             {
-                count++;
-                visited[i] = count;
+                countt++;
+                visited[i] = countt;
                 enqueue(&queue, i);
             }
         }
@@ -110,7 +110,7 @@ int main()
     }
     cout << endl;
 
-    count = 0;
+    countt = 0;
     for (int i = 0; i < n; i++)
     {
         if (visited[i] == 0)
