@@ -6,7 +6,7 @@ DECLARE
         GROUP BY name
         ORDER BY SUM(work_experience) DESC;
 
-        v_count NUMBER := 0;
+    v_count NUMBER := 0;
 BEGIN
     FOR i IN c LOOP
         v_count := v_count + 1;
@@ -18,6 +18,5 @@ BEGIN
             EXIT;
         END IF;
     END LOOP;
-
 END;
 /

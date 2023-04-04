@@ -5,7 +5,7 @@ DECLARE
         FROM emp e
             JOIN emp_skill es ON e.empcode = es.empno
             JOIN skill s ON s.skillid = es.skillid
-        WHERE s.skillname IN ('Full stack', 'Oracle', 'Android')
+        WHERE s.skillname IN ('Full stack', 'Oracle', 'AZURE')
             AND es.skill_experience > 12;
 BEGIN
     FOR i IN c LOOP
