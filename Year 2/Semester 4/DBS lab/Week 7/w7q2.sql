@@ -6,7 +6,7 @@ BEGIN
     FOR i IN REVERSE 1..LENGTH(word) LOOP
         res := res || SUBSTR(word, i, 1);
     END LOOP;
-    
+
     IF res = word THEN
         dbms_output.put_line('Palindrome');
     ELSE

@@ -1,4 +1,4 @@
-SET SERVEROUTPUT ON 
+SET SERVEROUTPUT ON
 
 DECLARE
     v_empcode work_exp.empcode%TYPE := &num;

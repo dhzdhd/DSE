@@ -1,9 +1,9 @@
 SET SERVEROUTPUT ON
 DECLARE
     CURSOR c IS
-        SELECT name, salary, regular_increment, performance_incentive, advance_tax, other_incentives 
+        SELECT name, salary, regular_increment, performance_incentive, advance_tax, other_incentives
         FROM emp NATURAL JOIN pay_check
-        WHERE TO_CHAR(pay_date, 'MM-YY') = '01-21'; 
+        WHERE TO_CHAR(pay_date, 'MM-YY') = '01-21';
 
     v_emprow emp%ROWTYPE;
     v_paycheck pay_check%ROWTYPE;
@@ -30,7 +30,7 @@ BEGIN
         dbms_output.put_line('Monthly Gross Salary: ' || v_mgs);
         dbms_output.put_line('Monthly Take home salary: ' || (v_mgs - v_pf - i.advance_tax));
         dbms_output.put_line('...');
-    END LOOP; 
+    END LOOP;
 
 END;
 /
