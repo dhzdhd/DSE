@@ -1,0 +1,3 @@
+CREATE OR REPLACE PACKAGE dbs AS
+    FUNCTION fetch_name()  
+END dbs;
