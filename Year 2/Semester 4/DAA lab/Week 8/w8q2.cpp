@@ -1,6 +1,7 @@
 #include <iostream>
 #define MAX 100
 using namespace std;
+
 int graph[MAX][MAX];
 bool visited[MAX];
 int ind = 0,n;
@@ -39,13 +40,13 @@ void topologicalSort()
 int main()
 {
     int m, u, v;
-    cout << "enter the no of teams : \n";
+    cout << "Enter the no of teams\n"; // Graph size
     cin >> n;
-    cout << "Enter no of teams whose task are dependent :\n";
+    cout << "Enter no of teams whose task are dependent\n"; // Number of edges
     cin >> m;
     for (int i = 0; i < m; i++)
     {
-        cout << "enter 2 teams whose task are dependent :\n";
+        cout << "Enter 2 teams whose task are dependent\n";
         cin >> u >> v;
         graph[u][v] = 1;
     }

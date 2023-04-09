@@ -29,7 +29,7 @@ void topologicalSort()
             dfs(i);
         }
     }
-    cout << "tasks based on dependency : \n";
+    cout << "Tasks based on dependency\n";
     for (int i =ind-1; i >= 0; i--)
     {
         cout << visitingOrd[i] << " ";
@@ -38,7 +38,7 @@ void topologicalSort()
 }
 void checkDependency(){
     int u,v;
-    cout<<"Enter two teams :\n";
+    cout<<"Enter two teams\n";
     cin>>u,v;
     if(graph[u][v] || graph[v][u])
     cout<<"There is dependency \n";
@@ -48,13 +48,13 @@ void checkDependency(){
 int main()
 {
     int m, u, v;
-    cout << "enter the no of teams : \n";
+    cout << "Enter the no of teams\n";
     cin >> n;
-    cout << "Enter no of teams whose task are dependent :\n";
+    cout << "Enter no of teams whose task are dependent\n";
     cin >> m;
     for (int i = 0; i < m; i++)
     {
-        cout << "enter 2 teams whose task are dependent :\n";
+        cout << "Enter 2 teams whose task are dependent\n";
         cin >> u >> v;
         graph[u][v] = 1;
     }
