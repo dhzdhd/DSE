@@ -1,32 +1,24 @@
 SET SERVEROUTPUT ON
 
 CREATE OR REPLACE FUNCTION fetch_client(
-    v_ccode IN client.phone%TYPE
-) RETURN NUMBER AS
-    v_incentive NUMBER := 0;
-    CURSOR c IS
-        SELECT rating
-        FROM work_exp
-        WHERE prjid = v_prjid;
+    v_code IN VARCHAR2
+) RETURN client.name%TYPE AS
+    v_name client.name%TYPE;
 BEGIN
-    FOR i in C LOOP
-        IF i.rating = 'A' THEN
-            v_incentive := 30000;
-        ELSIF i.rating = 'B' THEN
-            v_incentive := 20000;
-        ELSIF i.rating = 'C' THEN
-            v_incentive := 10000;
-        END IF;
-    END LOOP;
-    RETURN v_incentive;
+    SELECT name
+    INTO v_name
+    FROM client
+    WHERE phone LIKE (v_code || '%') AND ROWNUM = 1;
+
+    RETURN v_name;
 END;
 /
 
 DECLARE
-    v_prjid work_exp.prjid%TYPE := '&prjid';
-    v_incentive NUMBER;
+    v_code VARCHAR2(3) := '&code';
+    v_name client.name%TYPE;
 BEGIN
-    v_incentive := fetch_incentive(v_prjid);
-    dbms_output.put_line(v_incentive);
+    v_name := fetch_client(v_code);
+    dbms_output.put_line('Name ' || v_name);
 END;
 /
