@@ -1,46 +1,49 @@
 SET SERVEROUTPUT ON
 
-CREATE OR REPLACE PROCEDURE fetch_additional_budget(
-    v_prjid IN prj_details.prjid%TYPE,
-    v_ab OUT NUMBER
-) AS
-    v_prjd prj_details%ROWTYPE;
-    v_pdc NUMBER;
+CREATE OR REPLACE PROCEDURE additional_budget(pid IN VARCHAR2,extra_bud OUT NUMBER) IS
+    v_prjrow prj_details%ROWTYPE;
+    v_edays NUMBER;
+    v_bpd NUMBER;
+    v_days NUMBER;
 BEGIN
-    SELECT *
-    INTO v_prjd
+    SELECT * INTO v_prjrow
     FROM prj_details
-    WHERE ROWNUM = 1 AND prjid = v_prjid;
+    WHERE prjid = pid;
 
-    IF actual_end_date > end_date THEN
-        v_pdc := v_prjd.budget_allocated / TO_CHAR(DATEDIFF(DAYS, v_prjd.strat_date, v_prjd.end_date), 'DD');
-        v_ab := v_pdc * TO_CHAR(DATEDIFF(DAYS, v_prjd.end_date, v_prjd.actual_end_date), 'DD');
-    END IF;
-END;
+    SELECT TO_DATE(v_prjrow.actual_end_date,'dd-mm-yyyy') - TO_DATE(v_prjrow.end_date,'dd-mm-yyyy')
+    INTO v_edays FROM dual;
+
+    SELECT TO_DATE(v_prjrow.end_date,'dd-mm-yyyy') - TO_DATE(v_prjrow.strat_date,'dd-mm-yyyy')
+    INTO v_days FROM dual;
+
+    v_bpd := v_prjrow.budget_allocated / v_days;
+
+    extra_bud := v_edays * v_bpd;
+END additional_budget;
 /
 
+SET SERVEROUTPUT ON
 DECLARE
+    v_ebud NUMBER;
     v_plname emp.name%TYPE;
-    v_plcode emp.empcode%TYPE;
-    v_prjid prj_details.prjid%TYPE := '%prjid';
-    v_name emp.name%TYPE;
-    v_email emp.email%TYPE;
-    v_ab NUMBER;
+    v_pid prj_details.prjid%TYPE := '&id';
+    v_rname emp.name%type;
+    v_remail emp.email%TYPE;
 BEGIN
-    fetch_additional_budget(v_prjid, v_ab);
+    additional_budget(v_pid,v_ebud);
 
-    SELECT e.name, e.empcode
-    INTO v_plname, v_plcode
+    SELECT name INTO v_plname
     FROM emp e JOIN prj_details p ON e.empcode = p.lead_by_empcode
-    WHERE ROWNUM = 1 AND p.prjid = v_prjid;
+    WHERE p.prjid = v_pid;
 
-    SELECT ee.name, ee.email
-    INTO v_name, v_email
-    FROM emp e JOIN emp ee ON ee.empcode = e.reports_to
-    WHERE ROWNUM = 1 AND e.empcode = v_plcode;
+    SELECT name,email INTO v_rname,v_remail
+    FROM emp
+    WHERE empcode = (SELECT reports_to
+                     FROM emp
+                     WHERE name = v_plname);
 
-    dbms_output.put_line("Project leader: " || v_plname);
-    dbms_output.put_line("Reports to name: " || v_name || " and email " || v_email);
-    dbms_output.put_line("Additional budget: " || v_ab);
+    dbms_output.put_line('Name of the leader:' || v_plname);
+    dbms_output.put_line('Name and email of the employee who leader reports to:' || v_rname || ' ' || v_remail);
+    dbms_output.put_line('Additional budget needed:' || TRUNC(v_ebud,2));
 END;
 /
