@@ -22,7 +22,6 @@ BEGIN
 END additional_budget;
 /
 
-SET SERVEROUTPUT ON
 DECLARE
     v_ebud NUMBER;
     v_plname emp.name%TYPE;
