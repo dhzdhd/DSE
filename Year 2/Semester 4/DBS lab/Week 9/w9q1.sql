@@ -39,4 +39,4 @@ BEGIN
 END;
 /
 
--- update emp set salary = 200000 where name = 'GAGAN';
+-- UPDATE emp SET salary = 200000 WHERE name = 'GAGAN';

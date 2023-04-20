@@ -27,4 +27,4 @@ BEGIN
 END;
 /
 
--- delete from skill where skillid='S1';
+-- DELETE FROM skill WHERE skillid='S1';
