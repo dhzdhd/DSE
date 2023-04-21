@@ -13,8 +13,6 @@ BEGIN
     FROM emp_skill
     WHERE skillid = :old.skillid;
 
-    dbms_output.put_line(v_count);
-
     IF v_count > 1 THEN
         DELETE FROM emp_skill
         WHERE skillid = :old.skillid
@@ -28,3 +26,7 @@ END;
 /
 
 -- DELETE FROM skill WHERE skillid='S1';
+
+-- Remove ON DELETE CASCADE in emp_skill
+-- ALTER TABLE emp_skill DROP CONSTRAINT fk_skillid;
+-- ALTER TABLE emp_skill ADD CONSTRAINT fk_skillid FOREIGN KEY(skillid) REFERENCES skill(skillid);

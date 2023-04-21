@@ -10,9 +10,6 @@ DECLARE
 BEGIN
     v_range := :new.actual_end_date - :new.end_date;
     v_add := :new.actual_budget - :new.budget_allocated;
-    dbms_output.put_line(v_range);
-    dbms_output.put_line(v_add);
-    dbms_output.put_line(0.15 * :new.budget_allocated);
 
     IF v_range >= 90 OR v_add > 0.15 * :new.budget_allocated THEN
         dbms_output.put_line('Need to take approval through proper channel');
