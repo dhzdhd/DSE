@@ -1,5 +1,6 @@
 #include <iostream>
 using namespace std;
+
 struct Node
 {
     int data;
@@ -7,6 +8,7 @@ struct Node
     Node *right;
     int height;
 };
+
 int height(Node *node)
 {
     if (node == NULL)
@@ -20,6 +22,7 @@ int max(int a, int b)
 {
     return (a > b) ? a : b;
 }
+
 Node* newnode(int data){
     Node* node = new Node;
     node->data = data;
@@ -29,6 +32,7 @@ Node* newnode(int data){
 
     return node;
 }
+
 Node *rightRotate(Node *y) {
     Node *x = y->left;
     Node *T2 = x->right;
@@ -41,6 +45,7 @@ Node *rightRotate(Node *y) {
 
     return x;
 }
+
 Node *leftRotate(Node *x) {
     Node *y = x->right;
     Node *T2 = y->left;
@@ -53,12 +58,14 @@ Node *leftRotate(Node *x) {
 
     return y;
 }
+
 int getBalance(Node *node) {
     if (node == NULL) {
         return 0;
     }
     return height(node->left) - height(node->right);
 }
+
 Node *insert(Node *node, int key) {
     if (node == NULL) {
         return newnode(key);
@@ -98,6 +105,7 @@ Node *insert(Node *node, int key) {
 
     return node;
 }
+
 void inorder(Node *node) {
     if (node == NULL) {
         return;
