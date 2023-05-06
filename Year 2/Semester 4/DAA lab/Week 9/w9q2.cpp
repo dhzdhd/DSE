@@ -1,60 +1,134 @@
 #include <iostream>
 using namespace std;
 
-void heapify(int arr[], int n, int i)
+struct Node
 {
-    int largest = i;
-    int l = 2 * i + 1;
-    int r = 2 * i + 2;
-    
-    if (l < n && arr[l] > arr[largest])
-        largest = l;
- 
-    if (r < n && arr[r] > arr[largest])
-        largest = r;
- 
-    if (largest != i) {
-        swap(arr[i], arr[largest]);
-        heapify(arr, n, largest);
+    int data;
+    Node *left;
+    Node *right;
+    int height;
+};
+
+int height(Node *node)
+{
+    if (node == NULL)
+    {
+        return 0;
     }
+    return node->height;
 }
 
-void heapSort(int arr[], int n)
+int max(int a, int b)
 {
-    for (int i = n / 2 - 1; i >= 0; i--) {
-        heapify(arr, n, i);
-	}
-	
-	for (int i = n - 1; i >= 0; i--) {
-        swap(arr[0], arr[i]);
-        heapify(arr, i, 0);
+    return (a > b) ? a : b;
+}
+
+Node* newnode(int data){
+    Node* node = new Node;
+    node->data = data;
+
+    node->left = node->right = NULL;
+    node->height =1;
+
+    return node;
+}
+
+Node *rightRotate(Node *y) {
+    Node *x = y->left;
+    Node *T2 = x->right;
+
+    x->right = y;
+    y->left = T2;
+
+    y->height = max(height(y->left), height(y->right)) + 1;
+    x->height = max(height(x->left), height(x->right)) + 1;
+
+    return x;
+}
+
+Node *leftRotate(Node *x) {
+    Node *y = x->right;
+    Node *T2 = y->left;
+
+    y->left = x;
+    x->right = T2;
+
+    x->height = max(height(x->left), height(x->right)) + 1;
+    y->height = max(height(y->left), height(y->right)) + 1;
+
+    return y;
+}
+
+int getBalance(Node *node) {
+    if (node == NULL) {
+        return 0;
     }
+    return height(node->left) - height(node->right);
 }
 
-void printArray(int arr[], int n)
-{
-    for (int i = 0; i < n; ++i)
-        cout << arr[i] << " ";
-    cout << "\n";
+Node *insert(Node *node, int key) {
+    if (node == NULL) {
+        return newnode(key);
+    }
+
+    if (key < node->data) {
+        node->left = insert(node->left, key);
+    }
+    else if (key > node->data) {
+        node->right = insert(node->right, key);
+    }
+    else {
+        return node;
+    }
+
+    node->height = max(height(node->left), height(node->right)) + 1;
+
+    int balance = getBalance(node);
+
+    if (balance > 1 && key < node->left->data) {
+        return rightRotate(node);
+    }
+
+    if (balance < -1 && key > node->right->data) {
+        return leftRotate(node);
+    }
+
+    if (balance > 1 && key > node->left->data) {
+        node->left = leftRotate(node->left);
+        return rightRotate(node);
+    }
+
+    if (balance < -1 && key < node->right->data) {
+        node->right = rightRotate(node->right);
+        return leftRotate(node);
+    }
+
+    return node;
 }
 
-int main()
-{
-	int arr[100];
-	int n;
-	
-    cout << "Enter the size of the array \n";
-    cin >> n;
+void inorder(Node *node) {
+    if (node == NULL) {
+        return;
+    }
+    inorder(node->left);
+    cout << node->data << " ";
+    inorder(node->right);
+}
+
+int main() {
+    Node *root = NULL;
+    int n,m;
+    cout<<"Enter the number of element in the avl tree \n";
+    cin>>n;
+    cout<<"Enter elements \n";
+    for(int i = 0;i<n;i++ ){
+        cin>>m;
+        root = insert(root,m);
+    }
     
-	cout << "Enter the elements of the array \n";
-    for(int i = 0;i<n;i++){
-    	cin >> arr[i];
-	}
- 
-    heapSort(arr, n);
- 
-    cout << "Sorted array is \n";
-    printArray(arr, n);
-    
+
+    cout << "Inorder traversal of the constructed AVL tree is: ";
+    inorder(root);
+
     return 0;
 }
