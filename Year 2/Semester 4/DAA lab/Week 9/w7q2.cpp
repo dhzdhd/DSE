@@ -123,11 +123,11 @@ int main() {
     cout<<"Enter the number of element in the avl tree \n";
     cin>>n;
     cout<<"Enter elements \n";
+
     for(int i = 0;i<n;i++ ){
         cin>>m;
         root = insert(root,m);
     }
-
 
     cout << "Inorder traversal of the constructed AVL tree is: ";
     inorder(root);

@@ -1,62 +1,33 @@
-// Heapsort
+// Comparison counting sort
 
 #include <iostream>
 using namespace std;
 
-void heapify(int arr[], int n, int i)
-{
-    int largest = i;
-    int l = 2 * i + 1;
-    int r = 2 * i + 2;
+int main() {
+	int n, arr[100], countArr[100];
 
-    if (l < n && arr[l] > arr[largest])
-        largest = l;
+	cout << "Enter size of array\n";
+	cin >> n;
 
-    if (r < n && arr[r] > arr[largest])
-        largest = r;
-
-    if (largest != i) {
-        swap(arr[i], arr[largest]);
-        heapify(arr, n, largest);
-    }
-}
-
-void heapSort(int arr[], int n)
-{
-    for (int i = n / 2 - 1; i >= 0; i--) {
-        heapify(arr, n, i);
+	for (int i = 0; i < n; i++) {
+		cin >> arr[i];
+		countArr[i] = 0;
 	}
 
-	for (int i = n - 1; i >= 0; i--) {
-        swap(arr[0], arr[i]);
-        heapify(arr, i, 0);
-    }
-}
-
-void printArray(int arr[], int n)
-{
-    for (int i = 0; i < n; ++i)
-        cout << arr[i] << " ";
-    cout << "\n";
-}
-
-int main()
-{
-	int arr[100];
-	int n;
-
-    cout << "Enter the size of the array \n";
-    cin >> n;
-
-	cout << "Enter the elements of the array \n";
-    for(int i = 0;i<n;i++){
-    	cin >> arr[i];
+	for (int i = 0; i < n; i++) {
+		for (int j = i + 1; j < n; j++) {
+			if (arr[i] > arr[j]) {
+				countArr[i]++;
+			} else {
+				countArr[j]++;
+			}
+		}
 	}
 
-    heapSort(arr, n);
+	for (int i = 0; i < n; i++) {
+		cout << arr[countArr[i]] << " ";
+	}
+	cout << endl;
 
-    cout << "Sorted array is \n";
-    printArray(arr, n);
-
-    return 0;
+	return 0;
 }

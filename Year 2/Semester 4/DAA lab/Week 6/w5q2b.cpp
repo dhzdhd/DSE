@@ -1,3 +1,5 @@
+// Topological sort with source removal
+
 #include <iostream>
 using namespace std;
 
