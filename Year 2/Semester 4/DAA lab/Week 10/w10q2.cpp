@@ -2,11 +2,15 @@
 
 #include <iostream>
 #include <cstdio>
+#include <cstring>
 using namespace std;
 
 void shiftTable(int table[500], char pattern[100], int m) {
+    for (int i = 0; i < 200; i++) {
+        table[i] = m;
+    }
     for (int i = 0; i < m - 1; i++) {
-        table[pattern[i]] = m - 1 - i;
+        table[(int)pattern[i]] = m - 1 - i;
     }
 }
 
@@ -20,7 +24,7 @@ int horspool(int table[500], char pattern[100], char text[100], int m, int n) {
         if (k == m) {
             return i - m + 1;
         } else {
-            i = i + table[text[i]];
+            i = i + table[(int)text[i]];
         }
     }
     return -1;
@@ -28,18 +32,14 @@ int horspool(int table[500], char pattern[100], char text[100], int m, int n) {
 
 int main() {
     char text[100], pattern[100];
-    int n, m;
-
-    cout << "Enter text & pattern size\n";
-    cin >> n >> m;
-
-    int table[500] = {m};
+    int table[500];
 
     cout << "Enter text and pattern\n";
-    gets(text);
-    gets(pattern);
+    cin >> text;
+    cin >> pattern;
 
-    cout << text;
+    int n = strlen(text);
+    int m = strlen(pattern);
 
     shiftTable(table, pattern, m);
     int index = horspool(table, pattern, text, m, n);
