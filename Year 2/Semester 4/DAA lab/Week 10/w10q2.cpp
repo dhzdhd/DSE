@@ -1,18 +1,16 @@
+// Warshall's algorithm
+
 #include <iostream>
 using namespace std;
 
-int **warshall(int **graph, int n) {
-    int **temp = graph;
-
+void warshall(int **graph, int n) {
     for (int k = 1; k < n; k++) {
         for (int i = 1; i < n; i++) {
             for (int j = 1; j < n; j++) {
-                temp[i][j] = temp[i][j] | (temp[i][k] & temp[k][j]);
+                graph[i][j] = graph[i][j] | (graph[i][k] & graph[k][j]);
             }
         }
     }
-
-    return temp;
 }
 
 void display(int **graph, int n) {
