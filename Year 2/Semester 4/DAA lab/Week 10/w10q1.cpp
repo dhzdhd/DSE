@@ -1,4 +1,4 @@
-// Open hashing
+// Open hash table
 
 #include <iostream>
 using namespace std;
