@@ -1,25 +1,29 @@
+// Knapsack 0/1
+
 #include<iostream>
 using namespace std;
 #define max 100
+
 int weights[max];
 int values[max];
 int n;
 int w;
 int **f = new int *[n+1];
-int maxi(int a,int b){
-    int maxi = a>b?a:b;
+
+int maxi(int a, int b){
+    int maxi = a > b ? a : b;
     return maxi;
 }
+
 void funcIni(){
-    for(int i = 0;i<n+1;i++){
+    for(int i = 0; i<n+1; i++){
         f[i] = new int[w+1];
     }
-    for(int i = 0;i<n+1;i++){
-        for(int j = 0;j<w+1;j++){
-            if(i==0 || j==0)
-            f[i][j]=0;
-            else
-            f[i][j]=-1;
+
+    for(int i = 0; i<n+1; i++){
+        for(int j = 0; j<w+1; j++){
+            if(i==0 || j==0) f[i][j] = 0;
+            else f[i][j] = -1;
         }
     }
 }
@@ -40,15 +44,19 @@ int knapsack() {
 
     return dp[n][w];
 }
+
 int main(){
-    cout<<"Enter the number of items \n";
-    cin>>n;
-    for(int i = 0; i<n;i++){
-        cout<<"Enter the weight and values of the item "<<i+1<<"\n";
-        cin>>weights[i]>>values[i];
+    cout << "Enter the number of items \n";
+    cin >> n;
+
+    for(int i = 0; i<n; i++){
+        cout << "Enter the weight and values of the item " << i+1 << "\n";
+        cin >> weights[i] >> values[i];
     }
-    cout<<"Enter the capacity of the knapsack \n";
-    cin>>w;
-    cout<<"Max value: \n"<<knapsack();
+
+    cout << "Enter the capacity of the knapsack \n";
+    cin >> w;
+    cout << "Max value: \n"<<knapsack();
+
     return 0;
 }
