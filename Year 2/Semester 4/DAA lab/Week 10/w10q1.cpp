@@ -21,8 +21,10 @@ void binomialCoeff(int** c,int n,int k) {
 }
 int main() {
     int n, k;
+
     cout << "Enter n and k :\n";
     cin >> n >> k;
+
     int **c = new int*[n+1];
     for(int i = 0; i<n+1; i++){
         c[i]= new int[k+1];
