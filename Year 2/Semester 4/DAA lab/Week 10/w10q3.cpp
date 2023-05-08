@@ -1,3 +1,5 @@
+// Floyd's algorithm
+
 #include <iostream>
 #define INT_MAX 120384
 using namespace std;

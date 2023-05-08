@@ -27,6 +27,7 @@ void funcIni(){
         }
     }
 }
+
 int knapsack() {
     int dp[n+1][w+1];
 
@@ -45,7 +46,7 @@ int knapsack() {
     return dp[n][w];
 }
 
-int main(){
+int main() {
     cout << "Enter the number of items \n";
     cin >> n;
 

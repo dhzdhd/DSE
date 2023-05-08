@@ -1,3 +1,5 @@
+// Delete min element from heap
+
 #include <iostream>
 using namespace std;
 

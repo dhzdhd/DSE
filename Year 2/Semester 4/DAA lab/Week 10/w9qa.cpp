@@ -1,3 +1,5 @@
+// Closed hashing
+
 #include <iostream>
 using namespace std;
 
