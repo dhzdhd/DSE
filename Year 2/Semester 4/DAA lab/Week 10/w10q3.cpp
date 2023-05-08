@@ -1,51 +1,53 @@
-// Floyd's algorithm
-
 #include <iostream>
+#define INT_MAX 120384
 using namespace std;
 
-void floyd(int **graph, int n) {
-    for (int k = 1; k < n; k++) {
-        for (int i = 1; i < n; i++) {
-            for (int j = 1; j < n; j++) {
-                graph[i][j] = min(graph[i][j], (graph[i][k] + graph[k][j]));
+const int MAXN = 100;
+
+int n;
+int dist[MAXN][MAXN];
+
+void floyd() {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (i == j) {
+                dist[i][j] = 0;
+            } else if (dist[i][j] == 0) {
+                dist[i][j] = INT_MAX;
+            }
+        }
+    }
+    for (int k = 0; k < n; k++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (dist[i][k] != INT_MAX && dist[k][j] != INT_MAX) {
+                    dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+                }
             }
         }
     }
 }
 
-void display(int **graph, int n) {
+int main() {
+    cout<<"Enter the number of vertices \n";
+    cin >> n;
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            cout << graph[i][j] << " ";
+            cin >> dist[i][j];
+        }
+    }
+    floyd();
+    cout << "Shortest distances:" << endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (dist[i][j] == INT_MAX) {
+                cout << "INF ";
+            } else {
+                cout << dist[i][j] << " ";
+            }
         }
         cout << endl;
     }
-}
-
-int main() {
-    int n, e;
-
-    cout << "Enter number of vertices and edges\n";
-    cin >> n >> e;
-
-    int **graph = new int *[n];
-    for (int i = 0; i < n; i++) {
-        graph[i] = new int[n];
-        for (int j = 0; j < n; j++) {
-            graph[i][j] = 0;
-        }
-    }
-
-    cout << "Enter edges & weight\n";
-    for (int i = 0; i < e; i++) {
-        int a, b, w;
-        cin >> a >> b >> w;
-
-        graph[a][b] = w;
-    }
-
-    floyd(graph, n);
-    display(graph, n);
 
     return 0;
 }
