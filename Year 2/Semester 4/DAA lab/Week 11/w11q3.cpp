@@ -1,3 +1,5 @@
+// Djikstra's algorithm
+
 #include <iostream>
 #define MAX 999999
 using namespace std;

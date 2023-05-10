@@ -1,5 +1,6 @@
+// Prim's algorithm
+
 #include <iostream>
-#include <climits>
 #define MAX 999999
 
 int n;

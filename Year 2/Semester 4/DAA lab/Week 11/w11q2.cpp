@@ -1,3 +1,5 @@
+// Kruskal's algorithm
+
 #include <iostream>
 using namespace std;
 
