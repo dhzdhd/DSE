@@ -1,56 +1,83 @@
-// Prim's algorithm
-
 #include <iostream>
+#include <climits>
+#define MAX 999999
+
+int n;
+
 using namespace std;
 
-bool in(int vertex, int *vertices, int n) {
-    for (int i = 0; i < n; i++) {
-        if (vertex == vertices[i]) {
-            return true;
+int minKey(int key[], bool mstSet[])
+{
+    int min = MAX, min_index;
+    for (int v = 0; v < n; ++v)
+    {
+        if (mstSet[v] == false && key[v] < min)
+        {
+            min = key[v];
+            min_index = v;
         }
     }
-    return false;
+    return min_index;
 }
 
-void prim(int **graph, int n, int e, int *vertices, int **edges) {
-    int cv = 0;
-    vertices[cv++] = 0;
+void display(int parent[], int **graph)
+{
+    std::cout << "Edge \tWeight\n";
+    int countt = 0;
+    for (int i = 1; i < n; ++i)
+    {
+        std::cout << parent[i] << " - " << i << "\t" << graph[i][parent[i]] << "\n";
+        countt += graph[i][parent[i]];
+    }
+    cout << "Total: " << countt << endl;
+}
 
-    for (int i = 0; i < cv; i++) {
-        int start = vertices[i];
+void prim(int **graph)
+{
+    int parent[100];
+    int key[100];
+    bool mstSet[100];
 
-        int min = 100000;
-        int j;
+    for (int i = 0; i < n; ++i)
+    {
+        key[i] = MAX;
+        mstSet[i] = false;
+    }
 
-        for (j = 0; j < n && !in(j, vertices, cv); j++) {
-            int edge = graph[start][j];
+    key[0] = 0;
+    parent[0] = -1;
 
-            if (edge != 0 && edge < min) {
-                min = edge;
+    for (int count = 0; count < n - 1; ++count)
+    {
+        int u = minKey(key, mstSet);
+        mstSet[u] = true;
+
+        for (int v = 0; v < n; ++v)
+        {
+            if (graph[u][v] && mstSet[v] == false && graph[u][v] < key[v])
+            {
+                parent[v] = u;
+                key[v] = graph[u][v];
             }
         }
-
-        vertices[cv++] = j;
-        edges[start][j] = min;
     }
+
+    display(parent, graph);
 }
 
-int main() {
-    int n, e;
+int main()
+{
+    int e;
 
     cout << "Enter number of vertices and edges\n";
     cin >> n >> e;
 
     int **graph = new int *[n];
-    int **edges = new int *[n];
-    int *vertices = new int[n];
 
     for (int i = 0; i < n; i++) {
         graph[i] = new int[n];
-        edges[i] = new int[n];
         for (int j = 0; j < n; j++) {
             graph[i][j] = 0;
-            edges[i][j] = 0;
         }
     }
 
@@ -62,15 +89,7 @@ int main() {
         graph[b][a] = val;
     }
 
-    prim(graph, n, e, vertices, edges);
-
-    cout << "MST is\n";
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            cout << edges[i][j] << " ";
-        }
-        cout << endl;
-    }
+    prim(graph);
 
     return 0;
 }
