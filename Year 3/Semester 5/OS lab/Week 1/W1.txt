@@ -1,0 +1,48 @@
+# 1
+cmdname, syntax, example, output, observation 
+
+# 2
+# i) 
+mkdir Week1 Week2 Week3 Week4 Week5 Week6 Week7 Week8 Week9 Week10 Week11
+
+# ii)
+mkdir Week1 Week1/TestFolder
+
+# iii)
+touch f1 f2 f3
+
+# iv)
+vi f1 ; hello
+vi f2 ; world
+vi f3 ; mit
+
+# v)
+cd ..
+cp TestFolder/f1 f1
+
+# vi)
+ls -l > a
+cat a
+
+# vii) 
+ls [aA]*
+
+# viii)
+touch month_names
+Enter months
+sort month_names
+
+# ix)
+head -5 month_names
+tail -5 month_names
+
+# x)
+pwd >> a && date >> a && ls >> a
+
+# xi)
+a) dd
+b) :%s/Linux/Ubuntu
+c) :wq
+d) cat Linux.txt
+e) mv Linux.txt Ubuntu.txt
+f) cp Ubuntu.txt Linux1.txt

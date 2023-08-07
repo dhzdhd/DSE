@@ -1,0 +1,112 @@
+telnet 172.16.68.9 dse172
+
+# General Syntax
+cmdname [-options] [parameters]
+
+# Commands
+- clear - clear terminal
+- pwd - print working dir
+- echo _____ - print
+- ls - list files
+	- Properties
+		- blue = directory
+		- white = text file
+		- green = text file with execute perms
+
+	- Args
+		- [-l <name>] - get file size
+			- begin with d = directory
+			- begin with - = file
+			- rwx for 3 diff users listed; - implies perm not presents
+		- [-a] - show all files, hidden too
+- mkdir <folder> - create folder
+- cd <folder> - change dir to folder
+	- Special paths
+		- <..> - parent
+		- <.> - self
+		- <-> - last dir
+- touch <name> [<name2> ...] - create empty file
+- cat <file> - show file contents
+- vi - text editor
+- cp <source> <dest> - copies file
+- mv <source> <dest> - moves file
+- rm <file> - delete file
+	- Args
+		- [-r <folder>] - recursively delete files and dir
+		- [-i] - asks for confirmation 
+- rmdir <folder> - delete folder
+- man <cmd> - manual
+- whoami - get username
+- who - all current users
+- w - all current users with more details
+- date - show today's date
+	- Params
+		- [+%m] - month
+		- [+%y] - year
+- wc <file> - word count
+	- Info	
+		- 3 lines
+		- 3 words
+		- 9 characters
+- head <file> - display head of file
+	- Args
+		- [-<number>] - amount of lines to show
+- tail <file> - display from end of file
+- more <file> - allows terminal scrolling, only down
+- less <file> - allows 2 way scrolling
+
+# Operators
+- > - output redirection (standard output)
+	- Usage
+		- cat > <file> "..." 
+			- stores ... in file (overwrites)
+			- ctrl + d to exit
+			- creates <file> if not exists
+		- cat f1 f2 > f3
+	- Args
+		- [-l] - show only lines
+- >> - append output
+	- Usage
+		- cat >> <file> "..."
+			- appends ... to file 
+- < - standard input
+	- Usage
+		- cat < f1 - show file contents
+		- cat < f1 > f2 - copy
+
+# Vi
+- Modes
+	- Insert - write code, i key, esc to quit
+	- Command - takes commands (default)
+- Commands
+	- :wq - save and quit
+	- A - move to end of sentence and change to insert mode
+	- a - same as above but after cursor location
+	- yy - yank line
+	- <num>yy - yank <num> lines
+	- y - yank
+	- p - paste
+	- dd - delete line
+	- <num>dd - delete <num> lines	
+	- dw - delete word
+	- x - delete char
+	- u - undo
+	- :%s/<find>/<replace> - find and replace
+	
+# Regex
+- Chars
+	- * 
+		- wildcard char
+		- ls a* - matches a_____ ...
+	- ?
+		- single char
+		- ls a? - matches a_
+	- []
+		- range
+		- ls [a-z] - matches a to z, single char only
+		- ls[a-z]? - same as above but 2 chars
+	- !
+		- exclude
+		- ls [!c] - excludes c, shows other single char only
+
+		
