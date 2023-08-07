@@ -1,12 +1,12 @@
 # 1
-cmdname, syntax, example, output, observation 
+cmdname, syntax, example, output, observation
 
 # 2
-# i) 
+# i)
 mkdir Week1 Week2 Week3 Week4 Week5 Week6 Week7 Week8 Week9 Week10 Week11
 
 # ii)
-mkdir Week1 Week1/TestFolder
+mkdir Week1/TestFolder
 
 # iii)
 touch f1 f2 f3
@@ -24,7 +24,7 @@ cp TestFolder/f1 f1
 ls -l > a
 cat a
 
-# vii) 
+# vii)
 ls [aA]*
 
 # viii)
