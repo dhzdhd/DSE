@@ -1,0 +1,99 @@
+# Commands
+
+- ls -l
+	- default other (third) user has only r
+	
+- chmod a+x f1
+	- a implies all users
+	- u, g, o for 3 users - current,group,other correspondingly
+	- + implies assign, - implies take away
+	- r,w,x perms avail
+
+	- r,w,x octal numbers are 4,2,1
+	- in octal mode, ugw not needed, specify perms only
+	- chmod 444 f1
+	- chmod 777 f1 implies rwx perms for all users
+	- chmod 666 f1 removes x perm provided
+
+- echo
+	- can't use single quotes unless present in double quotes (echo 'a)
+	- enclose in backquote ` to use commands in echo
+
+
+- |
+	- Piping
+	- takes output of first as input of 2nd command
+	- who | wc -l lists number of lines from who
+	
+- ; 
+	- Command sequencing
+	- 2 commands in a single line
+
+- &&, ||
+	- Conditionals
+	- a && b
+		- b exec only if a is successful
+	- a || b
+		- b exec only if a fails
+
+- grep
+	- Matches patterns
+	- grep hello f1
+		- finds and highlights hello in f1
+	- [-E]	
+		- grep -E 'first|last|os' f1
+	- ls -l | grep "^-" | wc -l
+
+
+# Shell scripts
+
+- # = comments
+- # !/bin/bash = bash shell script
+- chmod u+rx for every script
+- Shell can be used in 
+	- command interpreter - interactive
+	- program
+- Variables 
+	- name="hi"
+	- age=2
+	- no space b/w =
+	- echo "$name $age"
+	- use \$ to print $ or enclose with '
+- Input
+	- read name
+	- 2 ways for same line input
+		- echo -n "hi "
+		  read name
+		- read -p "enter " name
+		  echo "$name"
+	- [-s] for password
+- Math
+	- expr used for basic math
+	- expr 1 + 2
+	- i = `expr 1 + 2`
+	- *, () need to be escaped
+	- does not support floats
+- Bash Calculator - Better math with floats
+	- bc
+	- scale var specifies number of decimal points
+- Control flow
+	- if	
+		- if-then-elif-then-else-fi
+	- while
+	- for
+- Relational operators
+	- -eq
+	- -ne
+	- -gt
+	- -ge
+	- -lt
+	- -le
+- String operators
+	- -z <str> - True if empty
+	- -n <str> - non empty
+- File
+	- -f <file> - Check for file
+	- -d <file> - Check for dir
+- Conditions
+	- [ expression ] 
+	- test expression
