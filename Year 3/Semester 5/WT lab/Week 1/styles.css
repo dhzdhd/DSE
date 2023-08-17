@@ -1,0 +1,101 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    height: 2rem;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+nav {
+    height: 2rem;
+}
+
+ul {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+li {
+    list-style: none;
+    height: 100%;
+    padding: 1rem;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.signin {
+    background-color: #1A73E8;
+    color: white;
+    padding: 0.7rem  1.5rem;
+    border-radius: 0.4rem;
+}
+
+main {
+    display: flex;
+    height: calc(100vh - 2rem);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem
+}
+
+input {
+    height: 3rem;
+    width: 35rem;
+    border-radius: 2rem;
+    border: solid 0.5px;
+    border-color: lightgrey;
+    padding: 0rem 1rem;
+}
+
+input:focus {
+    box-shadow: 1px 1px 5px 1px lightgrey;
+    border: none;
+    outline: none;
+}
+
+.container {
+    position: relative;
+}
+
+.block {
+    position: absolute;
+    height: 2rem;
+    width: 2rem;
+    background-color: black;
+    top: 0.5rem;
+    right: 1rem;
+    border-radius: 100%;
+    z-index: 100;
+}
+
+.buttonbar {
+    display: flex;
+    gap: 1rem;
+}
+
+.search {
+    background-color: #F8F9FA;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.2rem;
+}
+
+.search:hover {
+    border: solid 1px;
+    border-color: lightgrey;
+}
+
+.lang {
+    color: darkblue
+}
+
