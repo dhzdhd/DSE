@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passport Application Form</title>
+    <link rel="shortcut icon" href="https://th.bing.com/th/id/OIP.4QE8KPl1dZ3_BoR3X92aqgHaIH?pid=ImgDet&rs=1" type="image/x-icon">
+</head>
+<body>
+    <h1 style="text-align: center;">Passport Application Form</h1>
+    <form>
+        <label for="first-name">First Name:</label>
+        <input type="text" id="first-name" name="first-name" required maxlength="25">
+
+        <label for="middle-name">Middle Name:</label>
+        <input type="text" id="middle-name" name="middle-name" maxlength="25">
+
+        <label for="last-name">Last Name:</label>
+        <input type="text" id="last-name" name="last-name" required maxlength="25"><br><br>
+
+        <label for="father-name">Father's Name:</label>
+        <input type="text" id="father-name" name="father-name" required><br><br>
+
+        <label for="mother-name">Mother's Name:</label>
+        <input type="text" id="mother-name" name="mother-name" required><br><br>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required>
+
+        <label for="pob">Place of Birth:</label>
+        <input type="text" id="pob" name="pob" required><br><br>
+
+        <label for="gender">Gender:</label>
+        <input type="radio" name="gender" id="male">
+        <label for="male">Male</label>
+        <input type="radio" name="gender" id="female">
+        <label for="female">Female</label>
+        <input type="radio" name="gender" id="other">
+        <label for="other">Other</label><br><br>
+
+        <label for="phno">Phone Number (Format: 123-4567-890):</label>
+        <input type="tel" name="phno" id="phno" placeholder="123-4567-890"  pattern="[0-9]{3}-[0-9]{4}-[0-9]{3}" required><br><br>
+        
+        <label for="email">Email Address:</label>
+        <input type="text" name="email" id="email" required><br><br>
+
+        <label for="aadhaar">Aadhaar Card Number (Format: 1111-2222-3333):</label>
+        <input type="text" name="aadhaar" id="aadhaar" placeholder="1111-2222-3333"  pattern="[0-9]{4}-[0-9]{4}-[0-9]{4}" required><br><br>
+
+        <label for="address1">Address Line 1:</label>
+        <input type="text" name="address1" id="address1" required maxlength="40"><br><br>
+
+        <label for="address2">Address Line 2:</label>
+        <input type="text" name="address2" id="address2" required maxlength="40"><br><br>
+
+        <label for="city">City:</label>
+        <input type="text" name="city" id="city" required maxlength="20"><br><br>
+
+        <label for="state">State:</label>
+        <input type="text" name="state" id="state" required maxlength="15"><br><br>
+
+        <label for="pincode">Pincode:</label>
+        <input type="text" name="pincode" id="pincode" pattern="[0-9]{6}" required><br><br>
+
+        <label for="citizenship">Citizenship:</label>
+        <input type="text" name="citizenship" id="citizenship" required maxlength="30"><br><br>
+
+        <label for="marital">Marital Status:</label>
+        <input type="radio" name="marital" id="married">
+        <label for="married">Married</label>
+        <input type="radio" name="marital" id="unmarried">
+        <label for="unmarried">Unmarried</label><br><br>
+
+        <label for="photo">Photo:</label>
+        <input type="file" id="photo" name="photo" accept="image/*" required><br><br>
+
+        <label for="signature">Signature:</label>
+        <input type="file" id="signature" name="signature" accept="image/*" required><br><br>
+
+        <input type="submit" value="Submit" style="align-items: center;">
+    </form>
+</body>
+<footer>
+    <p>&#169; Content Owned by Ministry of External Affairs, Government of India</p>
+</footer>
+</html>
+
