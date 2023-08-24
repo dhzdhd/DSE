@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Passport_Application</title>
-</head>
-<body>
-    <h2 style="color: rgb(119, 78, 24); text-align: center;" ><i>PASSPORT APPLICATION</i></h2>
-    <br>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Passport_Application</title>
+  </head>
+  <body>
+    <h2 style="color: rgb(119, 78, 24); text-align: center">
+      <i>PASSPORT APPLICATION</i>
+    </h2>
+    <br />
     <form action="">
-        <label for="applying_at" required>Register to apply at :</label>
-        <input type="radio" id="cpv" name="applying_at" value="huey" checked />
-        <label for="cpv">CPV Delhi</label>
-      
-    
-      
-        <input type="radio" id="poffice" name="applying_at" value="dewey" />
-        <label for="poffice">Passport Office</label>
-    <br>
-    <br>
-    <label for="passOffice" required>Passport Office :</label>
-    <select required name="passOffice" id="passOffice">
+      <label for="applying_at" required>Register to apply at :</label>
+      <input type="radio" id="cpv" name="applying_at" value="huey" checked />
+      <label for="cpv">CPV Delhi</label>
+
+      <input type="radio" id="poffice" name="applying_at" value="dewey" />
+      <label for="poffice">Passport Office</label>
+      <br />
+      <br />
+      <label for="passOffice" required>Passport Office :</label>
+      <select required name="passOffice" id="passOffice">
         <option value="" selected disabled hidden>----Select----</option>
         <option value="HYDERABAD">HYDERABAD</option>
         <option value="BANGLORE">BANGLORE</option>
@@ -30,66 +30,63 @@
         <option value="DELHI">DELHI</option>
         <option value="CHENNAI">CHENNAI</option>
         <option value="GOA">GOA</option>
-    </select>
-    <br>
-    <br>
-    <label for="name">Given Name <sub>(Max 45 Characters)</sub>  :
-    </label>
-    <input type="text" id="name"  name="name" maxlength="45" required>
-    <br>
-    <br>
-    <label for="surname"> Surname<sub>(Max 45 Characters)</sub>  :</label> 
-    <input type="text" id="surname" required maxlength="45">
-    <br>
-    <br>
-    <label for="dob">Date of Birth (DD/MM/YYYY) :</label>
-    <input type="date" name="date" id="dob">
-    <br>
-    <br>
-    <label for="mail">E-mail Id <sub>(Max 35 Characters)</sub> :</label>
-    <input type="text" id="mail" maxlength="35">
-    <br>
-    <br>
-    <label for="sameemail">Do you want your Login Id
-        to be same as E-mail Id?</label>
-        <input type="radio" id="Yes" name="sameemail" value="huey" checked />
-        <label for="Yes">Yes</label>
-      
-        <input type="radio" id="No" name="sameemail" value="dewey" />
-        <label for="No">No</label>
-    <br>
-    <br>
-    <label for="login">Login Id :</label>
-    <input type="text" id="login">
-    <br>
-    <br>
-    <label for="pass">Password :</label>
-    <input type="text" required id="pass">
-    <br>
-    <br>
-    <label for="cpass">Confirm Password :</label>
-    <input type="text" required id="cpass">
-    <br>
-    <br>
-    <label for="hque">Hint Question :</label>
-    <select required name="hque" id="hque">
+      </select>
+      <br />
+      <br />
+      <label for="name">Given Name <sub>(Max 45 Characters)</sub> : </label>
+      <input type="text" id="name" name="name" maxlength="45" required />
+      <br />
+      <br />
+      <label for="surname"> Surname<sub>(Max 45 Characters)</sub> :</label>
+      <input type="text" id="surname" required maxlength="45" />
+      <br />
+      <br />
+      <label for="dob">Date of Birth (DD/MM/YYYY) :</label>
+      <input type="date" name="date" id="dob" />
+      <br />
+      <br />
+      <label for="mail">E-mail Id <sub>(Max 35 Characters)</sub> :</label>
+      <input type="text" id="mail" maxlength="35" />
+      <br />
+      <br />
+      <label for="sameemail"
+        >Do you want your Login Id to be same as E-mail Id?</label
+      >
+      <input type="radio" id="Yes" name="sameemail" value="huey" checked />
+      <label for="Yes">Yes</label>
+
+      <input type="radio" id="No" name="sameemail" value="dewey" />
+      <label for="No">No</label>
+      <br />
+      <br />
+      <label for="login">Login Id :</label>
+      <input type="text" id="login" />
+      <br />
+      <br />
+      <label for="pass">Password :</label>
+      <input type="text" required id="pass" />
+      <br />
+      <br />
+      <label for="cpass">Confirm Password :</label>
+      <input type="text" required id="cpass" />
+      <br />
+      <br />
+      <label for="hque">Hint Question :</label>
+      <select required name="hque" id="hque">
         <option value="" selected disabled hidden>----Select----</option>
         <option value="Birth City">Birth City</option>
         <option value="Favourite city">Favourite city</option>
         <option value="Favourite Food">Favourite Food</option>
         <option value="First School">First School</option>
         <option value="Favourite Cricketer">Favourite Cricketer</option>
-
-    </select>
-    <br>
-    <br>
-    <label for="hans">Hint Answer :</label>
-    <input type="text" id="hans" required>
-    <br>
-    <br>
-    <input type="submit">
-
+      </select>
+      <br />
+      <br />
+      <label for="hans">Hint Answer :</label>
+      <input type="text" id="hans" required />
+      <br />
+      <br />
+      <input type="submit" />
     </form>
-      
-</body>
+  </body>
 </html>

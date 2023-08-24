@@ -1,68 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
     <title>Document</title>
-    
+
     <script>
-        window.addEventListener('keypress', (event) => {
-            let a = document.getElementById('input').value;
+      window.addEventListener("keypress", (event) => {
+        let a = document.getElementById("input").value;
 
-            if (event.key === 'Enter' && a.trim() !== '') {
-                window.location.href = 'https://www.youtube.com/watch?v=sXwaRjU7Tj0';
-            }
-        })
-        document.getElementsByClassName('search')
+        if (event.key === "Enter" && a.trim() !== "") {
+          window.location.href = "https://www.youtube.com/watch?v=sXwaRjU7Tj0";
+        }
+      });
+      document.getElementsByClassName("search");
     </script>
-    
-</head>
+  </head>
 
-<body>
+  <body>
     <header>
-        <nav>
-            <ul>
-                <li>
-                    <a href="#">Gmail</a>
-                </li>
-                <li>
-                    <a href="#">Images</a>
-                </li>
-                <li>
-                    <a class="signin" href="#">Sign in</a>
-                </li>
-            </ul>
-        </nav>
+      <nav>
+        <ul>
+          <li>
+            <a href="#">Gmail</a>
+          </li>
+          <li>
+            <a href="#">Images</a>
+          </li>
+          <li>
+            <a class="signin" href="#">Sign in</a>
+          </li>
+        </ul>
+      </nav>
     </header>
     <main>
-        <img src="https://www.google.com/logos/doodles/2023/altina-schinasis-116th-birthday-6753651837110158-l.webp"
-            alt="">
-        <div class="container">
-            <input id="input" type="text">
-            <div class="block"></div>
-        </div>
-        <div class="buttonbar">
-            <a href="https://www.youtube.com/watch?v=sXwaRjU7Tj0" class="search">Google Search</a>
-            <a class="search">I'm Feeling Lucky</a>
-        </div>
-        <div id="langbar">Google offered in: <a class="lang" href="#">हिन्दी</a>
-            <a class="lang" href="#">বাংলা</a>
-            <a class="lang" href="#">తెలుగు</a>
-            <a class="lang" href="#">मराठी</a>
-            <a class="lang" href="#">தமிழ்</a>
-            <a class="lang" href="#">ગુજરાતી</a>
-            <a class="lang" href="#">ಕನ್ನಡ</a>
-            <a class="lang" href="#">മലയാളം</a>
-            <a class="lang" href="#">ਪੰਜਾਬੀ</a>
-        </div>
+      <img
+        src="https://www.google.com/logos/doodles/2023/altina-schinasis-116th-birthday-6753651837110158-l.webp"
+        alt=""
+      />
+      <div class="container">
+        <input id="input" type="text" />
+        <div class="block"></div>
+      </div>
+      <div class="buttonbar">
+        <a href="https://www.youtube.com/watch?v=sXwaRjU7Tj0" class="search"
+          >Google Search</a
+        >
+        <a class="search">I'm Feeling Lucky</a>
+      </div>
+      <div id="langbar">
+        Google offered in: <a class="lang" href="#">हिन्दी</a>
+        <a class="lang" href="#">বাংলা</a>
+        <a class="lang" href="#">తెలుగు</a>
+        <a class="lang" href="#">मराठी</a>
+        <a class="lang" href="#">தமிழ்</a>
+        <a class="lang" href="#">ગુજરાતી</a>
+        <a class="lang" href="#">ಕನ್ನಡ</a>
+        <a class="lang" href="#">മലയാളം</a>
+        <a class="lang" href="#">ਪੰਜਾਬੀ</a>
+      </div>
     </main>
     <footer>
-        <div></div>
-        <div></div>
+      <div></div>
+      <div></div>
     </footer>
-</body>
-
+  </body>
 </html>

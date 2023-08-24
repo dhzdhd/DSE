@@ -1,4 +1,6 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -35,7 +37,7 @@ a {
 .signin {
     background-color: #1A73E8;
     color: white;
-    padding: 0.7rem  1.5rem;
+    padding: 0.7rem 1.5rem;
     border-radius: 0.4rem;
 }
 
@@ -98,4 +100,3 @@ input:focus {
 .lang {
     color: darkblue
 }
-
