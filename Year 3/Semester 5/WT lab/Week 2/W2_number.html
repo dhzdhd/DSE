@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="refresh" content="60">
+    <title>Number guessing</title>
+    <script>
+      let maxGuesses = 10;
+      let remainingGuesses = maxGuesses;
+      let randomNumber = Math.floor(Math.random() * 100) + 1;
+
+      function checkGuess() {
+        if (remainingGuesses === 0) {
+          location.reload();
+          return;
+        }
+
+        let guess = parseInt(document.getElementById("guess").value);
+        let message = document.getElementById("message");
+
+        if (isNaN(guess)) {
+          message.textContent = "Please enter a valid number.";
+        } else {
+          remainingGuesses--;
+
+          if (guess === randomNumber) {
+            message.textContent =
+              "Congratulations! You guessed the correct number.";
+            disableForm();
+          } else if (guess < randomNumber) {
+            message.textContent =
+              "Try a higher number. Remaining guesses: " + remainingGuesses;
+          } else {
+            message.textContent =
+              "Try a lower number. Remaining guesses: " + remainingGuesses;
+          }
+
+          if (remainingGuesses === 0) {
+            message.textContent += " Out of guesses!";
+            disableForm();
+          }
+        }
+      }
+
+      function disableForm() {
+        document.getElementById("guess").disabled = true;
+        document.getElementById("submit").disabled = true;
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Random Number Guessing Game</h1>
+    <p>Try to guess the random number between 1 and 100:</p>
+    <p>You have 60 seconds remaining.</p>
+    <br>
+
+    <input type="number" id="guess" />
+    <button id="submit" onclick="checkGuess()">Submit Guess</button>
+
+    <p id="message"></p>
+  </body>
+</html>
