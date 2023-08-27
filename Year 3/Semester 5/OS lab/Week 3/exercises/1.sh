@@ -16,6 +16,5 @@ else
         echo "$b"
     else
         echo "$c"
-
     fi
 fi
