@@ -33,7 +33,7 @@ cmdname [-options] [parameters]
 - rm <file> - delete file
 	- Args
 		- [-r <folder>] - recursively delete files and dir
-		- [-i] - asks for confirmation 
+		- [-i] - asks for confirmation
 - rmdir <folder> - delete folder
 - man <cmd> - manual
 - whoami - get username
@@ -44,7 +44,7 @@ cmdname [-options] [parameters]
 		- [+%m] - month
 		- [+%y] - year
 - wc <file> - word count
-	- Info	
+	- Info
 		- 3 lines
 		- 3 words
 		- 9 characters
@@ -58,7 +58,7 @@ cmdname [-options] [parameters]
 # Operators
 - > - output redirection (standard output)
 	- Usage
-		- cat > <file> "..." 
+		- cat > <file> "..."
 			- stores ... in file (overwrites)
 			- ctrl + d to exit
 			- creates <file> if not exists
@@ -68,7 +68,7 @@ cmdname [-options] [parameters]
 - >> - append output
 	- Usage
 		- cat >> <file> "..."
-			- appends ... to file 
+			- appends ... to file
 - < - standard input
 	- Usage
 		- cat < f1 - show file contents
@@ -87,15 +87,15 @@ cmdname [-options] [parameters]
 	- y - yank
 	- p - paste
 	- dd - delete line
-	- <num>dd - delete <num> lines	
+	- <num>dd - delete <num> lines
 	- dw - delete word
 	- x - delete char
 	- u - undo
 	- :%s/<find>/<replace> - find and replace
-	
+
 # Regex
 - Chars
-	- * 
+	- *
 		- wildcard char
 		- ls a* - matches a_____ ...
 	- ?
@@ -108,5 +108,3 @@ cmdname [-options] [parameters]
 	- !
 		- exclude
 		- ls [!c] - excludes c, shows other single char only
-
-		
