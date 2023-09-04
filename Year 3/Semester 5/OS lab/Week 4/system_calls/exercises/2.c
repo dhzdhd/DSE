@@ -1,22 +1,29 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include <sys/wait.h>
 
 int main()
 {
-    printf("Current process id: %d\n", getpid());
-    pid_t child_pid = fork();
-
-    printf("Hi\n");
-
-    if (child_pid > 0)
+    pid_t pid;
+    pid = fork();
+    if (pid == 0)
     {
-        wait(NULL);
-        printf("Child complete\n");
+        printf("Child process: \n");
+        printf("Process ID: %d\n", getpid());
+        printf("Parent process ID: %d\n", getppid());
     }
-
-    printf("Bye\n");
-
+    else
+    {
+        printf("Parent process: \n");
+        printf("Process ID: %d\n", getpid());
+        printf("Child process ID: %d\n", pid);
+    }
     return 0;
 }
+
+// Parent process:
+// Child process:
+// Process ID: 27727
+// Process ID: 27726
+// Parent process ID: 27726
+// Child process ID: 27727

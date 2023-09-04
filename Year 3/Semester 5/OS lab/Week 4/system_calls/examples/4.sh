@@ -10,3 +10,8 @@ echo Job 1 exited with status $?
 wait $!
 
 echo Job 2 exited with status $?
+
+# testing wait command1
+# testing wait command2
+# Job 1 exited with status 0
+# Job 2 exited with status 0

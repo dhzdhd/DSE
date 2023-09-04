@@ -24,5 +24,10 @@ tail -10 data.csv | sort -t"," -k5
 tail -10 data.csv | sort -t"," -k6 -M -o Personnel_data_month2022.dat
 
 # 9
+awk -F, '$2 ~ /^[S|J]/ {print}' data.csv > SJ_Names.dat
+sed -n '/^[^,]*,[SJ]/p' input.csv > SJ_Names.dat
+grep -E '^([^,]*,)(S|J)' input.csv | cut -d, -f2- > SJ_Names.dat
 
 # 10
+cut -d, -f2,3,4,5,9 input.csv | sort > output.csv # no awk but no name sorting
+awk -F, '{print $2 "," $3 "," $4 "," $5 "," $9}' data.csv | sort > output.csv

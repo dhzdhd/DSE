@@ -20,3 +20,10 @@ int main()
 
     return 0;
 }
+
+// Current process id: 27672
+// Hi
+// Hi
+// Bye
+// Child complete
+// Bye
