@@ -3,19 +3,20 @@
 
 int main(void)
 {
-    struct dirent *de;      // Pointer for directory entry
+    struct dirent *de;      // Directory entry
     DIR *dr = opendir("."); // opendir() returns a pointer of DIR type.
 
     if (dr == NULL)
-    { // opendir returns NULL if couldn't open directory
+    {
+        // NULL is returned if dir failed to open
         printf("Could not open current directory");
         return 0;
     }
 
-    while ((de = readdir(dr)) != NULL)
+    while ((de = readdir(dr)) != NULL) // Read every file object
         printf("%s\n", de->d_name);
 
-    closedir(dr);
+    closedir(dr); // Close opened dir
     return 0;
 }
 
