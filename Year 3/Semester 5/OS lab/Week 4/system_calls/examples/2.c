@@ -5,7 +5,7 @@
 int main()
 {
     printf("PID of process is: %d\n", getpid());
-    printf("PPID of process is: %d\n", getppid());
+    printf("PPID of process is: %d\n", getppid()); // Parent pid
     printf("Before exec of fork\n");
     fork();
 

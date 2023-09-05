@@ -4,17 +4,17 @@
 
 int main()
 {
-    pid_t pid = fork();
+    pid_t pid = fork(); // Create child
 
     if (pid > 0)
     {
         printf("In parent process\n");
     }
-    else if (pid == 0)
+    else if (pid == 0) // Child process
     {
         printf("In child process\n");
         printf("Child's parent PID before becoming orphan: %d\n", getppid());
-        sleep(5);
+        sleep(5); // Sleep to make the child an orphan
         printf("Child's parent PID after becoming orphan: %d\n", getppid());
     }
 

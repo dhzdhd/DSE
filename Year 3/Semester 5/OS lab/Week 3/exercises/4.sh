@@ -4,7 +4,7 @@ read -p "Enter number " num
 sum=0
 
 while [ $num -gt 0 ]; do
-    sum=$(expr $sum + $num % 10)
+    sum=$(expr $sum + $num % 10) # Sum remainder
     num=$(expr $num / 10)
 done
 

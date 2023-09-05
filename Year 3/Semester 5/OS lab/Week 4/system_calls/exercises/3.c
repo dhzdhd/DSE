@@ -5,7 +5,8 @@
 
 int compare(const void *a, const void *b)
 {
-    return (*(int *)a - *(int *)b);
+    // compare function using in quicksort
+    return (*(int *)a - *(int *)b); // Cast to int and return difference
 }
 
 int main()
@@ -33,7 +34,7 @@ int main()
 
     if (pid == 0)
     {
-        qsort(arr, n, sizeof(int), compare);
+        qsort(arr, n, sizeof(int), compare); // Inbuilt quick sort
         printf("Sorted array: ");
         for (int i = 0; i < n; i++)
         {
@@ -44,7 +45,7 @@ int main()
     }
     else
     {
-        wait(NULL);
+        wait(NULL); // Make parent wait
     }
 
     return 0;

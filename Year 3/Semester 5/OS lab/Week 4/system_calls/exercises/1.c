@@ -6,7 +6,7 @@
 int main()
 {
     printf("Current process id: %d\n", getpid());
-    pid_t child_pid = fork();
+    pid_t child_pid = fork(); // Create child
 
     printf("Hi\n");
 

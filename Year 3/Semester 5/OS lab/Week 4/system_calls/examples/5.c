@@ -13,13 +13,13 @@ int main()
         fprintf(stderr, "Fork failed");
         exit(-1);
     }
-    else if (pid == 0)
+    else if (pid == 0) // If child
     {
-        execlp("/bin/ls", "ls", NULL);
+        execlp("/bin/ls", "ls", NULL);  // Execute ls command
     }
     else
     {
-        wait(NULL);
+        wait(NULL);  // Make parent wait
         printf("Child complete");
         exit(0);
     }

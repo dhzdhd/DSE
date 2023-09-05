@@ -11,7 +11,7 @@ int main()
 
     pid = getpid();
 
-    printf("Child process id is: %d\t", pid);
+    printf("Child process id is: %d\t", pid);  // Return pid
     printf("Child process parent ID is: %d\t", getppid());
     printf("Greetings!\n");
 
