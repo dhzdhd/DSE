@@ -1,4 +1,6 @@
-*, *::after, *::before {
+*,
+*::after,
+*::before {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
@@ -6,33 +8,83 @@
 
 body {
     height: 100vh;
-    background: url("https://img.freepik.com/free-photo/starry-night-sky_1048-11828.jpg?w=1060&t=st=1693545502~exp=1693546102~hmac=cbbd2bbed7272b4f02683c2efcf19b7c9ed26af2604a562c2820db9b4eb192a4");
+    background: url("./images/space.png");
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.moon {
+.sun {
     height: 10rem;
     aspect-ratio: 1;
     border-radius: 100%;
     background-color: transparent;
-    box-shadow: 0px 0px 10rem 1rem white;
 }
 
 .planet {
+    animation: animate 10s linear 0s infinite normal forwards;
     position: fixed;
     border-radius: 100%;
-    bottom: 33vh;
-    height: 20rem;
-    aspect-ratio: 1;
-    animation: animate 10s linear 0s infinite normal forwards;
-    transform-origin: 50%  200%;
+}
+
+.mercury {
+    bottom: 60vh;
+    height: 1rem;
+    transform-origin: 50% 10rem;
+    animation-duration: 3s;
+}
+
+.venus {
+    bottom: 65vh;
+    height: 2rem;
+    transform-origin: 0% 15rem;
+    animation-duration: 5s;
+}
+
+.earth {
+    bottom: 70vh;
+    height: 2rem;
+    transform-origin: 50% 20rem;
+}
+
+.mars {
+    bottom: 75vh;
+    height: 1.7rem;
+    transform-origin: 50% 25rem;
+    animation-duration: 12s;
+}
+
+.jupiter {
+    bottom: 80vh;
+    height: 3rem;
+    transform-origin: 50% 30rem;
+    animation-duration: 30s;
+}
+
+.saturn {
+    bottom: 85vh;
+    height: 2.5rem;
+    transform-origin: 50% 35rem;
+    animation-duration: 37s;
+}
+
+.uranus {
+    bottom: 90vh;
+    height: 2.4rem;
+    transform-origin: 50% 40rem;
+    animation-duration: 42s;
+}
+
+.neptune {
+    bottom: 95vh;
+    height: 2.3rem;
+    transform-origin: 50% 45rem;
+    animation-duration: 50s;
 }
 
 @keyframes animate {
     0% {
-        transform: rotate(0deg); 
+        transform: rotate(0deg);
     }
 
 
@@ -40,4 +92,3 @@ body {
         transform: rotate(360deg);
     }
 }
-
