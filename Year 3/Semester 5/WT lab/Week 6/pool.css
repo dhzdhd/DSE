@@ -1,0 +1,57 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.top {
+    position: relative;
+    width: calc(100vw - 20rem);
+    height: 1rem;
+    background-color: black;
+}
+
+.mesh {
+    position: absolute;
+    left: calc(100vw - 21rem);
+    height: 4rem;
+    width: 4rem;
+    z-index: 100;
+}
+
+.ball {
+    position: absolute;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 100%;
+    background-color: red;
+    bottom: 1rem;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-duration: 4s;
+    animation-name: move;
+    animation-fill-mode: forwards;
+}
+
+@keyframes move {
+    0% {
+        transform: translateX(0) translateY(0);
+        
+    }
+    50% {
+        transform: translateX(calc(100vw - 20rem)) translateY(0);
+        animation-timing-function: ease-out;
+    }
+    100% {
+        transform: translateX(calc(100vw - 20rem)) translateY(20rem);
+        animation-timing-function: ease-in;
+    }
+}

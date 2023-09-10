@@ -1,0 +1,62 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
+.board {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+}
+
+.striker {
+    position: absolute;
+    height: 3rem;
+    width: 3rem;
+    bottom: 11rem;
+    left: 14.5rem;
+    border-radius: 100%;
+    animation-delay: 0s;
+    /* animation-iteration-count: infinite; */
+    animation-duration: 4s;
+    animation-name: move;
+    animation-fill-mode: forwards;
+}
+
+.transparent {
+    background-color: black;
+    width: 3.25rem;
+    height: 3.25rem;
+    position: absolute;
+    border-radius: 100%;
+    right: 4.2rem;
+    top: 4.1rem;
+    animation-delay: 2.7s;
+    animation-duration: 5s;
+    animation-name: transp;
+    animation-fill-mode: forwards;
+}
+
+@keyframes move {
+    from {
+        transform: translateX(0) translateY(0);
+    }
+    to {
+        transform: translateX(38rem) translateY(-41.5rem);
+    }
+}
+
+@keyframes transp {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
