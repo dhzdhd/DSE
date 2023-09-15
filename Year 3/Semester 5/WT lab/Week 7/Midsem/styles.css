@@ -1,0 +1,217 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.stand {
+    height: 30rem;
+    width: 1.5rem;
+    background-color: black;
+    position: relative;
+    border-radius: 2rem;
+}
+
+.rod {
+    height: 0.5rem;
+    width: 5.1rem;
+    position: absolute;
+    background-color: black;
+    left: 1.5rem;
+    top: 2rem;
+    border-radius: 2rem;
+}
+
+.hoop {
+    height: 1rem;
+    width: 10.5rem;
+    position: absolute;
+    /* background-color: brown; */
+    border: solid 2px;
+    border-color: burlywood;
+    border-radius: 50%;
+    left: 5rem;
+    top: 0rem;
+}
+
+.mesh {
+    position: absolute;
+    background-color: black;
+    top:0.5rem;
+}
+
+.str {
+    position: absolute;
+    height: 2rem;
+    width: 10rem;
+    border-bottom: solid 2px;
+    border-radius: 50%;
+}
+
+.stre {
+    position: absolute;
+    height: 2rem;
+    width: 8rem;
+    top: 2rem;
+    left: 1rem;
+    border-bottom: solid 2px;
+    border-radius: 50%;
+}
+
+.stree {
+    position: absolute;
+    height: 2rem;
+    width: 6rem;
+    top: 4rem;
+    left: 2rem;
+    border-bottom: solid 2px;
+    border-radius: 50%;
+}
+
+.line {
+    height: 1px;
+    position: fixed;
+    width: 6rem;
+    left: 32.3rem;
+    top: 20rem;
+    background-color: black;
+    transform: rotateZ(65deg);
+}
+
+.linee {
+    height: 1px;
+    position: fixed;
+    width: 6rem;
+    left: 40.3rem;
+    top: 20rem;
+    background-color: black;
+    transform: rotateZ(-65deg);
+}
+
+.lineee {
+    height: 1px;
+    position: fixed;
+    width: 5.5rem;
+    left: 34.3rem;
+    top: 20.3rem;
+    background-color: black;
+    transform: rotateZ(80deg);
+}
+
+.lineeee {
+    height: 1px;
+    position: fixed;
+    width: 5.5rem;
+    left: 38.7rem;
+    top: 20.3rem;
+    background-color: black;
+    transform: rotateZ(-80deg);
+}
+
+.lineeeee {
+    height: 5.6rem;
+    position: fixed;
+    width: 1px;
+    left: 39.3rem;
+    top: 17.5rem;
+    background-color: black;
+}
+
+.ball {
+    position: fixed;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 100%;
+    background-color: orangered;
+    top: 2rem;
+    left: 32rem;
+    animation-name: move;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    animation-direction: forwards;
+    z-index: -1;
+}
+
+.stripe {
+    position: absolute;
+    height: 5rem;
+    width: 2rem;
+    border: solid 2px;
+    left: 1.5rem;
+    border-radius: 50%;
+}
+
+.stripee {
+    position: absolute;
+    height: 5rem;
+    width: 4rem;
+    border: solid 2px;
+    left: 0.5rem;
+    border-radius: 50%;
+}
+
+.stripeee {
+    position: absolute;
+    height: 2rem;
+    width: 5rem;
+    border-bottom: solid 2px;
+    top: 1.5rem;
+    border-radius: 50%;
+}
+
+.stripeeee {
+    position: absolute;
+    height: 1rem;
+    width: 4rem;
+    border-bottom: solid 2px;
+    
+    left: 0.5rem;
+    top: 0.5rem;
+    border-radius: 50%;
+}
+
+.stripeeeee {
+    position: absolute;
+    height: 1rem;
+    width: 4rem;
+    border-bottom: solid 2px;
+    left: 0.5rem;
+    top: 3.5rem;
+    border-radius: 50%;
+}
+
+
+@keyframes move {
+    0% {
+        transform: translateX(0) translateY(0);
+        animation-timing-function: linear;
+    }
+    10% {
+        transform: translateX(0) translateY(10rem);
+        animation-timing-function: ease-out;
+    }
+    30% {
+        transform: translateX(10rem) translateY(0);
+        animation-timing-function: linear;
+    }
+    40% {
+        transform: translateX(10rem) translateY(10rem);
+    }
+    60% {
+        transform: translateX(5rem) translateY(0rem);
+    }
+    100% {
+        transform: translateX(5rem) translateY(40rem);
+        animation-timing-function: ease-in;
+    }
+}

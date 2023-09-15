@@ -1,4 +1,6 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
@@ -44,12 +46,14 @@ body {
 @keyframes move {
     0% {
         transform: translateX(0) translateY(0);
-        
+
     }
+
     50% {
         transform: translateX(calc(100vw - 20rem)) translateY(0);
         animation-timing-function: ease-out;
     }
+
     100% {
         transform: translateX(calc(100vw - 20rem)) translateY(20rem);
         animation-timing-function: ease-in;
