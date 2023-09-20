@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Guess the Number</title>
+    <script defer src="guess.js"></script>
+    <style>
+      /* Style the main container */
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      /* Style the title */
+      h1 {
+        font-size: 3rem;
+        margin-bottom: 2rem;
+      }
+
+      /* Style the form */
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 400px;
+      }
+
+      /* Style the input field */
+      input[type="number"] {
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 5px;
+        border: none;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        font-size: 1.5rem;
+        text-align: center;
+      }
+
+      /* Style the submit button */
+      button[type="submit"] {
+        padding: 1rem 2rem;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #0062cc;
+      }
+
+      /* Style the result message */
+      .result {
+        font-size: 1.5rem;
+        margin-top: 2rem;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Guess the Number</h1>
+      <form>
+        <label for="guess">Enter a number between 1 and 100:</label>
+        <input
+          type="number"
+          id="guess"
+          name="guess"
+          min="1"
+          max="100"
+          required
+        />
+        <button type="submit">Guess</button>
+      </form>
+      <p class="result"></p>
+    </div>
+  </body>
+</html>
