@@ -1,0 +1,46 @@
+<!-- FILEPATH: f:\Programming\DSE\Year 3\Semester 5\WT lab\Week 8\W8_clock.html -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Clock</title>
+    <style>
+      .clock {
+        width: 200px;
+        height: 200px;
+        border: 2px solid black;
+        border-radius: 50%;
+        position: relative;
+      }
+
+      .hour,
+      .minute {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: bottom center;
+        transform: translate(-50%, -100%);
+        background-color: black;
+      }
+
+      .hour {
+        width: 8px;
+        height: 50px;
+        border-radius: 4px;
+      }
+
+      .minute {
+        width: 4px;
+        height: 80px;
+        border-radius: 2px;
+      }
+    </style>
+    <script defer src="clock.js"></script>
+  </head>
+  <body>
+    <div class="clock">
+      <div class="hour"></div>
+      <div class="minute"></div>
+    </div>
+  </body>
+</html>
