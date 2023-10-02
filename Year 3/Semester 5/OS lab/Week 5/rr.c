@@ -3,88 +3,97 @@
 
 typedef struct
 {
-    int pid;
-    int arrival_time;
-    int burst_time;
-    int rem_time;
-    int priority;
-} Process;
+    int p;
+    int a;
+    int b;
+    int w;
+    int t;
+    int c;
+} P;
 
-Process *Entry()
+void calcRR(P *p, int n, int q)
 {
-    printf("No. of Processes:");
-    int n;
-    scanf("%d", &n);
+    int cur = 0;
+    int comp = 0;
+    int totalW = 0;
+    int totalT = 0;
 
-    Process *p = (Process *)malloc(n + 1 * sizeof(Process));
-    printf("Enter PID, Arrival Time, Burst Time, Priority\n");
-
-    int i;
-
-    for (i = 0; i < n; i++)
+    while (comp < n)
     {
-        printf("Process %d :", i + 1);
-        scanf("%d %d %d %d", &p[i].pid, &p[i].arrival_time, &p[i].burst_time,
-              &p[i].priority);
-        p[i].rem_time = p[i].burst_time;
+        int flag = 0;
+
+        for (int i = 0; i < n; i++)
+        {
+            if (p[i].b > 0)
+            {
+                flag = 1;
+
+                int e = (p[i].b < q) ? p[i].b : q;
+                p[i].b -= e;
+                cur += e;
+
+                if (p[i].b == 0)
+                {
+                    comp++;
+                    p[i].c = cur;
+                    p[i].t = p[i].c - p[i].a;
+                    p[i].w = p[i].t - p[i].b;
+                    totalW += p[i].w;
+                    totalT += p[i].t;
+                }
+            }
+        }
+
+        if (flag == 0)
+            cur++;
     }
 
-    p[n].pid = -1;
-    return p;
+    printf("P\tAT\tBT\tWT\tTAT\n");
+    for (int i = 0; i < n; i++)
+    {
+        printf("%d\t%d\t%d\t%d\t%d\n", p[i].p, p[i].a, p[i].b, p[i].w, p[i].t);
+    }
+
+    float avgW = (float)totalW / n;
+    float avgT = (float)totalT / n;
+
+    printf("\nAWT: %.2f\n", avgW);
+    printf("ATAT: %.2f\n", avgT);
 }
 
 int main()
 {
-    Process *p = Entry();
-    int n = 0;
-
-    while (p[n].pid != -1)
-        n++;
-
-    int q;
-    printf("Enter Time Slice:");
+    int n, q;
+    printf("Enter the number of processes: ");
+    scanf("%d", &n);
+    printf("Enter the time quantum for Round Robin: ");
     scanf("%d", &q);
 
-    int timer = 0;
-    int done = 0;
-    float tat = 0;
-    float wat = 0;
+    P *p = (P *)malloc(n * sizeof(P));
 
-    while (done != n)
+    for (int i = 0; i < n; i++)
     {
-        int i;
-
-        for (i = 0; i < n; i++)
-        {
-            int count = q;
-            int start = timer;
-
-            while (p[i].rem_time > 0 && p[i].arrival_time <= timer && count > 0)
-            {
-                timer++;
-                p[i].rem_time--;
-                count--;
-            }
-
-            if (start != timer)
-            {
-                printf("%d -> (%d %d)\n", p[i].pid, start, timer);
-
-                if (p[i].rem_time == 0)
-                {
-                    tat += (timer - p[i].arrival_time);
-                    wat += (timer - p[i].arrival_time - p[i].burst_time);
-                    ;
-                    done++;
-                }
-            }
-        }
+        printf("Enter arrival time and burst time for process %d: ", i + 1);
+        scanf("%d%d", &p[i].a, &p[i].b);
+        p[i].p = i + 1;
     }
 
-    tat = tat / n;
-    wat = wat / n;
-    printf("Turnaround Time = %0.2f ms \n", tat);
-    printf("Waiting Time = %0.2f ms\n", wat);
+    calcRR(p, n, q);
 
+    free(p);
     return 0;
 }
+
+// Wrong
+// Enter the number of processes: 3
+// Enter the time quantum for Round Robin: 1
+// Enter arrival time and burst time for process 1: 0 1
+// Enter arrival time and burst time for process 2: 1 2
+// Enter arrival time and burst time for process 3: 3 3
+// Process Arrival Time    Burst Time      Waiting Time    Turnaround Time
+// 1               0               1               0               1
+// 2               1               2               1               3
+// 3               3               3               0               3
+
+// Average Waiting Time: 0.33
+// Average Turnaround Time: 2.33

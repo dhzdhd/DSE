@@ -1,63 +1,104 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
 
-struct process
+typedef struct
 {
-    int wt, at, bt, tat, pt;
-};
-struct process a[10];
+    int pid;
+    int at;
+    int bt;
+    int pri;
+    int rem_time;
+    int wt;
+    int tat;
+    int comp_time;
+} P;
+
+void calcTimesPreemptive(P *pros, int n)
+{
+    int currTime = 0;
+    int comp = 0;
+    int totalWT = 0;
+    int totalTAT = 0;
+
+    while (comp < n)
+    {
+        int highestPri = INT_MAX;
+        int highestPriIndex = -1;
+
+        for (int i = 0; i < n; i++)
+        {
+            if (pros[i].at <= currTime && pros[i].pri < highestPri && pros[i].rem_time > 0)
+            {
+                highestPri = pros[i].pri;
+                highestPriIndex = i;
+            }
+        }
+
+        if (highestPriIndex == -1)
+        {
+            currTime++;
+            continue;
+        }
+
+        pros[highestPriIndex].rem_time--;
+        currTime++;
+
+        if (pros[highestPriIndex].rem_time == 0)
+        {
+            comp++;
+            pros[highestPriIndex].comp_time = currTime;
+            pros[highestPriIndex].tat = pros[highestPriIndex].comp_time - pros[highestPriIndex].at;
+            pros[highestPriIndex].wt = pros[highestPriIndex].tat - pros[highestPriIndex].bt;
+            totalWT += pros[highestPriIndex].wt;
+            totalTAT += pros[highestPriIndex].tat;
+        }
+    }
+
+    printf("Proc\tArrival Time\tBurst Time\tPriority\tWaiting Time\tTurnaround Time\n");
+    for (int i = 0; i < n; i++)
+    {
+        printf("%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\n", pros[i].pid, pros[i].at,
+               pros[i].bt, pros[i].pri, pros[i].wt, pros[i].tat);
+    }
+
+    float avgWT = (float)totalWT / n;
+    float avgTAT = (float)totalTAT / n;
+
+    printf("\nAverage Waiting Time: %.2f\n", avgWT);
+    printf("Average Turnaround Time: %.2f\n", avgTAT);
+}
 
 int main()
 {
-    int n, temp[10], t, count = 0, short_p;
-    float total_wt = 0, total_tat = 0, avg_wt, avg_tat;
-
-    printf("No. of Processes: \n");
+    int n;
+    printf("Enter the number of processes: ");
     scanf("%d", &n);
-    printf("AT bt pt\n");
 
-    int i;
+    P *pros = (P *)malloc(n * sizeof(P));
 
-    for (i = 0; i < n; i++)
+    for (int i = 0; i < n; i++)
     {
-        scanf("%d %d %d", &a[i].at, &a[i].bt, &a[i].pt);
-        temp[i] = a[i].bt;
+        printf("Enter arrival time, burst time, and priority for process %d: ", i + 1);
+        scanf("%d%d%d", &pros[i].at, &pros[i].bt, &pros[i].pri);
+        pros[i].pid = i + 1;
+        pros[i].rem_time = pros[i].bt;
     }
 
-    a[9].pt = 10000;
+    calcTimesPreemptive(pros, n);
 
-    for (t = 0; count != n; t++)
-    {
-        short_p = 9;
-        for (i = 0; i < n; i++)
-        {
-            if (a[short_p].pt > a[i].pt && a[i].at <= t && a[i].bt > 0)
-            {
-                short_p = i;
-            }
-        }
-        a[short_p].bt = a[short_p].bt - 1;
-        if (a[short_p].bt == 0)
-        {
-            count++;
-            a[short_p].wt = t + 1 - a[short_p].at - temp[short_p];
-            a[short_p].tat = t + 1 - a[short_p].at;
-            total_wt = total_wt + a[short_p].wt;
-            total_tat = total_tat + a[short_p].tat;
-        }
-    }
-
-    avg_wt = total_wt / n;
-    avg_tat = total_tat / n;
-
-    printf("ID WT tat\n");
-
-    for (i = 0; i < n; i++)
-    {
-        printf("%d %d\t %d\n", i + 1, a[i].wt, a[i].tat);
-    }
-
-    printf("Avg Waiting Time: %f\n", avg_wt);
-    printf("Avg Turnaround Time: %f\n", avg_tat);
-
+    free(pros);
     return 0;
 }
+
+// Enter the number of processes: 3
+// Enter arrival time, burst time, and priority for process 1: 0 1 1
+// Enter arrival time, burst time, and priority for process 2: 1 2 3
+// Enter arrival time, burst time, and priority for process 3: 3 3 4
+// Proc    Arrival Time    Burst Time      Priority        Waiting Time    Turnaround Time
+// 1               0               1               1               0               1
+// 2               1               2               3               0               2
+// 3               3               3               4               0               3
+
+// Average Waiting Time: 0.00
+// Average Turnaround Time: 2.00

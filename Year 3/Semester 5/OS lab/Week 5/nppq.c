@@ -1,113 +1,91 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
 
-void main()
+typedef struct
 {
-    int pn = 0;
-    int cpu = 0;
+    int pid;
+    int at;
+    int bt;
+    int pri;
+    int wt;
+    int tat;
+    int comp_time;
+} P;
 
-    printf("No. of Processes: ");
-    scanf("%d", &pn);
-
-    int at[100];
-    int att[100];
-    int nop = pn;
-    int pt[100];
-    int PP[100];
-    int ppt[100];
-    int wt[100];
-    int tat[100];
-    int i = 0;
-
-    for (i = 0; i < pn; i++)
+void calcTimesNP(P *pros, int n)
+{
+    for (int i = 0; i < n - 1; i++)
     {
-        printf("\nBurst Time P%d: ", i + 1);
-        scanf("%d", &pt[i]);
-
-        printf("Priority P%d: ", i + 1);
-        scanf("%d", &PP[i]);
-
-        ppt[i] = PP[i];
-
-        printf("Arrival Time P%d: ", i + 1);
-        scanf("%d", &at[i]);
-        att[i] = at[i];
-    }
-
-    int lat = 0;
-    for (i = 0; i < pn; i++)
-        if (at[i] > lat)
-            lat = at[i];
-
-    int max_p = 0;
-
-    for (i = 0; i < pn; i++)
-        if (ppt[i] > max_p)
-            max_p = ppt[i];
-
-    int ati = 0;
-    int P1 = ppt[0];
-    int P2 = ppt[0];
-    int j = -1;
-
-    while (nop > 0 && cpu <= 1000)
-    {
-        for (i = 0; i < pn; i++)
+        for (int j = 0; j < n - i - 1; j++)
         {
-            if ((att[i] <= cpu) && (att[i] != (lat + 10)))
+            if (pros[j].pri > pros[j + 1].pri)
             {
-                if (ppt[i] != (max_p + 1))
-                {
-                    P2 = ppt[i];
-                    j = 1;
-                    if (P2 < P1)
-                    {
-                        j = 1;
-                        ati = i;
-                        P1 = ppt[i];
-                        P2 = ppt[i];
-                    }
-                }
+                P temp = pros[j];
+                pros[j] = pros[j + 1];
+                pros[j + 1] = temp;
             }
         }
-
-        if (j == -1)
-        {
-            cpu = cpu + 1;
-            continue;
-        }
-        else
-        {
-            wt[ati] = cpu - att[ati];
-            cpu = cpu + pt[ati];
-            tat[ati] = cpu - att[ati];
-            att[ati] = lat + 10;
-            j = -1;
-            ppt[ati] = max_p + 1;
-            ati = 0;
-            P1 = max_p + 1;
-            P2 = max_p + 1;
-            nop = nop - 1;
-        }
     }
 
-    printf("\nPN\tPT\tPP\tAT\tWT\tTT\n\n");
+    int currTime = 0;
+    int totalWT = 0;
+    int totalTAT = 0;
 
-    for (i = 0; i < pn; i++)
+    for (int i = 0; i < n; i++)
     {
-        printf("P%d\t%d\t%d\t%d\t%d\t%d\n", i + 1, pt[i], PP[i], at[i], wt[i],
-               tat[i]);
+        pros[i].comp_time = currTime + pros[i].bt;
+        pros[i].wt = currTime - pros[i].at;
+        pros[i].tat = pros[i].wt + pros[i].bt;
+
+        currTime = pros[i].comp_time;
+        totalWT += pros[i].wt;
+        totalTAT += pros[i].tat;
     }
 
-    int avgwt = 0;
-    int avgtat = 0;
-
-    for (i = 0; i < pn; i++)
+    printf("P\tAT\tBT\tPRI\tWT\tTAT\n");
+    for (int i = 0; i < n; i++)
     {
-        avgwt = wt[i] + avgwt;
-        avgtat = tat[i] + avgtat;
+        printf("%d\t%d\t%d\t%d\t%d\t%d\n", pros[i].pid, pros[i].at,
+               pros[i].bt, pros[i].pri, pros[i].wt, pros[i].tat);
     }
 
-    printf("Avg Waitting Time = %d\nAvg Turnaround Time = %d\n", avgwt / pn, avgtat / pn);
+    float avgWT = (float)totalWT / n;
+    float avgTAT = (float)totalTAT / n;
+
+    printf("\nAWT: %.2f\n", avgWT);
+    printf("ATAT: %.2f\n", avgTAT);
+}
+
+int main()
+{
+    int n;
+    printf("Enter the number of processes: ");
+    scanf("%d", &n);
+
+    P *pros = (P *)malloc(n * sizeof(P));
+
+    for (int i = 0; i < n; i++)
+    {
+        printf("Enter arrival time, burst time, and priority for process %d: ", i + 1);
+        scanf("%d%d%d", &pros[i].at, &pros[i].bt, &pros[i].pri);
+        pros[i].pid = i + 1;
+    }
+
+    calcTimesNP(pros, n);
+
+    free(pros);
     return 0;
 }
+
+// Enter the number of processes: 3
+// Enter arrival time, burst time, and priority for process 1: 0 1 1
+// Enter arrival time, burst time, and priority for process 2: 1 2 3
+// Enter arrival time, burst time, and priority for process 3: 3 4 5
+// Process Arrival Time    Burst Time      Priority        Waiting Time    Turnaround Time
+// 1               0               1               1               0               1
+// 2               1               2               3               0               2
+// 3               3               4               5               0               4
+
+// Average Waiting Time: 0.00
+// Average Turnaround Time: 2.33
