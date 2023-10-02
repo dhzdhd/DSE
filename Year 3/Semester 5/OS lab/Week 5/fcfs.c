@@ -1,91 +1,79 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <limits.h>
 
-void swap(int *xp, int *yp)
+int min_index(int *arr, int n)
 {
-    int temp = *xp;
-    *xp = *yp;
-    *yp = temp;
+        int min = INT_MAX;
+        int index = -1;
+        for (int i = 0; i < n; i++)
+        {
+                if (arr[i] < min)
+                {
+                        min = arr[i];
+                        index = i;
+                }
+        }
+        if (min == INT_MAX)
+                return -1;
+        return index;
 }
 
-void bubbleSort(int arr[], int time[], int priority[], int n)
+float calc_awt(int *wt, int *ft, int *at, int n)
 {
-    int i, j;
-    for (i = 0; i < n - 1; i++)
-    {
-        for (j = 0; j < n - i - 1; j++)
+        int sum = 0;
+        for (int i = 0; i < n; i++)
         {
-            if (arr[j] > arr[j + 1])
-            {
-                swap(&arr[j], &arr[j + 1]);
-                swap(&time[j], &time[j + 1]);
-                swap(&priority[j], &priority[j + 1]);
-            }
+                wt[i] = ft[i] - at[i];
+                sum = sum + wt[i];
         }
-    }
+        return (float)sum / n;
 }
 
-void fcfs(int arr[], int time[], int priority[], int n)
+float calc_atat(int *tat, int *bt, int *wt, int n)
 {
-    bubbleSort(arr, time, priority, n);
-    int i;
-    int wait[100];
-    int tottime = 0;
-    int turn[100];
-    memset(wait, 0, n * sizeof(int)); // Set all elements to 0
-    memset(turn, 0, n * sizeof(int));
-
-    for (i = 0; i < n; i++)
-    {
-        printf("Process with priority %d is executing\n", priority[i]);
-
-        if (i == 0)
+        int sum = 0;
+        for (int i = 0; i < n; i++)
         {
-            wait[i] = arr[i];
-            tottime += time[i];
-            turn[i] = time[i] - arr[i];
+                tat[i] = bt[i] + wt[i];
+                sum = sum + tat[i];
         }
-        else
-        {
-            wait[i] = tottime - arr[i];
-            tottime += time[i];
-            turn[i] = tottime - arr[i];
-        }
-        printf("%d %d %d\n", wait[i], tottime, turn[i]);
-    }
-
-    float avgwait = 0.0, avgburst = 0.0;
-
-    for (i = 0; i < n; i++)
-    {
-        avgburst += turn[i];
-        avgwait += wait[i];
-    }
-
-    avgwait /= n;
-    avgburst /= n;
-    printf("Average Burst Time %f ", avgburst);
-    printf("\nAverage Wait Time %f \n", avgwait);
+        return (float)sum / n;
 }
 
 int main()
 {
-    int arr[100], time[100], priority[100], n, i;
-    printf("Enter the number of processes\n");
-    scanf("%d", &n);
+        int n;
+        printf("Enter number of processes\n");
+        scanf("%d", &n);
 
-    for (i = 0; i < n; i++)
-    {
-        printf("Arrival Time time for process P%d ", i);
-        scanf("%d", &arr[i]);
-        printf("Burst time for process P%d ", i);
-        scanf("%d", &time[i]);
-        printf("Priority for process P%d ", i);
-        scanf("%d", &priority[i]);
-    }
+        int *at = malloc(n * (int)(sizeof(int)));
+        int *bt = malloc(n * (int)(sizeof(int)));
+        int *buf = malloc(n * (int)(sizeof(int)));
+        int *ft = malloc(n * (int)(sizeof(int)));
+        int *wt = malloc(n * (int)(sizeof(int)));
+        int *tat = malloc(n * (int)(sizeof(int)));
 
-    fcfs(arr, time, priority, n);
+        printf("Enter arrival and burst times\n");
+        for (int i = 0; i < n; i++)
+        {
+                scanf("%d", &at[i]);
+                buf[i] = at[i];
+                scanf("%d", &bt[i]);
+        }
 
-    return 0;
+        int total_b = 0;
+        for (int i = 0; i < n; i++)
+        {
+                int min_at = min_index(buf, n);
+                printf("Process %d, Start %d, End %d\n", min_at, total_b, total_b + bt[min_at]);
+                ft[min_at] = total_b;
+                total_b = total_b + bt[min_at];
+                buf[min_at] = INT_MAX;
+        }
+
+        printf("AWT: %g\n", calc_awt(wt, ft, at, n));
+        printf("ATAT: %g\n", calc_atat(tat, bt, wt, n));
+
+        return 0;
 }
