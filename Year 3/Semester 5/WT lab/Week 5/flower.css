@@ -1,0 +1,85 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: black;
+}
+
+.stem {
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    width: 5px;
+    height: 150px;
+    background-color: green;
+    border-radius: 2px;
+}
+
+.flower {
+    position: absolute;
+    bottom: 150px;
+    left: calc(50% - 25px);
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    background-color: yellow;
+}
+
+.petal {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    background-color: red;
+    animation: 5s linear 0s infinite normal forwards running bloom;
+}
+
+.one {
+    bottom: 40px;
+    transform-origin: bottom center;
+}
+
+.two {
+    bottom: 20px;
+    left: 35px;
+    transform-origin: bottom left;
+}
+
+.three {
+    bottom: -20px;
+    left: 35px;
+    transform-origin: top left;
+}
+
+.four {
+    bottom: -40px;
+    transform-origin: top center;
+}
+
+.five {
+    bottom: 20px;
+    left: -35px;
+    transform-origin: bottom right;
+}
+
+.six {
+    bottom: -20px;
+    left: -35px;
+    transform-origin: top right;
+
+}
+
+@keyframes bloom {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}

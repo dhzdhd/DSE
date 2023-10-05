@@ -1,0 +1,44 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    height: 100vh;
+    background: url("./images/space.png");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.moon {
+    height: 10rem;
+    aspect-ratio: 1;
+    border-radius: 100%;
+    background-color: transparent;
+    box-shadow: 0px 0px 10rem 1rem white;
+}
+
+.planet {
+    position: fixed;
+    border-radius: 100%;
+    bottom: 33vh;
+    height: 20rem;
+    aspect-ratio: 1;
+    animation: animate 10s linear 0s infinite normal forwards;
+    transform-origin: 50% 200%;
+}
+
+@keyframes animate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,44 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rotate {
+    transform: rotate(45deg);
+}
+
+.bottom {
+    height: 5rem;
+    width: 5rem;
+    border-right: solid 1px;
+    border-bottom: solid 1px;
+}
+
+.tl {
+    height: 5rem;
+    width: 5rem;
+    border-radius: 100%;
+    position: absolute;
+    /* border: solid 1px; */
+    right: 2.2rem;
+    border-left: solid 2px;
+}
+
+.tr {
+    height: 5rem;
+    width: 5rem;
+    border-radius: 100%;
+    position: absolute;
+    /* border: solid 1px; */
+    bottom: 2.2rem;
+    border-top: solid 2px;
+}

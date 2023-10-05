@@ -6,12 +6,12 @@ echo "3) Delete files"
 
 while [ 1 ]; do
     read -p "Enter option " op
-    case $op in
+    case $op in # Choose option based on input
     1) echo "$(ls)" ;;
     2) echo "$(ls -a)" ;;
     3)
         read -p "Enter file name " f
-        $(rm $f)
+        $(rm $f) # Remove file based on input
         ;;
     *) echo "Invalid choice" ;;
     esac

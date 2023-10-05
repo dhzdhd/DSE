@@ -6,7 +6,7 @@
 int main()
 {
     printf("Current process id: %d\n", getpid());
-    pid_t child_pid = fork();
+    pid_t child_pid = fork(); // Create child
 
     printf("Hi\n");
 
@@ -20,3 +20,10 @@ int main()
 
     return 0;
 }
+
+// Current process id: 27672
+// Hi
+// Hi
+// Bye
+// Child complete
+// Bye

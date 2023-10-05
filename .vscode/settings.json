@@ -1,5 +1,6 @@
 {
-    "editor.formatOnSave": false,
+    "editor.formatOnSave": true,
+    "html.suggest.html5": true,
     "files.associations": {
         "atomic": "cpp",
         "bit": "cpp",

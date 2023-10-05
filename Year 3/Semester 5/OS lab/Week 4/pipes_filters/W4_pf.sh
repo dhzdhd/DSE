@@ -24,5 +24,7 @@ tail -10 data.csv | sort -t"," -k5
 tail -10 data.csv | sort -t"," -k6 -M -o Personnel_data_month2022.dat
 
 # 9
+grep -E '^([^,]*,)(S|J)' data.csv | cut -d, -f2- >SJ_Names.dat
 
 # 10
+tail -10 data.csv | cut -d, -f2,3,4,5,9 | sort >output.csv
