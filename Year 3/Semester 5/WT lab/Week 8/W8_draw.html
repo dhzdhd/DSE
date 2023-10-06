@@ -1,18 +1,29 @@
 <!DOCTYPE html>
 <html>
+  <style>
+    *,
+    *::after,
+    *::before {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+  </style>
   <body>
-    <canvas id="canvas" width="500" height="500" style="border: 1px solid">
+    <canvas id="canvas" width="900" height="900">
       Your browser does not support the HTML5 canvas tag.</canvas
     >
 
     <script>
       let canvas = document.getElementById("canvas");
       let context = canvas.getContext("2d");
+      context.lineWidth = 5;
 
       let drawing = false;
 
       canvas.addEventListener("mousedown", function (e) {
         drawing = true;
+        context.beginPath();
         draw(e);
       });
 
@@ -33,7 +44,9 @@
         let rect = canvas.getBoundingClientRect();
         let x = e.clientX - rect.left;
         let y = e.clientY - rect.top;
-        context.fillRect(x, y, 5, 5);
+
+        context.lineTo(x, y);
+        context.stroke();
       }
     </script>
   </body>
