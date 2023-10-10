@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <canvas id="canvas" width="500" height="500" style="border: 1px solid">
+      Your browser does not support the HTML5 canvas tag.</canvas
+    >
+
+    <p id="coordinates"></p>
+
+    <script>
+      let canvas = document.getElementById("canvas");
+      let context = canvas.getContext("2d");
+
+      canvas.addEventListener("mousemove", function (event) {
+        let rect = canvas.getBoundingClientRect();
+        let x = event.clientX - rect.left;
+        let y = event.clientY - rect.top;
+        document.getElementById("coordinates").innerHTML =
+          "X: " + x + ", Y: " + y;
+      });
+    </script>
+  </body>
+</html>

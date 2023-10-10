@@ -1,99 +1,66 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <conio.h>
 
-typedef struct
+void main()
 {
-    int p;
-    int a;
-    int b;
-    int w;
-    int t;
-    int c;
-} P;
+    int i, NOP, sum = 0, count = 0, y, quant, wt = 0, tat = 0, at[10], bt[10], temp[10];
+    float avg_wt, avg_tat;
+    printf(" Total number of process in the system: ");
+    scanf("%d", &NOP);
+    y = NOP;
 
-void calcRR(P *p, int n, int q)
-{
-    int cur = 0;
-    int comp = 0;
-    int totalW = 0;
-    int totalT = 0;
-
-    while (comp < n)
+    for (i = 0; i < NOP; i++)
     {
-        int flag = 0;
+        printf("\n Enter the Arrival and Burst time of the Process[%d]\n", i + 1);
+        printf(" Arrival time is: \t");
+        scanf("%d", &at[i]);
+        printf(" \nBurst time is: \t");
+        scanf("%d", &bt[i]);
+        temp[i] = bt[i];
+    }
 
-        for (int i = 0; i < n; i++)
+    printf("Enter the Time Quantum for the process: \t");
+    scanf("%d", &quant);
+    printf("\n Process No \t\t Burst Time \t\t TAT \t\t Waiting Time ");
+
+    for (sum = 0, i = 0; y != 0;)
+    {
+        if (temp[i] <= quant && temp[i] > 0)
         {
-            if (p[i].b > 0)
-            {
-                flag = 1;
-
-                int e = (p[i].b < q) ? p[i].b : q;
-                p[i].b -= e;
-                cur += e;
-
-                if (p[i].b == 0)
-                {
-                    comp++;
-                    p[i].c = cur;
-                    p[i].t = p[i].c - p[i].a;
-                    p[i].w = p[i].t - p[i].b;
-                    totalW += p[i].w;
-                    totalT += p[i].t;
-                }
-            }
+            sum = sum + temp[i];
+            temp[i] = 0;
+            count = 1;
         }
-
-        if (flag == 0)
-            cur++;
+        else if (temp[i] > 0)
+        {
+            temp[i] = temp[i] - quant;
+            sum = sum + quant;
+        }
+        if (temp[i] == 0 && count == 1)
+        {
+            y--;
+            printf("\nProcess No[%d] \t\t %d\t\t\t\t %d\t\t\t %d", i + 1, bt[i], sum - at[i], sum - at[i] - bt[i]);
+            wt = wt + sum - at[i] - bt[i];
+            tat = tat + sum - at[i];
+            count = 0;
+        }
+        if (i == NOP - 1)
+        {
+            i = 0;
+        }
+        else if (at[i + 1] <= sum)
+        {
+            i++;
+        }
+        else
+        {
+            i = 0;
+        }
     }
 
-    printf("P\tAT\tBT\tWT\tTAT\n");
-    for (int i = 0; i < n; i++)
-    {
-        printf("%d\t%d\t%d\t%d\t%d\n", p[i].p, p[i].a, p[i].b, p[i].w, p[i].t);
-    }
-
-    float avgW = (float)totalW / n;
-    float avgT = (float)totalT / n;
-
-    printf("\nAWT: %.2f\n", avgW);
-    printf("ATAT: %.2f\n", avgT);
+    avg_wt = wt * 1.0 / NOP;
+    avg_tat = tat * 1.0 / NOP;
+    printf("\n Average Turn Around Time: \t%f", avg_wt);
+    printf("\n Average Waiting Time: \t%f", avg_tat);
+    getch();
 }
-
-int main()
-{
-    int n, q;
-    printf("Enter the number of processes: ");
-    scanf("%d", &n);
-    printf("Enter the time quantum for Round Robin: ");
-    scanf("%d", &q);
-
-    P *p = (P *)malloc(n * sizeof(P));
-
-    for (int i = 0; i < n; i++)
-    {
-        printf("Enter arrival time and burst time for process %d: ", i + 1);
-        scanf("%d%d", &p[i].a, &p[i].b);
-        p[i].p = i + 1;
-    }
-
-    calcRR(p, n, q);
-
-    free(p);
-    return 0;
-}
-
-// Wrong
-// Enter the number of processes: 3
-// Enter the time quantum for Round Robin: 1
-// Enter arrival time and burst time for process 1: 0 1
-// Enter arrival time and burst time for process 2: 1 2
-// Enter arrival time and burst time for process 3: 3 3
-// Process Arrival Time    Burst Time      Waiting Time    Turnaround Time
-// 1               0               1               0               1
-// 2               1               2               1               3
-// 3               3               3               0               3
-
-// Average Waiting Time: 0.33
-// Average Turnaround Time: 2.33
