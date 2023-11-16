@@ -19,7 +19,7 @@ void calcTimesNP(P *pros, int n)
     {
         for (int j = 0; j < n - i - 1; j++)
         {
-            if (pros[j].pri > pros[j + 1].pri)
+            if (pros[j].at > pros[j + 1].at)
             {
                 P temp = pros[j];
                 pros[j] = pros[j + 1];
@@ -34,6 +34,10 @@ void calcTimesNP(P *pros, int n)
 
     for (int i = 0; i < n; i++)
     {
+        for (int j = i + 1; j < n; j++)
+        {
+        }
+
         pros[i].comp_time = currTime + pros[i].bt;
         pros[i].wt = currTime - pros[i].at;
         pros[i].tat = pros[i].wt + pros[i].bt;

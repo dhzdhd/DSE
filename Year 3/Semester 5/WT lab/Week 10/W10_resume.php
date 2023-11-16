@@ -6,13 +6,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $uploadOk = true;
     $fileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
+    if (file_exists($target_file)) {
+        echo "Sorry, file already exists.";
+        $uploadOk = false;
+    }
+
     if ($fileType != "pdf") {
         echo "Sorry, only PDF files are allowed.";
         $uploadOk = false;
     }
 
-    move_uploaded_file($_FILES["resume"]["tmp_name"], $target_file);
-    echo "The file " . htmlspecialchars(basename($_FILES["resume"]["name"])) . " has been uploaded.";
+    if ($uploadOk == 0) {
+        echo "Sorry, your file was not uploaded.";
+    } else {
+        if (move_uploaded_file($_FILES["resume"]["tmp_name"], $target_file)) {
+            echo "The file " . htmlspecialchars(basename($_FILES["resume"]["name"])) . " has been uploaded.";
+        } else {
+            echo "Sorry, there was an error uploading your file.";
+        }
+    }
 }
 ?>
 
