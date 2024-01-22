@@ -1,22 +1,26 @@
 #!/usr/bin/python3
 
 import sys
+import numpy as np
 
 
 def main():
     raw = sys.stdin
 
-    d = {}
+    m1 = [[0] * 3 for _ in range(3)]
+    m2 = [[0] * 3 for _ in range(3)]
     for line in raw:
-        _, pos, value = line.split("\t")
+        matrix, pos, value = line.split("\t")
+        match matrix:
+            case "a":
+                m1[int(pos[0])][int(pos[-1])] = int(value)
+            case "b":
+                m2[int(pos[0])][int(pos[-1])] = int(value)
 
-        if pos not in d:
-            d[pos] = int(value)
-            continue
-        d[pos] *= int(value)
-
-    for k, v in d.items():
-        print(f"c\t{k}\t{v}")
+    m3 = np.matmul(m1, m2)
+    for l in range(len(m3)):
+        for i in range(len(m3[l])):
+            print(f"c\t{l},{i}\t{m3[l][i]}")
 
 
 main()
