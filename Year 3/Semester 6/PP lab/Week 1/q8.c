@@ -10,7 +10,7 @@ int binary_to_int(char *str)
 	int power = 1;
 	int len = strlen(str);
 
-	for (int i = len - 1; i >= 0; i--)
+	for (int i = 4; i >= 0; i--)
 	{
 		val += (str[i] - '0') * power;
 		power *= 2;

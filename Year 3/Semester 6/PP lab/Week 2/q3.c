@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <omp.h>
-#include <time.h>
+#include <string.h>
 
 int main()
 {
@@ -16,7 +16,7 @@ int main()
 	}
 
 	// Sequential
-	clock_t begin1 = clock();
+	double begin1 = omp_get_wtime();
 
 	char i = 0;
 	while (str1[i] != '\0')
@@ -26,36 +26,35 @@ int main()
 	}
 	printf("%s\n", str1);
 
-	clock_t end1 = clock();
-	double seq = (double)(end1 - begin1) / CLOCKS_PER_SEC;
+	double end1 = omp_get_wtime();
+	double seq = end1 - begin1;
 	printf("Sequential time: %f\n", seq);
 
 	// Parallel
-	i = 0;
+	int len = strlen(str2);
 
-	clock_t begin2 = clock();
-	int num_procs;
+	double begin2 = omp_get_wtime();
+	int num_threads;
 
 #pragma omp parallel
 	{
-		num_procs = omp_get_num_threads();
+		num_threads = omp_get_num_threads();
 
 #pragma omp for
-		// Cannot use != or ==
-		for (int j = 0; str2[j] != '\0'; j++)
+		for (int j = 0; j < len; j++)
 		{
 			str2[j] = (int)str2[j] < 91 ? (char)((int)str2[j] + 32) : (char)((int)str2[j] - 32);
 		}
 	}
 	printf("%s\n", str2);
 
-	clock_t end2 = clock();
-	double par = (double)(end2 - begin2) / CLOCKS_PER_SEC;
-	printf("Parallel time: %f\n", par / num_procs);
+	double end2 = omp_get_wtime();
+	double par = end2 - begin2;
+	printf("Parallel time: %f\n", par / num_threads);
 
 	double speedup = seq / par;
 	printf("Speedup: %f\n", speedup);
-	printf("Efficiency: %f\n", speedup / num_procs);
+	printf("Efficiency: %f\n", speedup / num_threads);
 
 	return 0;
 }

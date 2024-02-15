@@ -1,7 +1,8 @@
+// Arithmetic operations
+
 #include <stdio.h>
 #include <math.h>
 #include <omp.h>
-#include <time.h>
 
 int main()
 {
@@ -11,50 +12,53 @@ int main()
 	scanf("%d%d", &a, &b);
 
 	// Sequential
-	clock_t begin1 = clock();
+	double begin1 = omp_get_wtime();
 
 	printf("Sum %d\n", a + b);
 	printf("Difference %d\n", a - b);
 	printf("Product %d\n", a * b);
 	printf("Quotient %d\n", a / b);
 
-	clock_t end1 = clock();
-	double seq = (double)(end1 - begin1) / CLOCKS_PER_SEC;
+	double end1 = omp_get_wtime();
+	double seq = end1 - begin1;
 	printf("Sequential time: %f\n", seq);
 
 	// Parallel
-	clock_t begin2 = clock();
-	int num_procs;
+	double begin2 = omp_get_wtime();
+	int num_threads;
 
 #pragma omp parallel num_threads(4)
 	{
-		num_procs = omp_get_num_threads();
-		int thread = omp_get_thread_num();
+		num_threads = omp_get_num_threads();
 
-		if (thread == 0)
+#pragma omp sections
 		{
-			printf("Sum %d\n", a + b);
-		}
-		else if (thread == 1)
-		{
-			printf("Difference %d\n", a - b);
-		}
-		else if (thread == 2)
-		{
-			printf("Product %d\n", a * b);
-		}
-		else
-		{
-			printf("Quotient %d\n", a / b);
+
+#pragma omp section
+			{
+				printf("Sum %d\n", a + b);
+			}
+#pragma omp section
+			{
+				printf("Difference %d\n", a - b);
+			}
+#pragma omp section
+			{
+				printf("Product %d\n", a * b);
+			}
+#pragma omp section
+			{
+				printf("Quotient %d\n", a / b);
+			}
 		}
 	}
-	clock_t end2 = clock();
-	double par = (double)(end2 - begin2) / CLOCKS_PER_SEC;
-	printf("Parallel time: %f\n", par / num_procs);
+	double end2 = omp_get_wtime();
+	double par = end2 - begin2;
+	printf("Parallel time: %f\n", par / num_threads);
 
 	double speedup = seq / par;
 	printf("Speedup: %f\n", speedup);
-	printf("Efficiency: %f\n", speedup / num_procs);
+	printf("Efficiency: %f\n", speedup / num_threads);
 
 	return 0;
 }
