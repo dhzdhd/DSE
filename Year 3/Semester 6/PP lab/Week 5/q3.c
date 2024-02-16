@@ -2,9 +2,46 @@
 #include <omp.h>
 #include <stdlib.h>
 
+void odd_even_sort(int *a, int n)
+{
+    int phase, temp;
+
+    for (phase = 0; phase < n; ++phase)
+    {
+        if (phase % 2 == 0)
+        {
+
+#pragma omp parallel for private(temp)
+            for (int i = 1; i < n - 1; i += 2)
+            {
+                if (a[i] > a[i + 1])
+                {
+                    temp = a[i];
+                    a[i] = a[i + 1];
+                    a[i + 1] = temp;
+                }
+            }
+        }
+        else
+        {
+
+#pragma omp parallel for private(temp)
+            for (int i = 0; i < n - 1; i += 2)
+            {
+                if (a[i] > a[i + 1])
+                {
+                    temp = a[i];
+                    a[i] = a[i + 1];
+                    a[i + 1] = temp;
+                }
+            }
+        }
+    }
+}
+
 int main()
 {
-    int arr[1000], n, target;
+    int arr1[1000], arr2[1000], n;
     int sizes[] = {100, 200, 300, 500, 1000};
     int threads[] = {2, 3, 4, 5};
 
@@ -15,30 +52,14 @@ int main()
 
         for (int i = 0; i < n; i++)
         {
-            arr[i] = rand() % 10 + 1;
+            arr1[i] = rand() % 10 + 1;
+            arr2[i] = arr1[i];
         }
-        target = rand() % 10 + 1;
 
         // Sequential
         double start = omp_get_wtime();
 
-        int res = -1;
-        for (int i = 0; i < n; i++)
-        {
-            if (arr[i] == target)
-            {
-                res = i;
-            }
-        }
-
-        if (res == -1)
-        {
-            printf("Not found\n");
-        }
-        else
-        {
-            printf("Found at %d index\n", res);
-        }
+        // !selectionSort(arr1, n);
 
         double end = omp_get_wtime();
         double seq = end - start;
@@ -52,25 +73,8 @@ int main()
             printf("Threads: %d\n", thread);
 
             start = omp_get_wtime();
-            res = -1;
 
-#pragma omp parallel for
-            for (int i = 0; i < n; i++)
-            {
-                if (arr[i] == target)
-                {
-                    res = i;
-                }
-            }
-
-            if (res == -1)
-            {
-                printf("Not found\n");
-            }
-            else
-            {
-                printf("Found at %d index\n", res);
-            }
+            //! parallelSelectionSort(arr2, n);
 
             end = omp_get_wtime();
             double par = end - start;
