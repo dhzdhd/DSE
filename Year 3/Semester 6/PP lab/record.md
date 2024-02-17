@@ -12,7 +12,7 @@
 Input array: 18, 523, 301, 1234, 2, 14, 108, 150, 1928
 Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -47,7 +47,7 @@ Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
 
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     81 325 103 4321 2 41 801 51 8291
@@ -57,7 +57,7 @@ Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
 
 2) Write a program in C to simulate the all the operations of a calculator. Given inputs A and B, find the output for A+B, A-B, A*B and A/B.
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -78,7 +78,7 @@ Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
     }
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Enter num1, num2
@@ -94,7 +94,7 @@ Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
 3)	Write a program in C to toggle the character of a given string.
 Example: suppose the string is “HeLLo”, then the output should be “hEllO”.
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -118,7 +118,7 @@ Example: suppose the string is “HeLLo”, then the output should be “hEllO�
     }
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Enter string
@@ -131,7 +131,7 @@ Example: suppose the string is “HeLLo”, then the output should be “hEllO�
 4)	Write a C program to read a word of length N and produce the pattern as shown in the example.
 Example: Input: PCBD      Output: PCCBBBDDDD
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -155,7 +155,7 @@ Example: Input: PCBD      Output: PCCBBBDDDD
     }
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Enter num
@@ -168,7 +168,7 @@ Example: Input: PCBD      Output: PCCBBBDDDD
 5)	Write a C program to read two strings S1 and S2 of same length and produce the resultant string as shown below.
 S1: string      S2: length     Resultant String: slternigntgh
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -201,7 +201,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     }
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Enter 2 strings
@@ -214,7 +214,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 
 6)	Write a C program to perform Matrix times vector product operation.
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -290,7 +290,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Enter mat dims
@@ -310,7 +310,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 
 7)	Write a C program to read a matrix A of size 5x5. It produces a resultant matrix B of size 5x5. It sets all the principal diagonal elements of B matrix with 0. It replaces each row elements in the B matrix in the following manner. If the element is below the principal diagonal it replaces it with the maximum value of the row in the A matrix having the same row number of B. If the element is above the principal diagonal it replaces it with the minimum value of the row in the A matrix having the same row number of B.
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -377,7 +377,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Enter matrix
@@ -398,7 +398,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 
 8)	Write a C program that reads a matrix of size MxN and produce an output matrix B of same size such that it replaces all the non-border elements of A with its equivalent 1’s complement and remaining elements same as matrix A. Also produce a matrix D as shown below.
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -492,7 +492,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Enter mat dims
@@ -518,7 +518,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 
 9)	Write a C program that reads a character type matrix and integer type matrix B of size MxN. It produces and output string STR such that, every character of A is repeated r times (where r is the integer value in matrix B which is having the same index as that of the character taken in A).
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -561,7 +561,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Enter mat dims
@@ -587,7 +587,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 Input array: 18, 523, 301, 1234, 2, 14, 108, 150, 1928
 Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -656,7 +656,7 @@ Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
     }
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     81 325 103 4321 2 41 801 51 8291
@@ -671,7 +671,7 @@ Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
 
 2) Write a program in C to simulate the all the operations of a calculator. Given inputs A and B, find the output for A+B, A-B, A*B and A/B.
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
 
@@ -739,7 +739,7 @@ Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
     }
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Enter num1, num2
@@ -763,7 +763,7 @@ Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
 3)	Write a program in C to toggle the character of a given string.
 Example: suppose the string is “HeLLo”, then the output should be “hEllO”.
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -829,7 +829,7 @@ Example: suppose the string is “HeLLo”, then the output should be “hEllO�
 
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Enter string
@@ -847,7 +847,7 @@ Example: suppose the string is “HeLLo”, then the output should be “hEllO�
 4)	Write a C program to read a word of length N and produce the pattern as shown in the example.
 Example: Input: PCBD      Output: PCCBBBDDDD
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
 
@@ -905,7 +905,7 @@ Example: Input: PCBD      Output: PCCBBBDDDD
 
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Enter num
@@ -923,7 +923,7 @@ Example: Input: PCBD      Output: PCCBBBDDDD
 5)	Write a C program to read two strings S1 and S2 of same length and produce the resultant string as shown below.
 S1: string      S2: length     Resultant String: slternigntgh
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -992,7 +992,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Enter 2 strings
@@ -1010,7 +1010,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 
 6)	Write a C program to perform Matrix times vector product operation.
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -1126,7 +1126,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Enter mat dims
@@ -1154,7 +1154,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 
 7)	Write a C program to read a matrix A of size 5x5. It produces a resultant matrix B of size 5x5. It sets all the principal diagonal elements of B matrix with 0. It replaces each row elements in the B matrix in the following manner. If the element is below the principal diagonal it replaces it with the maximum value of the row in the A matrix having the same row number of B. If the element is above the principal diagonal it replaces it with the minimum value of the row in the A matrix having the same row number of B.
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -1271,7 +1271,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Enter matrix
@@ -1303,7 +1303,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 
 8)	Write a C program that reads a matrix of size MxN and produce an output matrix B of same size such that it replaces all the non-border elements of A with its equivalent 1’s complement and remaining elements same as matrix A. Also produce a matrix D as shown below.
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -1469,7 +1469,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Enter mat dims
@@ -1503,7 +1503,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 
 9)	Write a C program that reads a character type matrix and integer type matrix B of size MxN. It produces and output string STR such that, every character of A is repeated r times (where r is the integer value in matrix B which is having the same index as that of the character taken in A).
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -1579,7 +1579,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Enter mat dims
@@ -1613,7 +1613,7 @@ c.  For each matrix size, change the number of threads from 2,4,6 and
 8 and plot the speedup versus the number of threads. Compute the
 efficiency.
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -1709,7 +1709,7 @@ efficiency.
 
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Size: 200 | Thread: 2 | Time: 0.001000 | Speedup: 0.000000 | Efficiency: 0.000000
@@ -1740,7 +1740,7 @@ efficiency.
 Vary the matrix and vector size and analyze the speedup and efficiency of
 the parallelized code.
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -1821,7 +1821,7 @@ the parallelized code.
 
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Size: 100
@@ -1857,7 +1857,7 @@ replaces it with the minimum value of the row in the A matrix having the
 same  row  number  of  B.  Analyze  the  speedup  and  efficiency  of  the
 parallelized code.
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -1974,7 +1974,7 @@ parallelized code.
 
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Enter matrix
@@ -2010,7 +2010,7 @@ non-border  elements  of  A  with  its  equivalent  1’s  complement  and
 remaining elements same as matrix A. Also produce a matrix D as shown
 below.
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -2176,7 +2176,7 @@ below.
 
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Enter mat dims
@@ -2213,7 +2213,7 @@ integer array of size 9. Initialize the input array to the following values:
 a.  Input array: 18, 523, 301, 1234, 2, 14, 108, 150, 1928
 b.  Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -2279,7 +2279,7 @@ b.  Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
 
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     81 325 103 4321 2 41 801 51 8291
@@ -2298,7 +2298,7 @@ b.  Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
 algorithm. Compute the efficiency and plot the speed up for varying input
 size and thread number.
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -2410,7 +2410,7 @@ size and thread number.
 
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Input size: 100
@@ -2501,7 +2501,7 @@ first  half  using  insertion  sort  and  second  half  using  quick  sort.  Use
 threads to perform these tasks. Use merge sort to combine the results of
 these two sorted arrays.
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -2662,7 +2662,7 @@ these two sorted arrays.
 
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Enter the size of the array:
@@ -2687,7 +2687,7 @@ these two sorted arrays.
 algorithm. Compute the efficiency and plot the speed up for varying input
 size and thread number.
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -2780,7 +2780,7 @@ size and thread number.
 
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Input size: 100
@@ -2896,7 +2896,7 @@ size and thread number.
 multiplication. Demonstrate task level parallelism. Analyze the speedup and efficiency of the
 parallelized code.
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -2986,7 +2986,7 @@ parallelized code.
 
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Enter size of vec
@@ -3020,7 +3020,7 @@ c. Reduction
 d. Master
 e. Locks
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -3091,7 +3091,7 @@ e. Locks
 
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Enter number of elements
@@ -3107,7 +3107,7 @@ e. Locks
 3) Write a parallel program using OpenMP to implement the Odd-even transposition sort. Vary
 the input size and analyse the program efficiency.
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -3246,7 +3246,7 @@ the input size and analyse the program efficiency.
 
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Input size: 100
@@ -3344,7 +3344,7 @@ the input size and analyse the program efficiency.
 4) Write an OpenMP program to find the  Summation of integers from a given interval. Analyze
 the performance of various iteration scheduling strategies.
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -3417,7 +3417,7 @@ the performance of various iteration scheduling strategies.
 
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     Enter range
@@ -3432,7 +3432,7 @@ the performance of various iteration scheduling strategies.
 
 5) Write a parallel program using OpenMP to generate the histogram of the given array A.
 
-    #### Code
+    <h4>Code</h4>
 
     ```c
     #include <stdio.h>
@@ -3485,7 +3485,7 @@ the performance of various iteration scheduling strategies.
 
     ```
 
-    #### Output
+    <h4>Output</h4>
 
     ```
     [Start, End) - Frequency
