@@ -5,30 +5,14 @@
 int main()
 {
 	int a, b;
-	char op;
 
-	printf("Enter op, num, num\n");
-	scanf("%c", &op);
+	printf("Enter num1, num2\n");
 	scanf("%d%d", &a, &b);
 
-	switch (op)
-	{
-	case '+':
-		printf("%d", a + b);
-		break;
-	case '-':
-		printf("%d", a - b);
-		break;
-	case '*':
-		printf("%d", a * b);
-		break;
-	case '/':
-		printf("%f", (double)a / b);
-		break;
-	default:
-		printf("Wrong operator");
-		break;
-	}
+	printf("Sum %d\n", a + b);
+	printf("Difference %d\n", a - b);
+	printf("Product %d\n", a * b);
+	printf("Quotient %f\n", (double)a / b);
 
 	return 0;
 }

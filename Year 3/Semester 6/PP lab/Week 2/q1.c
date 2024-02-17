@@ -19,23 +19,14 @@ int rev(int num)
 
 int main()
 {
-	int arr1[100], arr2[100], n;
-
-	printf("Enter num of elements\n");
-	scanf("%d", &n);
-
-	printf("Enter elements\n");
-	int i = 0;
-	for (; i < n; i++)
-	{
-		scanf("%d", arr1 + i);
-		arr2[i] = arr1[i];
-	}
+	int arr1[] = {18, 523, 301, 1234, 2, 14, 108, 150, 1928};
+	int arr2[] = {18, 523, 301, 1234, 2, 14, 108, 150, 1928};
+	int n = 9;
 
 	// Sequential
 	double begin1 = omp_get_wtime();
 
-	for (i = 0; i < n; i++)
+	for (int i = 0; i < n; i++)
 	{
 		arr1[i] = rev(arr1[i]);
 		printf("%d ", arr1[i]);
@@ -55,7 +46,7 @@ int main()
 		num_threads = omp_get_num_threads();
 
 #pragma omp for
-		for (i = 0; i < n; i++)
+		for (int i = 0; i < n; i++)
 		{
 			arr2[i] = rev(arr2[i]);
 			printf("%d ", arr2[i]);

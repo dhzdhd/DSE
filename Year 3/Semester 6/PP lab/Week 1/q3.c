@@ -6,6 +6,7 @@ int main()
 {
 	char str[100];
 
+	printf("Enter string\n");
 	gets(str);
 
 	char i = 0;

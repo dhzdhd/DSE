@@ -18,19 +18,9 @@ int rev(int num)
 
 int main()
 {
-	int arr[100], n;
+	int arr[] = {18, 523, 301, 1234, 2, 14, 108, 150, 1928}, n = 9;
 
-	printf("Enter num of elements\n");
-	scanf("%d", &n);
-
-	printf("Enter elements\n");
-	int i = 0;
-	for (; i < n; i++)
-	{
-		scanf("%d", arr + i);
-	}
-
-	for (i = 0; i < n; i++)
+	for (int i = 0; i < n; i++)
 	{
 		arr[i] = rev(arr[i]);
 		printf("%d ", arr[i]);
