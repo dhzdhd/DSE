@@ -48,6 +48,7 @@ Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
     ```
 
     #### Output
+
     ```
     81 325 103 4321 2 41 801 51 8291
     ```
@@ -57,6 +58,7 @@ Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
 2) Write a program in C to simulate the all the operations of a calculator. Given inputs A and B, find the output for A+B, A-B, A*B and A/B.
 
     #### Code
+
     ```c
     #include <stdio.h>
 
@@ -77,6 +79,7 @@ Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
     ```
 
     #### Output
+
     ```
     Enter num1, num2
     2 3
@@ -92,6 +95,7 @@ Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
 Example: suppose the string is “HeLLo”, then the output should be “hEllO”.
 
     #### Code
+
     ```c
     #include <stdio.h>
 
@@ -115,6 +119,7 @@ Example: suppose the string is “HeLLo”, then the output should be “hEllO�
     ```
 
     #### Output
+
     ```
     Enter string
     hElLo
@@ -127,6 +132,7 @@ Example: suppose the string is “HeLLo”, then the output should be “hEllO�
 Example: Input: PCBD      Output: PCCBBBDDDD
 
     #### Code
+
     ```c
     #include <stdio.h>
 
@@ -150,6 +156,7 @@ Example: Input: PCBD      Output: PCCBBBDDDD
     ```
 
     #### Output
+
     ```
     Enter num
     5
@@ -162,6 +169,7 @@ Example: Input: PCBD      Output: PCCBBBDDDD
 S1: string      S2: length     Resultant String: slternigntgh
 
     #### Code
+
     ```c
     #include <stdio.h>
 
@@ -194,6 +202,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     ```
 
     #### Output
+
     ```
     Enter 2 strings
     hello
@@ -206,6 +215,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 6)	Write a C program to perform Matrix times vector product operation.
 
     #### Code
+
     ```c
     #include <stdio.h>
 
@@ -281,6 +291,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     ```
 
     #### Output
+
     ```
     Enter mat dims
     2 2
@@ -300,6 +311,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 7)	Write a C program to read a matrix A of size 5x5. It produces a resultant matrix B of size 5x5. It sets all the principal diagonal elements of B matrix with 0. It replaces each row elements in the B matrix in the following manner. If the element is below the principal diagonal it replaces it with the maximum value of the row in the A matrix having the same row number of B. If the element is above the principal diagonal it replaces it with the minimum value of the row in the A matrix having the same row number of B.
 
     #### Code
+
     ```c
     #include <stdio.h>
 
@@ -366,6 +378,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     ```
 
     #### Output
+
     ```
     Enter matrix
     1 2 3 4 5
@@ -386,6 +399,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 8)	Write a C program that reads a matrix of size MxN and produce an output matrix B of same size such that it replaces all the non-border elements of A with its equivalent 1’s complement and remaining elements same as matrix A. Also produce a matrix D as shown below.
 
     #### Code
+
     ```c
     #include <stdio.h>
     #include <stdlib.h>
@@ -479,6 +493,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     ```
 
     #### Output
+
     ```
     Enter mat dims
     4 4
@@ -504,6 +519,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 9)	Write a C program that reads a character type matrix and integer type matrix B of size MxN. It produces and output string STR such that, every character of A is repeated r times (where r is the integer value in matrix B which is having the same index as that of the character taken in A).
 
     #### Code
+
     ```c
     #include <stdio.h>
 
@@ -546,6 +562,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     ```
 
     #### Output
+
     ```
     Enter mat dims
     4 2
@@ -571,6 +588,7 @@ Input array: 18, 523, 301, 1234, 2, 14, 108, 150, 1928
 Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
 
     #### Code
+
     ```c
     #include <stdio.h>
     #include <math.h>
@@ -639,6 +657,7 @@ Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
     ```
 
     #### Output
+
     ```
     81 325 103 4321 2 41 801 51 8291
     Sequential time: 0.000000
@@ -653,6 +672,7 @@ Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
 2) Write a program in C to simulate the all the operations of a calculator. Given inputs A and B, find the output for A+B, A-B, A*B and A/B.
 
     #### Code
+
     ```c
 
     #include <stdio.h>
@@ -720,6 +740,7 @@ Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
     ```
 
     #### Output
+
     ```
     Enter num1, num2
     2 3
@@ -809,6 +830,7 @@ Example: suppose the string is “HeLLo”, then the output should be “hEllO�
     ```
 
     #### Output
+
     ```
     Enter string
     hEllOo
@@ -826,6 +848,7 @@ Example: suppose the string is “HeLLo”, then the output should be “hEllO�
 Example: Input: PCBD      Output: PCCBBBDDDD
 
     #### Code
+
     ```c
 
     #include <stdio.h>
@@ -883,6 +906,7 @@ Example: Input: PCBD      Output: PCCBBBDDDD
     ```
 
     #### Output
+
     ```
     Enter num
     5
@@ -900,6 +924,7 @@ Example: Input: PCBD      Output: PCCBBBDDDD
 S1: string      S2: length     Resultant String: slternigntgh
 
     #### Code
+
     ```c
     #include <stdio.h>
     #include <omp.h>
@@ -968,6 +993,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     ```
 
     #### Output
+
     ```
     Enter 2 strings
     Hello
@@ -985,6 +1011,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 6)	Write a C program to perform Matrix times vector product operation.
 
     #### Code
+
     ```c
     #include <stdio.h>
     #include <omp.h>
@@ -1100,6 +1127,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     ```
 
     #### Output
+
     ```
     Enter mat dims
     2 2
@@ -1127,6 +1155,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 7)	Write a C program to read a matrix A of size 5x5. It produces a resultant matrix B of size 5x5. It sets all the principal diagonal elements of B matrix with 0. It replaces each row elements in the B matrix in the following manner. If the element is below the principal diagonal it replaces it with the maximum value of the row in the A matrix having the same row number of B. If the element is above the principal diagonal it replaces it with the minimum value of the row in the A matrix having the same row number of B.
 
     #### Code
+
     ```c
     #include <stdio.h>
     #include <omp.h>
@@ -1243,6 +1272,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     ```
 
     #### Output
+
     ```
     Enter matrix
     1 2 3 4 5
@@ -1274,6 +1304,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 8)	Write a C program that reads a matrix of size MxN and produce an output matrix B of same size such that it replaces all the non-border elements of A with its equivalent 1’s complement and remaining elements same as matrix A. Also produce a matrix D as shown below.
 
     #### Code
+
     ```c
     #include <stdio.h>
     #include <stdlib.h>
@@ -1439,6 +1470,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     ```
 
     #### Output
+
     ```
     Enter mat dims
     4 4
@@ -1472,6 +1504,7 @@ S1: string      S2: length     Resultant String: slternigntgh
 9)	Write a C program that reads a character type matrix and integer type matrix B of size MxN. It produces and output string STR such that, every character of A is repeated r times (where r is the integer value in matrix B which is having the same index as that of the character taken in A).
 
     #### Code
+
     ```c
     #include <stdio.h>
 
@@ -1547,6 +1580,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     ```
 
     #### Output
+
     ```
     Enter mat dims
     2 4
@@ -1580,6 +1614,7 @@ c.  For each matrix size, change the number of threads from 2,4,6 and
 efficiency.
 
     #### Code
+
     ```c
     #include <stdio.h>
     #include <omp.h>
@@ -1675,6 +1710,7 @@ efficiency.
     ```
 
     #### Output
+
     ```
     Size: 200 | Thread: 2 | Time: 0.001000 | Speedup: 0.000000 | Efficiency: 0.000000
     Size: 200 | Thread: 4 | Time: 0.000000 | Speedup: -1.#IND00 | Efficiency: -1.#IND00
@@ -1705,6 +1741,7 @@ Vary the matrix and vector size and analyze the speedup and efficiency of
 the parallelized code.
 
     #### Code
+
     ```c
     #include <stdio.h>
     #include <omp.h>
@@ -1785,6 +1822,7 @@ the parallelized code.
     ```
 
     #### Output
+
     ```
     Size: 100
     Sequential time: 0.001000
@@ -1820,6 +1858,7 @@ same  row  number  of  B.  Analyze  the  speedup  and  efficiency  of  the
 parallelized code.
 
     #### Code
+
     ```c
     #include <stdio.h>
     #include <omp.h>
@@ -1936,6 +1975,7 @@ parallelized code.
     ```
 
     #### Output
+
     ```
     Enter matrix
     1 2 3 4 5
@@ -1971,6 +2011,7 @@ remaining elements same as matrix A. Also produce a matrix D as shown
 below.
 
     #### Code
+
     ```c
     #include <stdio.h>
     #include <stdlib.h>
@@ -2136,6 +2177,7 @@ below.
     ```
 
     #### Output
+
     ```
     Enter mat dims
     4 4
@@ -2172,6 +2214,7 @@ a.  Input array: 18, 523, 301, 1234, 2, 14, 108, 150, 1928
 b.  Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
 
     #### Code
+
     ```c
     #include <stdio.h>
     #include <math.h>
@@ -2237,6 +2280,7 @@ b.  Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
     ```
 
     #### Output
+
     ```
     81 325 103 4321 2 41 801 51 8291
     Sequential time: 0.000000
@@ -2255,6 +2299,7 @@ algorithm. Compute the efficiency and plot the speed up for varying input
 size and thread number.
 
     #### Code
+
     ```c
     #include <stdio.h>
     #include <omp.h>
@@ -2366,6 +2411,7 @@ size and thread number.
     ```
 
     #### Output
+
     ```
     Input size: 100
     Sequential time: 0.000000
@@ -2456,6 +2502,7 @@ threads to perform these tasks. Use merge sort to combine the results of
 these two sorted arrays.
 
     #### Code
+
     ```c
     #include <stdio.h>
     #include <omp.h>
@@ -2616,6 +2663,7 @@ these two sorted arrays.
     ```
 
     #### Output
+
     ```
     Enter the size of the array:
     10
@@ -2640,6 +2688,7 @@ algorithm. Compute the efficiency and plot the speed up for varying input
 size and thread number.
 
     #### Code
+
     ```c
     #include <stdio.h>
     #include <omp.h>
@@ -2732,6 +2781,7 @@ size and thread number.
     ```
 
     #### Output
+
     ```
     Input size: 100
     Found at 93 index
@@ -2847,6 +2897,7 @@ multiplication. Demonstrate task level parallelism. Analyze the speedup and effi
 parallelized code.
 
     #### Code
+
     ```c
     #include <stdio.h>
     #include <omp.h>
@@ -2936,6 +2987,7 @@ parallelized code.
     ```
 
     #### Output
+
     ```
     Enter size of vec
     5
@@ -2969,6 +3021,7 @@ d. Master
 e. Locks
 
     #### Code
+
     ```c
     #include <stdio.h>
     #include <omp.h>
@@ -3039,6 +3092,7 @@ e. Locks
     ```
 
     #### Output
+
     ```
     Enter number of elements
     5
@@ -3054,6 +3108,7 @@ e. Locks
 the input size and analyse the program efficiency.
 
     #### Code
+
     ```c
     #include <stdio.h>
     #include <omp.h>
@@ -3192,6 +3247,7 @@ the input size and analyse the program efficiency.
     ```
 
     #### Output
+
     ```
     Input size: 100
     Sorted array
@@ -3289,6 +3345,7 @@ the input size and analyse the program efficiency.
 the performance of various iteration scheduling strategies.
 
     #### Code
+
     ```c
     #include <stdio.h>
     #include <stdlib.h>
@@ -3361,6 +3418,7 @@ the performance of various iteration scheduling strategies.
     ```
 
     #### Output
+
     ```
     Enter range
     0 99999999
@@ -3375,6 +3433,7 @@ the performance of various iteration scheduling strategies.
 5) Write a parallel program using OpenMP to generate the histogram of the given array A.
 
     #### Code
+
     ```c
     #include <stdio.h>
     #include <stdlib.h>
@@ -3427,6 +3486,7 @@ the performance of various iteration scheduling strategies.
     ```
 
     #### Output
+
     ```
     [Start, End) - Frequency
     [0.3, 0.8) - 5
