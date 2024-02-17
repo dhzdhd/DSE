@@ -2,11 +2,46 @@
 #include <omp.h>
 #include <stdlib.h>
 
-void odd_even_sort(int *a, int n)
+void transpositionSort(int *a, int n)
 {
-    int phase, temp;
+    int temp;
 
-    for (phase = 0; phase < n; ++phase)
+    for (int phase = 0; phase < n; ++phase)
+    {
+        if (phase % 2 == 0)
+        {
+
+            for (int i = 1; i < n - 1; i += 2)
+            {
+                if (a[i] > a[i + 1])
+                {
+                    temp = a[i];
+                    a[i] = a[i + 1];
+                    a[i + 1] = temp;
+                }
+            }
+        }
+        else
+        {
+
+            for (int i = 0; i < n - 1; i += 2)
+            {
+                if (a[i] > a[i + 1])
+                {
+                    temp = a[i];
+                    a[i] = a[i + 1];
+                    a[i + 1] = temp;
+                }
+            }
+        }
+    }
+}
+
+void parallelTranspositionSort(int *a, int n)
+{
+    int temp;
+
+    for (int phase = 0; phase < n; ++phase)
     {
         if (phase % 2 == 0)
         {
@@ -52,14 +87,21 @@ int main()
 
         for (int i = 0; i < n; i++)
         {
-            arr1[i] = rand() % 10 + 1;
+            arr1[i] = rand() % 1000;
             arr2[i] = arr1[i];
         }
 
         // Sequential
         double start = omp_get_wtime();
 
-        // !selectionSort(arr1, n);
+        transpositionSort(arr1, n);
+
+        printf("Sorted array\n");
+        for (int i = 0; i < n; i++)
+        {
+            printf("%d ", arr1[i]);
+        }
+        printf("\n");
 
         double end = omp_get_wtime();
         double seq = end - start;
@@ -74,7 +116,7 @@ int main()
 
             start = omp_get_wtime();
 
-            //! parallelSelectionSort(arr2, n);
+            parallelTranspositionSort(arr2, n);
 
             end = omp_get_wtime();
             double par = end - start;
