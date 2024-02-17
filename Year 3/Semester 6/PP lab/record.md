@@ -48,7 +48,9 @@ Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
     ```
 
     #### Output
+    ```
     81 325 103 4321 2 41 801 51 8291
+    ```
 
 <br>
 
@@ -75,12 +77,14 @@ Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
     ```
 
     #### Output
+    ```
     Enter num1, num2
     2 3
     Sum 5
     Difference -1
     Product 6
     Quotient 0.666667
+    ```
 
 <br>
 
@@ -111,9 +115,11 @@ Example: suppose the string is “HeLLo”, then the output should be “hEllO�
     ```
 
     #### Output
+    ```
     Enter string
     hElLo
     HeLlO
+    ```
 
 <br>
 
@@ -144,9 +150,11 @@ Example: Input: PCBD      Output: PCCBBBDDDD
     ```
 
     #### Output
+    ```
     Enter num
     5
     PCCBBBDDDDPPPPP
+    ```
 
 <br>
 
@@ -186,10 +194,12 @@ S1: string      S2: length     Resultant String: slternigntgh
     ```
 
     #### Output
+    ```
     Enter 2 strings
     hello
     world
     hweolrllod
+    ```
 
 <br>
 
@@ -271,6 +281,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     ```
 
     #### Output
+    ```
     Enter mat dims
     2 2
     Enter vec dims
@@ -282,6 +293,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     Result
     1
     0
+    ```
 
 <br>
 
@@ -354,6 +366,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     ```
 
     #### Output
+    ```
     Enter matrix
     1 2 3 4 5
     5 4 3 2 4
@@ -366,6 +379,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     15 15 0 3 3
     44 44 44 0 2
     12 12 12 12 0
+    ```
 
 <br>
 
@@ -465,6 +479,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     ```
 
     #### Output
+    ```
     Enter mat dims
     4 4
     Enter matrix
@@ -482,6 +497,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     6 01000000000000000000000000000000 01110000000000000000000000000000 3
     2 01100000000000000000000000000000 01010000000000000000000000000000 1
     9 1 2 5
+    ```
 
 <br>
 
@@ -530,6 +546,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     ```
 
     #### Output
+    ```
     Enter mat dims
     4 2
     Enter matrix
@@ -542,6 +559,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     a 3
     M 2
     pCCaaaaPPPeeXXXXaaaMM
+    ```
 
 ---
 
@@ -621,12 +639,14 @@ Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
     ```
 
     #### Output
+    ```
     81 325 103 4321 2 41 801 51 8291
     Sequential time: 0.000000
     103 801 325 81 41 4321 8291 51 2
     Parallel time: 0.000125
     Speedup: 0.000000
     Efficiency: 0.000000
+    ```
 
 <br>
 
@@ -700,6 +720,7 @@ Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
     ```
 
     #### Output
+    ```
     Enter num1, num2
     2 3
     Sum 5
@@ -714,6 +735,7 @@ Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
     Parallel time: 0.000250
     Speedup: 0.000000
     Efficiency: 0.000000
+    ```
 
 <br>
 
@@ -787,6 +809,7 @@ Example: suppose the string is “HeLLo”, then the output should be “hEllO�
     ```
 
     #### Output
+    ```
     Enter string
     hEllOo
     HeLLoO
@@ -795,6 +818,7 @@ Example: suppose the string is “HeLLo”, then the output should be “hEllO�
     Parallel time: 0.000125
     Speedup: 0.000000
     Efficiency: 0.000000
+    ```
 
 <br>
 
@@ -859,6 +883,7 @@ Example: Input: PCBD      Output: PCCBBBDDDD
     ```
 
     #### Output
+    ```
     Enter num
     5
     PCCBBBDDDDPPPPP
@@ -867,6 +892,7 @@ Example: Input: PCBD      Output: PCCBBBDDDD
     Parallel time: 0.002000
     Speedup: 1.000119
     Efficiency: 1.000119
+    ```
 
 <br>
 
@@ -942,6 +968,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     ```
 
     #### Output
+    ```
     Enter 2 strings
     Hello
     World
@@ -951,6 +978,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     Parallel time: 0.002000
     Speedup: 0.000000
     Efficiency: 0.000000
+    ```
 
 <br>
 
@@ -1072,6 +1100,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     ```
 
     #### Output
+    ```
     Enter mat dims
     2 2
     Enter vec dims
@@ -1091,6 +1120,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     Parallel time: 0.001000
     Speedup: 2.000238
     Efficiency: 2.000238
+    ```
 
 <br>
 
@@ -1213,6 +1243,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     ```
 
     #### Output
+    ```
     Enter matrix
     1 2 3 4 5
     5 4 3 2 4
@@ -1236,6 +1267,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     Parallel time: 0.004000
     Speedup: 0.500000
     Efficiency: 0.500000
+    ```
 
 <br>
 
@@ -1407,6 +1439,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     ```
 
     #### Output
+    ```
     Enter mat dims
     4 4
     Enter matrix
@@ -1432,6 +1465,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     Parallel time: 5.000000
     Speedup: 1.000000
     Efficiency: 1.000000
+    ```
 
 <br>
 
@@ -1513,6 +1547,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     ```
 
     #### Output
+    ```
     Enter mat dims
     2 4
     Enter matrix
@@ -1530,6 +1565,7 @@ S1: string      S2: length     Resultant String: slternigntgh
     Parallel time: 1.000000
     Speedup: 2.000000
     Efficiency: 2.000000
+    ```
 
 ---
 
@@ -1639,6 +1675,7 @@ efficiency.
     ```
 
     #### Output
+    ```
     Size: 200 | Thread: 2 | Time: 0.001000 | Speedup: 0.000000 | Efficiency: 0.000000
     Size: 200 | Thread: 4 | Time: 0.000000 | Speedup: -1.#IND00 | Efficiency: -1.#IND00
     Size: 200 | Thread: 6 | Time: 0.001000 | Speedup: 0.000000 | Efficiency: 0.000000
@@ -1659,6 +1696,7 @@ efficiency.
     Size: 1000 | Thread: 4 | Time: 0.001000 | Speedup: 0.000000 | Efficiency: 0.000000
     Size: 1000 | Thread: 6 | Time: 0.000000 | Speedup: -1.#IND00 | Efficiency: -1.#IND00
     Size: 1000 | Thread: 8 | Time: 0.000000 | Speedup: -1.#IND00 | Efficiency: -1.#IND00
+    ```
 
 <br>
 
@@ -1747,6 +1785,7 @@ the parallelized code.
     ```
 
     #### Output
+    ```
     Size: 100
     Sequential time: 0.001000
     Parallel time: 0.001000
@@ -1766,6 +1805,7 @@ the parallelized code.
     Parallel time: 0.002000
     Speedup: 4.000358
     Efficiency: 4.000358
+    ```
 
 <br>
 
@@ -1896,6 +1936,7 @@ parallelized code.
     ```
 
     #### Output
+    ```
     Enter matrix
     1 2 3 4 5
     5 4 3 2 4
@@ -1919,6 +1960,7 @@ parallelized code.
     Parallel time: 0.005000
     Speedup: 0.400029
     Efficiency: 0.400029
+    ```
 
 <br>
 
@@ -2094,6 +2136,7 @@ below.
     ```
 
     #### Output
+    ```
     Enter mat dims
     4 4
     Enter matrix
@@ -2119,6 +2162,7 @@ below.
     Parallel time: 6.000000
     Speedup: 0.833333
     Efficiency: 0.833333
+    ```
 
 <br>
 
@@ -2193,12 +2237,14 @@ b.  Output array: 81, 325, 103, 4321, 2, 41, 801, 51, 8291
     ```
 
     #### Output
+    ```
     81 325 103 4321 2 41 801 51 8291
     Sequential time: 0.000000
     325 103 41 4321 2 81 801 8291 51
     Parallel time: 0.000125
     Speedup: 0.000000
     Efficiency: 0.000000
+    ```
 
 ---
 
@@ -2320,6 +2366,7 @@ size and thread number.
     ```
 
     #### Output
+    ```
     Input size: 100
     Sequential time: 0.000000
     Threads: 2
@@ -2398,6 +2445,7 @@ size and thread number.
     Threads: 5
     Parallel time: 0.082000
     Speedup: 0.012197, Efficiency: 0.012197
+    ```
 
 <br>
 
@@ -2568,6 +2616,7 @@ these two sorted arrays.
     ```
 
     #### Output
+    ```
     Enter the size of the array:
     10
     Enter 10 elements:
@@ -2582,6 +2631,7 @@ these two sorted arrays.
     Parallel time: 0.002000
     Speedup: 0.500119
     Efficiency: 0.250060
+    ```
 
 <br>
 
@@ -2682,6 +2732,7 @@ size and thread number.
     ```
 
     #### Output
+    ```
     Input size: 100
     Found at 93 index
     Sequential time: 0.000000
@@ -2785,6 +2836,7 @@ size and thread number.
     Found at 992 index
     Parallel time: 0.001000
     Speedup: 0.000000, Efficiency: 0.000000
+    ```
 
 ---
 
@@ -2884,6 +2936,7 @@ parallelized code.
     ```
 
     #### Output
+    ```
     Enter size of vec
     5
     Enter corresponding elements
@@ -2903,6 +2956,7 @@ parallelized code.
     19 -1 90
     Parallel time: 0.002000
     Speedup: 0.499940, Efficiency: 0.499940
+    ```
 
 <br>
 
@@ -2985,12 +3039,14 @@ e. Locks
     ```
 
     #### Output
+    ```
     Enter number of elements
     5
     Enter elements
     1 2 3 4 5
     Critical, Atomic, Reduction, Master, Locks
     31 15 15 15804559 15
+    ```
 
 <br>
 
@@ -3136,6 +3192,7 @@ the input size and analyse the program efficiency.
     ```
 
     #### Output
+    ```
     Input size: 100
     Sorted array
     6 35 35 37 40 41 82 84 101 106 118 141 145 153 169 190 253 264 281 288 292 299 308 316 322 323 333 334 350 358 370 376 382 391 393 421 436 439 446 447 464 467 478 491 500 529 537 538 538 541 547 548 604 623 626 629 644 648 662 664 667 673 703 705 711 716 718 723 724 726 729 741 756 757 771 778 805 811 827 827 840 842 859 868 869 890 894 895 902 912 929 931 942 942 944 954 961 962 966 995
@@ -3224,6 +3281,7 @@ the input size and analyse the program efficiency.
     Threads: 5
     Parallel time: 0.081000
     Speedup: 1.024690, Efficiency: 1.024690
+    ```
 
 <br>
 
@@ -3303,12 +3361,14 @@ the performance of various iteration scheduling strategies.
     ```
 
     #### Output
+    ```
     Enter range
     0 99999999
     Time taken for static scheduling: 0.032000
     Time taken for dynamic scheduling: 1.817000
     Time taken for guided scheduling: 0.029000
     Time taken for runtime scheduling: 1.883000
+    ```
 
 <br>
 
@@ -3367,6 +3427,7 @@ the performance of various iteration scheduling strategies.
     ```
 
     #### Output
+    ```
     [Start, End) - Frequency
     [0.3, 0.8) - 5
     [0.8, 1.2) - 1
@@ -3378,5 +3439,6 @@ the performance of various iteration scheduling strategies.
     [3.5, 4.0) - 1
     [4.0, 4.4) - 3
     [4.4, 4.9) - 1
+    ```
 
 ---
