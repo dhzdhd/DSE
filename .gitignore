@@ -12,6 +12,7 @@ Year 3/Semester 5/DL lab/Week 9/images
 # Python
 __pycache__/
 .ipynb_checkpoints/
+.conda/
 
 # VS 2022
 .vs
