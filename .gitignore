@@ -8,3 +8,11 @@ Lab1_ 4_BTech_Labmanual_DBS_2023.pdf
 Practice/
 test.sh
 Year 3/Semester 5/DL lab/Week 9/images
+
+# Python
+__pycache__/
+.ipynb_checkpoints/
+
+# VS 2022
+.vs
+x64
