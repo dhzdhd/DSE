@@ -3637,29 +3637,32 @@ the performance of various iteration scheduling strategies.
     #include <stdio.h>
     #include "mpi.h"
     #include <math.h>
+    #include <string.h>
+    #include <ctype.h>
+    #include <malloc.h>
 
     int main(int argc, char* argv[])
     {
         int rank, size;
+        char *s = argv[1];
+        char *res = calloc(6, sizeof(char));
+        char buf;
 
         MPI_Init(&argc, &argv);
         MPI_Comm_size(MPI_COMM_WORLD, &size);
         MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-        int a = (int)*argv[1] - (int)'0';
-        int b = (int)*argv[2] - (int)'0';
-
-        if (rank == 0) {
-            printf("Sum: %d\n", a + b);
-        }
-        else if (rank == 1) {
-            printf("Difference: %d\n", a - b);
-        }
-        else if (rank == 2) {
-            printf("Product: %d\n", a * b);
+        if (s[rank] < 'a') {
+            buf = tolower(s[rank]);
         }
         else {
-            printf("Quotient: %f\n", (float)a / b);
+            buf = toupper(s[rank]);
+        }
+
+        MPI_Gather(&buf, 1, MPI_CHAR, res, 1, MPI_CHAR, 0, MPI_COMM_WORLD);
+
+        if (rank == 0) {
+            printf("%s", res);
         }
 
         MPI_Finalize();
@@ -3671,9 +3674,176 @@ the performance of various iteration scheduling strategies.
     <h4>Output</h4>
 
     ```
-    Product: 6
-    Sum: 5
-    Difference: -1
+    (For hElLo)
+    HeLlO
+    ```
+
+<br>
+
+---
+
+## Week 7
+
+1) Write a MPI program using synchronous send, The sender process sends a word to the receiver. The second process receives the word, toggles each letter of the word and sends it back to the first process. Both processes use synchronous send operations.
+
+    <h4>Code</h4>
+
+    ```c
+    #include <stdio.h>
+    #include "mpi.h"
+    #include <malloc.h>
+    #include <string.h>
+    #include <stdlib.h>
+
+    int main(int argc, int *argv[])
+    {
+        int rank, size;
+
+        MPI_Init(&argc, &argv);
+
+        MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+        MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+        char word[] = "Hello";
+        char* buf = calloc(6, sizeof(char));
+        char* buf2 = calloc(6, sizeof(char));
+        MPI_Status status;
+
+        if (rank == 0) {
+            MPI_Ssend(word, 6, MPI_CHAR, 1, 0, MPI_COMM_WORLD);
+        }
+        if (rank == 1) {
+            MPI_Recv(buf, 6, MPI_CHAR, 0, 0, MPI_COMM_WORLD, &status);
+
+            for (int i = 0; i < 6; i++) {
+                if (buf[i] >= 'a') {
+                    buf[i] = toupper(buf[i]);
+                }
+                else {
+                    buf[i] = tolower(buf[i]);
+                }
+            }
+
+            MPI_Ssend(buf, 6, MPI_CHAR, 0, 1, MPI_COMM_WORLD);
+        }
+        if (rank == 0) {
+            MPI_Recv(buf2, 6, MPI_CHAR, 1, 1, MPI_COMM_WORLD, &status);
+
+            printf("%s\n", buf2);
+        }
+
+        MPI_Finalize();
+
+        return 0;
+    }
+    ```
+
+    <h4>Output</h4>
+
+    ```
+    hELLO
+    ```
+
+<br>
+
+2) Write a MPI program where the master process (process O) sends a number to each of the slaves and the slave processes receive the number and prints it. Use standard send.
+
+    <h4>Code</h4>
+
+    ```c
+    #include <stdio.h>
+    #include "mpi.h"
+    #include <malloc.h>
+    #include <string.h>
+    #include <stdlib.h>
+
+    int main(int argc, int* argv[])
+    {
+        int rank, size;
+
+        MPI_Init(&argc, &argv);
+
+        MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+        MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+        int num = 5;
+        int buf;
+        MPI_Status status;
+
+        if (rank == 0) {
+            for (int i = 1; i < size; i++) {
+                MPI_Send(&num, 1, MPI_INT, i, i, MPI_COMM_WORLD);
+            }
+        }
+        else {
+            MPI_Recv(&buf, 1, MPI_INT, 0, rank, MPI_COMM_WORLD, &status);
+            printf("Rank: %d, %d\n", rank, buf);
+        }
+
+        MPI_Finalize();
+
+        return 0;
+    }
+    ```
+
+    <h4>Output</h4>
+
+    ```
+    Rank: 1, 5
+    Rank: 2, 5
+    Rank: 4, 5
+    Rank: 3, 5
+    ```
+
+<br>
+
+3) Write a MPI program to read N elements of the an-ay in the root process (process 0) where N is equal to the total number of process. The root process sends one value to each of the slaves. Let even ranked process finds square of the received element and odd ranked process finds cube of received element. Use Buffered send
+
+    <h4>Code</h4>
+
+    ```c
+    #include <stdio.h>
+    #include "mpi.h"
+    #include <malloc.h>
+    #include <string.h>
+    #include <stdlib.h>
+
+    int main(int argc, int* argv[])
+    {
+        int rank, size;
+
+        MPI_Init(&argc, &argv);
+
+        MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+        MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+        int num = 5;
+        int buf;
+        MPI_Status status;
+
+        if (rank == 0) {
+            for (int i = 1; i < size; i++) {
+                MPI_Send(&num, 1, MPI_INT, i, i, MPI_COMM_WORLD);
+            }
+        }
+        else {
+            MPI_Recv(&buf, 1, MPI_INT, 0, rank, MPI_COMM_WORLD, &status);
+            printf("Rank: %d, %d\n", rank, buf);
+        }
+
+        MPI_Finalize();
+
+        return 0;
+    }
+    ```
+
+    <h4>Output</h4>
+
+    ```
+    Rank: 1, 5
+    Rank: 2, 5
+    Rank: 4, 5
+    Rank: 3, 5
     ```
 
 <br>
