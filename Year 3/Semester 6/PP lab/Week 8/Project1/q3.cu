@@ -3,10 +3,24 @@
 #include <iostream>
 #include <stdlib.h>
 
-__global__ void conv_gpu(int* a, int* b, int* c)
+__global__ void conv_gpu(int* a, int* b, int* c, int count, int mask)
 {
 	int index = blockIdx.x * blockDim.x + threadIdx.x;
-	c[index] = a[index] + b[index];
+	
+	int k;
+
+	if (index < count) {
+		int pValue = 0;
+		// Convolution operation
+		for (k = 0; k < mask; ++k) {
+			int maskIndex = mask - 1 - k;
+			int nIndex = index - (mask / 2) + k;
+			if (nIndex >= 0 && nIndex < count) {
+				pValue += a[nIndex] * b[maskIndex];
+			}
+		}
+		c[index] = pValue;
+	}
 }
 
 int main()
@@ -51,7 +65,7 @@ int main()
 
 	int blocks = count / 100 + 1;
 	int threads = 100;
-	conv_gpu << < blocks, threads >> > (device_a, device_b, device_c);
+	conv_gpu << < blocks, threads >> > (device_a, device_b, device_c, count, mask);
 
 	cudaMemcpy(
 		host_c, device_c,
@@ -61,7 +75,7 @@ int main()
 
 	for (auto i = 0; i < count; i++)
 	{
-		std::cout << host_a[i] << " conv " << host_b[i] << " = " << host_c[i] << "\n";
+		std::cout << host_c[i] << "\n";
 	}
 	getchar();
 	return 0;

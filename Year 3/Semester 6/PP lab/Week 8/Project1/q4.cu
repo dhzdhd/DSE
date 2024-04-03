@@ -26,8 +26,6 @@ int main()
 		*(host_a + i) = r;
 	}
 
-	host_a[0] = 3.14 / 2;
-
 	double * device_a, * device_b;
 
 	const int size = count * sizeof(int);

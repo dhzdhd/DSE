@@ -1,66 +1,60 @@
-#include "cuda_runtime.h"
 #include <stdio.h>
-#include "cudart_platform.h"
-#include "device_launch_parameters.h"
-#include "device_atomic_functions.h"
-#include "device_functions.h"
-#include "cuda.h"
+#include <cuda_runtime.h>
+#include <device_launch_parameters.h>
 #include <string.h>
-#include <stdlib.h>
-#include <malloc.h>
 
-__global__ void count(char* str, char* pattern, int* res, int len_s, int len_p) {
-	int x = blockDim.x * blockIdx.x + threadIdx.x;
-	int extent = len_s - len_p;
+#define MAX_SENTENCE_LENGTH 100
+#define WORD_LENGTH 20
 
-	bool isPresent = true;
-	//if (x <= extent) {
-		for (int i = 0; i < len_p; i++) {
-			if (str[x + i] != pattern[i]) {
-				isPresent = false;
-				break;
-			}
-		}
+__global__ void wordCount(char* sentence, char* word, int* result, int SentenceLength, int wordLength) {
+    int index = threadIdx.x + blockIdx.x * blockDim.x;
+    int stride = blockDim.x * gridDim.x;
+    int localCount = 0;
 
-		if (isPresent) {
-			atomicAdd(res, 1);
-		}
-	//}
+    for (int i = index; i <= SentenceLength - wordLength; i += stride) {
+        bool wordFound = true;
+        for (int j = 0; j < wordLength; j++) {
+            if (sentence[i + j] != word[j]) {
+                wordFound = false;
+                break;
+            }
+        }
+        if (wordFound) {
+            localCount++;
+        }
+    }
+
+    atomicAdd(result, localCount);
 }
 
 int main() {
-	int len_s, len_p;
+    char sentence[MAX_SENTENCE_LENGTH] = "hello world hello hi hi hi hello";
+    char word[WORD_LENGTH] = "hello";
+    
+    int result = 0;
+    int senLen = strlen(sentence);
+    int worLen = strlen(word);
 
-	printf("Enter size of string and pattern\n");
-	scanf("%d%d", &len_s, &len_p);
-	getchar();
+    char* d_sentence, * d_word;
+    int* d_result;
 
-	char* str = (char*)malloc(len_s * sizeof(char));
-	char* pattern = (char*)malloc(len_p * sizeof(char));
-	int res = 0;
+    cudaMalloc((void**)&d_sentence, MAX_SENTENCE_LENGTH * sizeof(char));
+    cudaMalloc((void**)&d_word, WORD_LENGTH * sizeof(char));
+    cudaMalloc((void**)&d_result, sizeof(int));
 
-	printf("Enter string\n");
-	gets_s(str, len_s);
+    cudaMemcpy(d_sentence, sentence, MAX_SENTENCE_LENGTH * sizeof(char), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_word, word, WORD_LENGTH * sizeof(char), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_result, &result, sizeof(int), cudaMemcpyHostToDevice);
 
-	printf("Enter pattern\n");
-	gets_s(str, len_p);
+    wordCount << <(MAX_SENTENCE_LENGTH + 255) / 256, 256 >> > (d_sentence, d_word, d_result, senLen, worLen);
 
-	char* device_str, * device_pattern;
-	int* device_res;
+    cudaMemcpy(&result, d_result, sizeof(int), cudaMemcpyDeviceToHost);
 
-	cudaMalloc((void**)&device_str, len_s * sizeof(char));
-	cudaMalloc((void**)&device_pattern, len_p * sizeof(char));
-	cudaMalloc((void**)&device_res, sizeof(int));
+    printf("The word '%s' appears %d times in the sentence.\n", word, result);
 
-	cudaMemcpy(device_str, str, len_s * sizeof(char), cudaMemcpyHostToDevice);
-	cudaMemcpy(device_pattern, pattern, len_p * sizeof(char), cudaMemcpyHostToDevice);
-	//cudaMemcpy(device_res, &res, sizeof(int), cudaMemcpyHostToDevice);
+    cudaFree(d_sentence);
+    cudaFree(d_word);
+    cudaFree(d_result);
 
-	count << <1, len_s - len_p >> > (device_str, device_pattern, device_res, len_s, len_p);
-
-	cudaMemcpy(&res, device_res, sizeof(int), cudaMemcpyDeviceToHost);
-
-	printf("%d", res);
-
-	return 0;
+    return 0;
 }

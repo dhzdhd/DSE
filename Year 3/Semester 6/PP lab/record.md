@@ -4008,61 +4008,503 @@ received value by one. Write the program using point to point communication rout
     Rank: 3, Value: 4 is not a prime
     ```
 
-<br>
-
 ---
 
 ## Week 8
 
-1) Write a MPI program using synchronous send, The sender process sends a word to the receiver. The second process receives the word, toggles each letter of the word and sends it back to the first process. Both processes use synchronous send operations.
+1) Write a program in CUDA to add two vectors of length N using
+a) block size as N     b)  N threads
+
+    <h4>a) Code</h4>
+
+    ```cpp
+    #include "cuda_runtime.h"
+    #include "device_launch_parameters.h"
+    #include <iostream>
+
+    __global__ void add_arrays_gpu(int* a, int* b, int* c)
+    {
+        c[blockIdx.x] = a[blockIdx.x] + b[blockIdx.x];
+    }
+
+    int main()
+    {
+        int count;
+        std::cout << "Enter length\n";
+        std::cin >> count;
+
+        std::cout << "Enter elements\n";
+        int *host_a = new int[count];
+        int *host_b = new int[count];
+        int *host_c = new int[count];
+
+        for (int i = 0; i < count; i++) {
+            *(host_c + i) = 0;
+            std::cin >> *(host_a + i);
+            std::cin >> *(host_b + i);
+        }
+
+        int* device_a, * device_b, * device_c;
+
+        const int size = count * sizeof(int);
+
+        cudaMalloc(&device_a, size);
+        cudaMalloc(&device_b, size);
+        cudaMalloc(&device_c, size);
+        cudaMemcpy(
+            device_a, host_a,
+            size,
+            cudaMemcpyHostToDevice
+        );
+        cudaMemcpy(
+            device_b, host_b,
+            size,
+            cudaMemcpyHostToDevice
+        );
+
+        add_arrays_gpu <<< count, 1 >>> (device_a, device_b, device_c);
+
+        cudaMemcpy(
+            host_c, device_c,
+            size,
+            cudaMemcpyDeviceToHost
+        );
+
+        for (auto i = 0; i < count; i++)
+        {
+            std::cout << host_c[i] << " ";
+        }
+        getchar();
+        return 0;
+    }
+
+    ```
+
+    <h4>Output</h4>
+
+    ```
+    Enter length
+    3
+    Enter elements
+    1 2
+    3 4
+    5 6
+    3 7 11
+    ```
+
+    <h4>b) Code</h4>
+
+    ```cpp
+    #include "cuda_runtime.h"
+    #include "device_launch_parameters.h"
+    #include <iostream>
+
+    __global__ void add_arrays_gpu(int *a, int *b, int *c)
+    {
+        c[threadIdx.x] = a[threadIdx.x] + b[threadIdx.x];
+    }
+
+    int main()
+    {
+        int count;
+        std::cout << "Enter length\n";
+        std::cin >> count;
+
+        std::cout << "Enter elements\n";
+        int *host_a = new int[count];
+        int *host_b = new int[count];
+        int *host_c = new int[count];
+
+        for (int i = 0; i < count; i++)
+        {
+            *(host_c + i) = 0;
+            std::cin >> *(host_a + i);
+            std::cin >> *(host_b + i);
+        }
+
+        int *device_a, *device_b, *device_c;
+
+        const int size = count * sizeof(int);
+
+        cudaMalloc(&device_a, size);
+        cudaMalloc(&device_b, size);
+        cudaMalloc(&device_c, size);
+        cudaMemcpy(
+            device_a, host_a,
+            size,
+            cudaMemcpyHostToDevice);
+        cudaMemcpy(
+            device_b, host_b,
+            size,
+            cudaMemcpyHostToDevice);
+
+        add_arrays_gpu<<<1, count>>>(device_a, device_b, device_c);
+
+        cudaMemcpy(
+            host_c, device_c,
+            size,
+            cudaMemcpyDeviceToHost);
+
+        for (auto i = 0; i < count; i++)
+        {
+            std::cout << host_c[i] << " ";
+        }
+        getchar();
+        return 0;
+    }
+
+
+    ```
+
+    <h4>Output</h4>
+
+    ```
+    Enter length
+    3
+    Enter elements
+    1 2
+    3 4
+    5 6
+    3 7 11
+    ```
+
+<br>
+
+2) Implement  a  CUDA  program  to  add  two  vectors  of  length  N  by  keeping the  number of threads per block as 256 (constant) and vary the number of blocks to handle N elements
+
+    <h4>Code</h4>
+
+    ```cpp
+    #include "cuda_runtime.h"
+    #include "device_launch_parameters.h"
+    #include <iostream>
+    #include <stdlib.h>
+
+    __global__ void add_arrays_gpu(int* a, int* b, int* c)
+    {
+        int index = blockIdx.x * blockDim.x + threadIdx.x;
+        c[index] = a[index] + b[index];
+    }
+
+    int main()
+    {
+        int count;
+        std::cout << "Enter length\n";
+        std::cin >> count;
+
+        int* host_a = new int[count];
+        int* host_b = new int[count];
+        int* host_c = new int[count];
+
+        for (int i = 0; i < count; i++) {
+            *(host_c + i) = 0;
+
+            int r = rand() / 100;
+            *(host_a + i) = r;
+            r = rand() / 100;
+            *(host_b + i) = r;
+        }
+
+        int* device_a, * device_b, * device_c;
+
+        const int size = count * sizeof(int);
+
+        cudaMalloc(&device_a, size);
+        cudaMalloc(&device_b, size);
+        cudaMalloc(&device_c, size);
+        cudaMemcpy(
+            device_a, host_a,
+            size,
+            cudaMemcpyHostToDevice
+        );
+        cudaMemcpy(
+            device_b, host_b,
+            size,
+            cudaMemcpyHostToDevice
+        );
+
+        add_arrays_gpu <<< count / 256 + 1, 256 >>> (device_a, device_b, device_c);
+
+        cudaMemcpy(
+            host_c, device_c,
+            size,
+            cudaMemcpyDeviceToHost
+        );
+
+        for (auto i = 0; i < count; i++)
+        {
+            std::cout << host_a[i] << "+" << host_b[i] << "=" <<host_c[i] << "\n";
+        }
+        getchar();
+        return 0;
+    }
+    ```
+
+    <h4>Output</h4>
+
+    ```
+    Enter length
+    5
+    0+184=184
+    63+265=328
+    191+157=348
+    114+293=407
+    269+244=513
+    ```
+
+<br>
+
+3) Write a program in CUDA which performs convolution operation on one
+dimensional  input  array  N  of  size  width  using  a  mask  array  M  of  size mask_width  to  produce  the  resultant  one-dimensional array  P  of  size width
+
+    <h4>Code</h4>
+
+    ```cpp
+    #include "cuda_runtime.h"
+    #include "device_launch_parameters.h"
+    #include <iostream>
+    #include <stdlib.h>
+
+    __global__ void conv_gpu(int* a, int* b, int* c, int count, int mask)
+    {
+        int index = blockIdx.x * blockDim.x + threadIdx.x;
+
+        int k;
+
+        if (index < count) {
+            int pValue = 0;
+            // Convolution operation
+            for (k = 0; k < mask; ++k) {
+                int maskIndex = mask - 1 - k;
+                int nIndex = index - (mask / 2) + k;
+                if (nIndex >= 0 && nIndex < count) {
+                    pValue += a[nIndex] * b[maskIndex];
+                }
+            }
+            c[index] = pValue;
+        }
+    }
+
+    int main()
+    {
+        int count, mask;
+        std::cout << "Enter length of array and mask\n";
+        std::cin >> count >> mask;
+
+        int* host_a = new int[count];
+        int* host_b = new int[mask];
+        int* host_c = new int[count];
+
+        for (int i = 0; i < count; i++) {
+            *(host_c + i) = 0;
+
+            int r = rand() / 100;
+            *(host_a + i) = r;
+        }
+
+        for (int i = 0; i < mask; i++) {
+            int r = rand() / 100;
+            *(host_b + i) = r;
+        }
+
+        int* device_a, * device_b, * device_c;
+
+        const int size = count * sizeof(int);
+
+        cudaMalloc(&device_a, size);
+        cudaMalloc(&device_b, size);
+        cudaMalloc(&device_c, size);
+        cudaMemcpy(
+            device_a, host_a,
+            size,
+            cudaMemcpyHostToDevice
+        );
+        cudaMemcpy(
+            device_b, host_b,
+            size,
+            cudaMemcpyHostToDevice
+        );
+
+        int blocks = count / 100 + 1;
+        int threads = 100;
+        conv_gpu << < blocks, threads >> > (device_a, device_b, device_c, count, mask);
+
+        cudaMemcpy(
+            host_c, device_c,
+            size,
+            cudaMemcpyDeviceToHost
+        );
+
+        for (auto i = 0; i < count; i++)
+        {
+            std::cout << host_c[i] << "\n";
+        }
+        getchar();
+        return 0;
+    }
+    ```
+
+    <h4>Output</h4>
+
+    ```
+    Enter length of array and mask
+    10 3
+    10488
+    55295
+    75496
+    99968
+    124100
+    94927
+    85159
+    124114
+    157473
+    130972
+    ```
+
+<br>
+
+4) Write a program in CUDA to process a ID array containing angles in radians to  generate  sine  of  the  angles  in  the  output  array.  Use  appropriate function
+
+    <h4>Code</h4>
+
+    ```c
+    #include "cuda_runtime.h"
+    #include "device_launch_parameters.h"
+    #include <iostream>
+    #include <stdlib.h>
+    #include <math.h>
+
+    __global__ void sine_gpu(double* a, double* b)
+    {
+        int index = blockIdx.x * blockDim.x + threadIdx.x;
+        b[index] = __sinf(a[index]);
+    }
+
+    int main()
+    {
+        int count;
+        std::cout << "Enter length of array\n";
+        std::cin >> count;
+
+        double* host_a = new double[count];
+        double* host_b = new double[count];
+
+        for (int i = 0; i < count; i++) {
+            *(host_b + i) = 0.0;
+
+            int r = (double)rand() / 100;
+            *(host_a + i) = r;
+        }
+
+        double * device_a, * device_b;
+
+        const int size = count * sizeof(int);
+
+        cudaMalloc(&device_a, size);
+        cudaMalloc(&device_b, size);
+        cudaMemcpy(
+            device_a, host_a,
+            size,
+            cudaMemcpyHostToDevice
+        );
+
+        int blocks = count / 100 + 1;
+        int threads = 100;
+        sine_gpu << < blocks, threads >> > (device_a, device_b);
+
+        cudaMemcpy(
+            host_b, device_b,
+            size,
+            cudaMemcpyDeviceToHost
+        );
+
+        for (auto i = 0; i < count; i++)
+        {
+            std::cout << "sine " << host_a[i] << " = " << host_b[i] << "\n";
+        }
+        getchar();
+        return 0;
+    }
+    ```
+
+    <h4>Output</h4>
+
+    ```
+    Enter length of array
+    5
+    sine 1.57 = 1
+    sine 184 = 0.976586
+    sine 63 = 0
+    sine 265 = 0
+    sine 191 = 0
+    ```
+
+---
+
+## Week 9
+
+1) Write a program in CUDA to count the number of times a given word is repeated in a sentence.
 
     <h4>Code</h4>
 
     ```c
     #include <stdio.h>
-    #include "mpi.h"
-    #include <malloc.h>
+    #include <cuda_runtime.h>
+    #include <device_launch_parameters.h>
     #include <string.h>
-    #include <stdlib.h>
 
-    int main(int argc, int *argv[])
-    {
-        int rank, size;
+    #define MAX_SENTENCE_LENGTH 100
+    #define WORD_LENGTH 20
 
-        MPI_Init(&argc, &argv);
+    __global__ void wordCount(char* sentence, char* word, int* result, int SentenceLength, int wordLength) {
+        int index = threadIdx.x + blockIdx.x * blockDim.x;
+        int stride = blockDim.x * gridDim.x;
+        int localCount = 0;
 
-        MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-        MPI_Comm_size(MPI_COMM_WORLD, &size);
-
-        char word[] = "Hello";
-        char* buf = calloc(6, sizeof(char));
-        char* buf2 = calloc(6, sizeof(char));
-        MPI_Status status;
-
-        if (rank == 0) {
-            MPI_Ssend(word, 6, MPI_CHAR, 1, 0, MPI_COMM_WORLD);
-        }
-        if (rank == 1) {
-            MPI_Recv(buf, 6, MPI_CHAR, 0, 0, MPI_COMM_WORLD, &status);
-
-            for (int i = 0; i < 6; i++) {
-                if (buf[i] >= 'a') {
-                    buf[i] = toupper(buf[i]);
-                }
-                else {
-                    buf[i] = tolower(buf[i]);
+        for (int i = index; i <= SentenceLength - wordLength; i += stride) {
+            bool wordFound = true;
+            for (int j = 0; j < wordLength; j++) {
+                if (sentence[i + j] != word[j]) {
+                    wordFound = false;
+                    break;
                 }
             }
-
-            MPI_Ssend(buf, 6, MPI_CHAR, 0, 1, MPI_COMM_WORLD);
-        }
-        if (rank == 0) {
-            MPI_Recv(buf2, 6, MPI_CHAR, 1, 1, MPI_COMM_WORLD, &status);
-
-            printf("%s\n", buf2);
+            if (wordFound) {
+                localCount++;
+            }
         }
 
-        MPI_Finalize();
+        atomicAdd(result, localCount);
+    }
+
+    int main() {
+        char sentence[MAX_SENTENCE_LENGTH] = "hello world hello hi hi hi hello";
+        char word[WORD_LENGTH] = "hello";
+
+        int result = 0;
+        int senLen = strlen(sentence);
+        int worLen = strlen(word);
+
+        char* d_sentence, * d_word;
+        int* d_result;
+
+        cudaMalloc((void**)&d_sentence, MAX_SENTENCE_LENGTH * sizeof(char));
+        cudaMalloc((void**)&d_word, WORD_LENGTH * sizeof(char));
+        cudaMalloc((void**)&d_result, sizeof(int));
+
+        cudaMemcpy(d_sentence, sentence, MAX_SENTENCE_LENGTH * sizeof(char), cudaMemcpyHostToDevice);
+        cudaMemcpy(d_word, word, WORD_LENGTH * sizeof(char), cudaMemcpyHostToDevice);
+        cudaMemcpy(d_result, &result, sizeof(int), cudaMemcpyHostToDevice);
+
+        wordCount << <(MAX_SENTENCE_LENGTH + 255) / 256, 256 >> > (d_sentence, d_word, d_result, senLen, worLen);
+
+        cudaMemcpy(&result, d_result, sizeof(int), cudaMemcpyDeviceToHost);
+
+        printf("The word '%s' appears %d times in the sentence.\n", word, result);
+
+        cudaFree(d_sentence);
+        cudaFree(d_word);
+        cudaFree(d_result);
 
         return 0;
     }
@@ -4071,7 +4513,390 @@ received value by one. Write the program using point to point communication rout
     <h4>Output</h4>
 
     ```
-    hELLO
+    The word 'hello' appears 3 times in the sentence.
+    ```
+
+<br>
+
+2) Write a CUDA program that reads a string S and produces the string RS
+
+    <h4>Code</h4>
+
+    ```c
+    #include "cuda_runtime.h"
+    #include <stdio.h>
+    #include "cudart_platform.h"
+    #include "device_launch_parameters.h"
+    #include "cuda.h"
+    #include <string.h>
+    #include <stdlib.h>
+    #include <malloc.h>
+
+    __global__ void produce(char *str, char *res, int *indices) {
+        int x = blockDim.x * blockIdx.x + threadIdx.x;
+
+        int index = indices[x];
+        for (int i = 0; i < 4 - x; i++) {
+            res[index + i] = str[i];
+        }
+    }
+
+    int main() {
+        int len;
+
+        printf("Enter size of string\n");
+        scanf("%d", &len);
+        getchar();
+
+        char* str = (char*)malloc(len * sizeof(char));
+        char *res = (char*)malloc(len * len * sizeof(char));
+        int* indices = (int*)malloc(len * sizeof(int));
+
+        printf("Enter string\n");
+        gets_s(str, len);
+
+        memset(indices, 0, len * sizeof(int));
+        for (int i = 1; i < len - 1; i++) {
+            indices[i] = indices[i - 1] + len - i;
+        }
+
+        char* device_str, * device_res;
+        int* device_indices;
+
+        cudaMalloc((void **) & device_str, len * sizeof(char));
+        cudaMalloc((void**)&device_res, len * len * sizeof(char));
+        cudaMalloc((void**)&device_indices, len * sizeof(int));
+
+        cudaMemcpy(device_str, str, len * sizeof(char), cudaMemcpyHostToDevice);
+        cudaMemcpy(device_indices, indices, len * sizeof(int), cudaMemcpyHostToDevice);
+
+        produce << <1, len - 1 >> > (device_str, device_res, device_indices);
+
+        cudaMemcpy(res, device_res, len * len * sizeof(char), cudaMemcpyDeviceToHost);
+
+        printf("%s", res);
+
+        cudaFree(device_str);
+        cudaFree(device_res);
+        cudaFree(device_indices);
+
+        free(str);
+        free(res);
+        free(indices);
+
+        return 0;
+    }
+    ```
+
+    <h4>Output</h4>
+
+    ```
+    Enter size of string
+    5
+    Enter string
+    PCAP
+    PCAPPCAPCP
+    ```
+
+---
+
+## Week 10
+
+1) Write a program in CUDA to add two matrices for the following
+specifications:
+• Each row of resultant matrix to be computed by one thread.
+• Each column of resultant matrix to be computed by one thread
+• Each element of resultant matrix to be computed by one thread
+
+    <h4>Code</h4>
+
+    ```c
+    #include "cuda_runtime.h"
+    #include "device_launch_parameters.h"
+    #include <malloc.h>
+    #include <stdlib.h>
+    #include <stdio.h>
+
+    #define SIZE 5
+
+    __global__ void addKernel(int *c, const int *a, const int *b)
+    {
+        int i = blockDim.x * blockIdx.x + threadIdx.x;
+        int j = blockDim.y * blockIdx.y + threadIdx.y;
+
+        c[i * SIZE + j] = a[i * SIZE + j] + b[i * SIZE + j];
+    }
+
+    int main()
+    {
+
+        int* a = (int*)calloc(SIZE * SIZE, sizeof(int));
+        int* b = (int*)calloc(SIZE * SIZE, sizeof(int));
+        int* c = (int*)calloc(SIZE * SIZE, sizeof(int));
+
+        for (int i = 0; i < SIZE * SIZE; i++) {
+            a[i] = rand() % 100;
+            b[i] = rand() % 100;
+
+            printf("%d,%d  ", a[i], b[i]);
+            if ((i + 1) % SIZE == 0 && i != 0) {
+                printf("\n");
+            }
+        }
+        printf("\n");
+
+        int* dev_a, * dev_b, * dev_c;
+        cudaMalloc((int**)&dev_a, SIZE * SIZE * sizeof(int));
+        cudaMalloc((int**)&dev_b, SIZE * SIZE * sizeof(int));
+        cudaMalloc((int**)&dev_c, SIZE * SIZE * sizeof(int));
+
+        cudaMemcpy(dev_a, a, SIZE * SIZE * sizeof(int), cudaMemcpyHostToDevice);
+        cudaMemcpy(dev_b, b, SIZE * SIZE * sizeof(int), cudaMemcpyHostToDevice);
+
+        dim3 row_threads(1, SIZE, 1);
+        dim3 row_blocks(1, SIZE, 1);
+
+        addKernel << <row_blocks, row_threads >> > (dev_c, dev_a, dev_b);
+
+        cudaMemcpy(c, dev_c, SIZE * SIZE * sizeof(int), cudaMemcpyDeviceToHost);
+
+        for (int i = 0; i < SIZE * SIZE; i++) {
+            printf("%d  ", c[i]);
+            if ((i + 1) % SIZE == 0 && i != 0) {
+                printf("\n");
+            }
+        }
+
+        printf("\n");
+
+        dim3 col_threads(SIZE, 1, 1);
+        dim3 col_blocks(SIZE, 1, 1);
+
+        addKernel << <col_blocks, col_threads >> > (dev_c, dev_a, dev_b);
+
+        cudaMemcpy(c, dev_c, SIZE * SIZE * sizeof(int), cudaMemcpyDeviceToHost);
+
+        for (int i = 0; i < SIZE * SIZE; i++) {
+            printf("%d  ", c[i]);
+            if ((i + 1) % SIZE == 0 && i != 0) {
+                printf("\n");
+            }
+        }
+
+        printf("\n");
+
+        dim3 all_threads(SIZE, SIZE, 1);
+        dim3 all_blocks(1, 1, 1);
+
+        addKernel << <all_blocks, all_threads >> > (dev_c, dev_a, dev_b);
+
+        cudaMemcpy(c, dev_c, SIZE * SIZE * sizeof(int), cudaMemcpyDeviceToHost);
+
+        for (int i = 0; i < SIZE * SIZE; i++) {
+            printf("%d  ", c[i]);
+            if ((i + 1) % SIZE == 0 && i != 0) {
+                printf("\n");
+            }
+        }
+
+        return 0;
+    }
+    ```
+
+    <h4>Output</h4>
+
+    ```
+    41,67  34,0  69,24  78,58  62,64
+    5,45  81,27  61,91  95,42  27,36
+    91,4  2,53  92,82  21,16  18,95
+    47,26  71,38  69,12  67,99  35,94
+    3,11  22,33  73,64  41,11  53,68
+
+    108  34  93  136  126
+    50  108  152  137  63
+    95  55  174  37  113
+    73  109  81  166  129
+    14  55  137  52  121
+
+    108  34  93  136  126
+    50  108  152  137  63
+    95  55  174  37  113
+    73  109  81  166  129
+    14  55  137  52  121
+
+    108  34  93  136  126
+    50  108  152  137  63
+    95  55  174  37  113
+    73  109  81  166  129
+    14  55  137  52  121
+    ```
+
+<br>
+
+2) Write a program in CUDA to multiply two matrices for the following
+specifications:
+• Each row of resultant matrix to be computed by one thread.
+• Each column of resultant matrix to be computed by one thread
+• Each element of resultant matrix to be computed by one thread
+
+    <h4>Code</h4>
+
+    ```c
+    #include "cuda_runtime.h"
+    #include "device_launch_parameters.h"
+    #include <malloc.h>
+    #include <stdlib.h>
+    #include <stdio.h>
+
+    #define SIZE 5
+
+    __global__ void rowKernel(int* c, const int* a, const int* b)
+    {
+        int i = blockDim.y * blockIdx.y + threadIdx.y;
+
+        if (i < SIZE) {
+            for (int j = 0; j < SIZE; j++) {
+                int buf = 0;
+                for (int k = 0; k < SIZE; k++) {
+                    buf += a[i * SIZE + k] * b[k * SIZE + j];
+                }
+                c[i * SIZE + j] = buf;
+            }
+        }
+    }
+
+    __global__ void colKernel(int* c, const int* a, const int* b)
+    {
+        int j = blockDim.x * blockIdx.x + threadIdx.x;
+
+        if (j < SIZE) {
+            for (int i = 0; i < SIZE; i++) {
+                int buf = 0;
+                for (int k = 0; k < SIZE; k++) {
+                    buf += a[i * SIZE + k] * b[k * SIZE + j];
+                }
+                c[i * SIZE + j] = buf;
+            }
+        }
+    }
+
+    __global__ void allKernel(int* c, const int* a, const int* b)
+    {
+        int i = blockDim.x * blockIdx.x + threadIdx.x;
+        int j = blockDim.y * blockIdx.y + threadIdx.y;
+
+        int buf = 0;
+
+        if (i < SIZE && j < SIZE) {
+            for (int k = 0; k < SIZE; k++) {
+                buf += a[i * SIZE + k] * b[k * SIZE + j];
+            }
+            c[i * SIZE + j] = buf;
+        }
+    }
+
+    int main()
+    {
+
+        int* a = (int*)calloc(SIZE * SIZE, sizeof(int));
+        int* b = (int*)calloc(SIZE * SIZE, sizeof(int));
+        int* c = (int*)calloc(SIZE * SIZE, sizeof(int));
+
+        for (int i = 0; i < SIZE * SIZE; i++) {
+            a[i] = rand() % 100;
+            b[i] = rand() % 100;
+
+            printf("%d,%d  ", a[i], b[i]);
+            if ((i + 1) % SIZE == 0 && i != 0) {
+                printf("\n");
+            }
+        }
+        printf("\n");
+
+        int* dev_a, * dev_b, * dev_c;
+        cudaMalloc((int**)&dev_a, SIZE * SIZE * sizeof(int));
+        cudaMalloc((int**)&dev_b, SIZE * SIZE * sizeof(int));
+        cudaMalloc((int**)&dev_c, SIZE * SIZE * sizeof(int));
+
+        cudaMemcpy(dev_a, a, SIZE * SIZE * sizeof(int), cudaMemcpyHostToDevice);
+        cudaMemcpy(dev_b, b, SIZE * SIZE * sizeof(int), cudaMemcpyHostToDevice);
+
+        dim3 row_threads(SIZE, SIZE, 1);
+        dim3 row_blocks(1, 1, 1);
+
+        rowKernel << <row_blocks, row_threads >> > (dev_c, dev_a, dev_b);
+
+        cudaMemcpy(c, dev_c, SIZE * SIZE * sizeof(int), cudaMemcpyDeviceToHost);
+
+        for (int i = 0; i < SIZE * SIZE; i++) {
+            printf("%d  ", c[i]);
+            if ((i + 1) % SIZE == 0 && i != 0) {
+                printf("\n");
+            }
+        }
+
+        printf("\n");
+
+        dim3 col_threads(SIZE, SIZE, 1);
+        dim3 col_blocks(1, 1, 1);
+
+        colKernel << <col_blocks, col_threads >> > (dev_c, dev_a, dev_b);
+
+        cudaMemcpy(c, dev_c, SIZE * SIZE * sizeof(int), cudaMemcpyDeviceToHost);
+
+        for (int i = 0; i < SIZE * SIZE; i++) {
+            printf("%d  ", c[i]);
+            if ((i + 1) % SIZE == 0 && i != 0) {
+                printf("\n");
+            }
+        }
+
+        printf("\n");
+
+        dim3 all_threads(SIZE, SIZE, 1);
+        dim3 all_blocks(1, 1, 1);
+
+        allKernel << <all_blocks, all_threads >> > (dev_c, dev_a, dev_b);
+
+        cudaMemcpy(c, dev_c, SIZE * SIZE * sizeof(int), cudaMemcpyDeviceToHost);
+
+        for (int i = 0; i < SIZE * SIZE; i++) {
+            printf("%d  ", c[i]);
+            if ((i + 1) % SIZE == 0 && i != 0) {
+                printf("\n");
+            }
+        }
+
+        return 0;
+    }
+    ```
+
+    <h4>Output</h4>
+
+    ```
+    41,67  34,0  69,24  78,58  62,64
+    5,45  81,27  61,91  95,42  27,36
+    91,4  2,53  92,82  21,16  18,95
+    47,26  71,38  69,12  67,99  35,94
+    3,11  22,33  73,64  41,11  53,68
+
+    7263  9585  14640  13314  21951
+    6991  9921  15361  14370  19797
+    7299  6322  11314  9111  17834
+    8747  9275  16291  13830  20797
+    3132  7770  11944  6908  15377
+
+    7263  9585  14640  13314  21951
+    6991  9921  15361  14370  19797
+    7299  6322  11314  9111  17834
+    8747  9275  16291  13830  20797
+    3132  7770  11944  6908  15377
+
+    7263  9585  14640  13314  21951
+    6991  9921  15361  14370  19797
+    7299  6322  11314  9111  17834
+    8747  9275  16291  13830  20797
+    3132  7770  11944  6908  15377
     ```
 
 <br>
