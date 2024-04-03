@@ -3622,9 +3622,11 @@ the performance of various iteration scheduling strategies.
     <h4>Output</h4>
 
     ```
+    (2, 3)
     Product: 6
     Sum: 5
     Difference: -1
+    Quotient: 0.6666667
     ```
 
 <br>
@@ -3808,7 +3810,7 @@ the performance of various iteration scheduling strategies.
     #include <string.h>
     #include <stdlib.h>
 
-    int main(int argc, int* argv[])
+    int main(int argc, char* argv[])
     {
         int rank, size;
 
@@ -3817,18 +3819,27 @@ the performance of various iteration scheduling strategies.
         MPI_Comm_rank(MPI_COMM_WORLD, &rank);
         MPI_Comm_size(MPI_COMM_WORLD, &size);
 
-        int num = 5;
-        int buf;
         MPI_Status status;
+        int* arr = (int*)calloc(size, sizeof(int));
+        int val;
+        int* buf = (int*)calloc(size, sizeof(int));
+        int buf_size = size + MPI_BSEND_OVERHEAD;
 
         if (rank == 0) {
             for (int i = 1; i < size; i++) {
-                MPI_Send(&num, 1, MPI_INT, i, i, MPI_COMM_WORLD);
+                MPI_Buffer_attach(buf, buf_size);
+                scanf_s("%d", arr + i);
+                MPI_Bsend(arr + i, 1, MPI_INT, i, i, MPI_COMM_WORLD);
+                MPI_Buffer_detach(&buf, &buf_size);
             }
         }
+        else if (rank % 2 == 0) {
+            MPI_Recv(&val, 1, MPI_INT, 0, rank, MPI_COMM_WORLD, &status);
+            printf("Rank: %d, Square: %d\n", rank, val * val);
+        }
         else {
-            MPI_Recv(&buf, 1, MPI_INT, 0, rank, MPI_COMM_WORLD, &status);
-            printf("Rank: %d, %d\n", rank, buf);
+            MPI_Recv(&val, 1, MPI_INT, 0, rank, MPI_COMM_WORLD, &status);
+            printf("Rank: %d, Cube: %d\n", rank, val * val * val);
         }
 
         MPI_Finalize();
@@ -3840,10 +3851,227 @@ the performance of various iteration scheduling strategies.
     <h4>Output</h4>
 
     ```
-    Rank: 1, 5
-    Rank: 2, 5
-    Rank: 4, 5
-    Rank: 3, 5
+    1 2 3 4 5
+    Rank: 1, Cube: 1
+    Rank: 2, Square: 4
+    Rank: 4, Square: 16
+    Rank: 3, Cube: 27
+    ```
+
+<br>
+
+4) Write a MPI program to read an integer value in the root process. Root process sends this value to Process1 , Process1 sends this value to Process2 and so on. Last process sends the value back to root process. When sending the value each process will first increment the
+received value by one. Write the program using point to point communication routines.
+
+    <h4>Code</h4>
+
+    ```c
+    #include <stdio.h>
+    #include "mpi.h"
+    #include <malloc.h>
+    #include <string.h>
+    #include <stdlib.h>
+
+    int main(int argc, char* argv[])
+    {
+        int rank, size;
+
+        MPI_Init(&argc, &argv);
+
+        MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+        MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+        MPI_Status status;
+        int val = 10;
+
+        if (rank == 0) {
+            scanf_s("%d", &val);
+        }
+
+        MPI_Barrier(MPI_COMM_WORLD);
+
+        if (rank == 0) {
+            MPI_Send(&val, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
+        }
+        else {
+            MPI_Recv(&val, 1, MPI_INT, rank - 1, 0, MPI_COMM_WORLD, &status);
+
+            val += 1;
+            printf("Rank: %d, Sending: %d\n", rank, val);
+
+            if (rank == size - 1) {
+                MPI_Send(&val, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
+            }
+            else {
+                MPI_Send(&val, 1, MPI_INT, rank + 1, 0, MPI_COMM_WORLD);
+            }
+        }
+
+        if (rank == 0) {
+            MPI_Recv(&val, 1, MPI_INT, size - 1, 0, MPI_COMM_WORLD, &status);
+            printf("Rank: %d, Root recieved: %d\n", rank, val);
+        }
+
+        MPI_Finalize();
+
+        return 0;
+    }
+    ```
+
+    <h4>Output</h4>
+
+    ```
+    10
+    Rank: 2, Sending: 12
+    Rank: 3, Sending: 13
+    Rank: 1, Sending: 11
+    Rank: 0, Root recieved: 14
+    Rank: 4, Sending: 14
+    ```
+
+<br>
+
+5) Write a MPI program to read N elements of an array in the master process. Let N processes including master process check the array values are prime or not.
+
+    <h4>Code</h4>
+
+    ```c
+    #include <stdio.h>
+    #include "mpi.h"
+    #include <malloc.h>
+    #include <string.h>
+    #include <stdlib.h>
+
+    int main(int argc, char* argv[])
+    {
+        int rank, size;
+
+        MPI_Init(&argc, &argv);
+
+        MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+        MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+        MPI_Status status;
+        int len, *arr, val;
+
+        if (rank == 0) {
+            scanf_s("%d", &len);
+        }
+
+        MPI_Bcast(&len, 1, MPI_INT, 0, MPI_COMM_WORLD);
+
+        arr = (int *)calloc(len, sizeof(int));
+
+        if (rank == 0) {
+            for (int i = 0; i < len; i++) {
+                scanf_s("%d", arr + i);
+            }
+        }
+
+        MPI_Scatter(arr, 1, MPI_INT, &val, 1, MPI_INT, 0, MPI_COMM_WORLD);
+
+        // Check prime
+        int flag = 1;
+        for (int i = 2; i <= val / 2; i++) {
+            if (val % i == 0) {
+                flag = 0;
+                break;
+            }
+        }
+
+        if (val == 1) flag = 0;
+
+        if (flag) {
+            printf("Rank: %d, Value: %d is a prime", rank, val);
+        }
+        else {
+            printf("Rank: %d, Value: %d is not a prime", rank, val);
+        }
+
+        MPI_Finalize();
+
+        return 0;
+    }
+    ```
+
+    <h4>Output</h4>
+
+    ```
+    7
+    1 2 3 4 5 6 7
+    Rank: 6, Value: 7 is a prime
+    Rank: 5, Value: 6 is not a prime
+    Rank: 4, Value: 5 is a prime
+    Rank: 0, Value: 1 is not a prime
+    Rank: 1, Value: 2 is a prime
+    Rank: 2, Value: 3 is a prime
+    Rank: 3, Value: 4 is not a prime
+    ```
+
+<br>
+
+---
+
+## Week 8
+
+1) Write a MPI program using synchronous send, The sender process sends a word to the receiver. The second process receives the word, toggles each letter of the word and sends it back to the first process. Both processes use synchronous send operations.
+
+    <h4>Code</h4>
+
+    ```c
+    #include <stdio.h>
+    #include "mpi.h"
+    #include <malloc.h>
+    #include <string.h>
+    #include <stdlib.h>
+
+    int main(int argc, int *argv[])
+    {
+        int rank, size;
+
+        MPI_Init(&argc, &argv);
+
+        MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+        MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+        char word[] = "Hello";
+        char* buf = calloc(6, sizeof(char));
+        char* buf2 = calloc(6, sizeof(char));
+        MPI_Status status;
+
+        if (rank == 0) {
+            MPI_Ssend(word, 6, MPI_CHAR, 1, 0, MPI_COMM_WORLD);
+        }
+        if (rank == 1) {
+            MPI_Recv(buf, 6, MPI_CHAR, 0, 0, MPI_COMM_WORLD, &status);
+
+            for (int i = 0; i < 6; i++) {
+                if (buf[i] >= 'a') {
+                    buf[i] = toupper(buf[i]);
+                }
+                else {
+                    buf[i] = tolower(buf[i]);
+                }
+            }
+
+            MPI_Ssend(buf, 6, MPI_CHAR, 0, 1, MPI_COMM_WORLD);
+        }
+        if (rank == 0) {
+            MPI_Recv(buf2, 6, MPI_CHAR, 1, 1, MPI_COMM_WORLD, &status);
+
+            printf("%s\n", buf2);
+        }
+
+        MPI_Finalize();
+
+        return 0;
+    }
+    ```
+
+    <h4>Output</h4>
+
+    ```
+    hELLO
     ```
 
 <br>
