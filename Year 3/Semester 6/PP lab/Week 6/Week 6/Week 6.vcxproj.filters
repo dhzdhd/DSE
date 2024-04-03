@@ -15,10 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="q2.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="q1.c">
+    <ClCompile Include="q4.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

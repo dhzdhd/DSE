@@ -3502,3 +3502,178 @@ the performance of various iteration scheduling strategies.
     ```
 
 ---
+
+## Week 6
+
+1) Write a simple MPI program to find out pow (x, rank) for all the processes where 'x' is the integer constant and 'rank' is the rank of the process.
+
+    <h4>Code</h4>
+
+    ```c
+    #include <stdio.h>
+    #include "mpi.h"
+    #include <math.h>
+
+    int main(int argc, char * argv[])
+    {
+        int rank, size, n = 5;
+
+        MPI_Init(&argc, &argv);
+        MPI_Comm_size(MPI_COMM_WORLD, &size);
+        MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+        printf("Process: %d | Result: %0.0f", rank, pow(n, rank));
+
+        MPI_Finalize();
+
+        return 0;
+    }
+    ```
+
+    <h4>Output</h4>
+
+    ```
+    Process: 0 | Result: 1
+    Process: 1 | Result: 5
+    Process: 2 | Result: 25
+    ```
+
+<br>
+
+2) Write a program in MPI where even ranked process prints "Hello" and odd ranked process prints "World".
+
+    <h4>Code</h4>
+
+    ```c
+    #include <stdio.h>
+    #include "mpi.h"
+    #include <math.h>
+
+    int main(int argc, char* argv[])
+    {
+        int rank, size;
+
+        MPI_Init(&argc, &argv);
+        MPI_Comm_size(MPI_COMM_WORLD, &size);
+        MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+        if (rank % 2 == 0) {
+            printf("Process: %d | Hello\n", rank);
+        }
+        else {
+            printf("Process: %d | World\n", rank);
+        }
+
+        MPI_Finalize();
+
+        return 0;
+    }
+    ```
+
+    <h4>Output</h4>
+
+    ```
+    Process: 2 | Hello
+    Process: 0 | Hello
+    Process: 1 | World
+    ```
+
+<br>
+
+3) Write a program in MPI to simulate simple calculator. Perform each operation using different process in parallel.
+
+    <h4>Code</h4>
+
+    ```c
+    #include <stdio.h>
+    #include "mpi.h"
+    #include <math.h>
+
+    int main(int argc, char* argv[])
+    {
+        int rank, size;
+
+        MPI_Init(&argc, &argv);
+        MPI_Comm_size(MPI_COMM_WORLD, &size);
+        MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+        int a = (int)*argv[1] - (int)'0';
+        int b = (int)*argv[2] - (int)'0';
+
+        if (rank == 0) {
+            printf("Sum: %d\n", a + b);
+        }
+        else if (rank == 1) {
+            printf("Difference: %d\n", a - b);
+        }
+        else if (rank == 2) {
+            printf("Product: %d\n", a * b);
+        }
+        else {
+            printf("Quotient: %f\n", (float)a / b);
+        }
+
+        MPI_Finalize();
+
+        return 0;
+    }
+    ```
+
+    <h4>Output</h4>
+
+    ```
+    Product: 6
+    Sum: 5
+    Difference: -1
+    ```
+
+<br>
+
+4) Write a program in MPI to toggle the character of a given stnng indexed by the rank of the process. Hint: Suppose the string is HeLLO and there are 5 processes, then process 0 toggle 'H' to process I toggle 'e' to 'E' and so on.
+
+    <h4>Code</h4>
+
+    ```c
+    #include <stdio.h>
+    #include "mpi.h"
+    #include <math.h>
+
+    int main(int argc, char* argv[])
+    {
+        int rank, size;
+
+        MPI_Init(&argc, &argv);
+        MPI_Comm_size(MPI_COMM_WORLD, &size);
+        MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+        int a = (int)*argv[1] - (int)'0';
+        int b = (int)*argv[2] - (int)'0';
+
+        if (rank == 0) {
+            printf("Sum: %d\n", a + b);
+        }
+        else if (rank == 1) {
+            printf("Difference: %d\n", a - b);
+        }
+        else if (rank == 2) {
+            printf("Product: %d\n", a * b);
+        }
+        else {
+            printf("Quotient: %f\n", (float)a / b);
+        }
+
+        MPI_Finalize();
+
+        return 0;
+    }
+    ```
+
+    <h4>Output</h4>
+
+    ```
+    Product: 6
+    Sum: 5
+    Difference: -1
+    ```
+
+<br>

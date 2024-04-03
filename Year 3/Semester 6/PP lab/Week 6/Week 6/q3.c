@@ -26,7 +26,6 @@ int main(int argc, char* argv[])
         printf("Quotient: %f\n", (float)a / b);
     }
 
-
     MPI_Finalize();
 
     return 0;
