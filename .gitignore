@@ -18,3 +18,6 @@ __pycache__/
 # VS 2022
 .vs
 x64
+
+# Scala
+.metals/

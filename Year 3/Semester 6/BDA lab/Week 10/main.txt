@@ -1,0 +1,61 @@
+# 1
+create 'employee', 'personal_data', 'professional_data'
+
+# 2
+put 'employee', 1, 'personal_data:name', 'Angela'
+put 'employee', 1, 'personal_data:city', 'chicago'
+put 'employee', 1, 'personal_data:age', 31
+put 'employee', 1, 'professional_data:designation', 'Architect'
+put 'employee', 1, 'professional_data:salary', 70000
+
+put 'employee', 2, 'personal_data:name', 'dwayne'
+put 'employee', 2, 'personal_data:city', 'bostan'
+put 'employee', 2, 'personal_data:age', 35
+put 'employee', 2, 'professional_data:designation', 'Web devloper'
+put 'employee', 2, 'professional_data:salary', 65000
+
+put 'employee', 3, 'personal_data:name', 'david'
+put 'employee', 3, 'personal_data:city', 'seattle'
+put 'employee', 3, 'personal_data:age', 29
+put 'employee', 3, 'professional_data:designation', 'Engineer'
+put 'employee', 3, 'professional_data:salary', 55000
+
+put 'employee', 4, 'personal_data:name', 'rahul'
+put 'employee', 4, 'personal_data:city', 'USA'
+put 'employee', 4, 'personal_data:age', 31
+put 'employee', 4, 'professional_data:designation', 'architect'
+put 'employee', 4, 'professional_data:salary', 70000
+
+put 'employee', 5, 'personal_data:name', 'jony'
+put 'employee', 5, 'personal_data:city', 'chicago'
+put 'employee', 5, 'personal_data:age', 29
+put 'employee', 5, 'professional_data:designation', 'Data analyst'
+put 'employee', 5, 'professional_data:salary', 80000
+
+put 'employee', '6', 'personal_data:name', 'sony'
+put 'employee', '6', 'personal_data:city', 'bostan'
+put 'employee', '6', 'personal_data:age', 29
+put 'employee', '6', 'professional_data:designation', 'Data analyst'
+put 'employee', '6', 'professional_data:salary', 80000
+
+# 3
+put 'employee', 3, 'professional_data:salary', 65000
+describe 'employee'
+show 'employee'
+
+# 4
+scan 'employee', {COLUMNS => 'professional_data:salary', FILTER => "ValueFilter(>=, 'binary:70000')"}
+
+# 5
+# scan 'employee', {COLUMNS => 'personal_data', FILTER => "ValueFilter(=, 'binary:david')"}
+get 'employee', '3', 'personal_data'
+
+# 6
+scan 'employee', {FILTER => "ValueFilter(=, 'binary:Data analyst')"}
+
+# 7
+count 'employee'
+describe 'employee'
+
+# 8
+alter 'employee', 'delete' => 'personal_data:age'

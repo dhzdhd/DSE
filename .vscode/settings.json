@@ -52,5 +52,8 @@
     "xutility": "cpp",
     "stdio.h": "c"
   },
-  "dotnet.defaultSolution": "disable"
+  "dotnet.defaultSolution": "disable",
+  "files.watcherExclude": {
+    "**/target": true
+  }
 }
