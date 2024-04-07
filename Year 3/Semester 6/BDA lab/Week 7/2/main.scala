@@ -10,8 +10,8 @@ val df = spark.read
 
 val finalDf = df.withColumn("timestamp", col("timestamp").cast(TimestampType))
 finalDf
-  .groupBy("user_id")
-  .agg(max("timestamp").alias("max"), min("timestamp").alias("min"))
-  .select($"user_id", $"max" - $"min")
-  .orderBy("user_id")
+  .groupBy($"user_id")
+  .agg(max($"timestamp").alias("max"), min($"timestamp").alias("min"))
+  .select($"user_id", ($"max" - $"min").alias("interval"))
+  .orderBy($"user_id")
   .show()
