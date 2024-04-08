@@ -27,4 +27,3 @@ print(f"Count: {rddCount.items()}")
 
 rddSort.saveAsTextFile("./sortout")
 rddGroup.saveAsTextFile("./groupout")
-rddCount.saveAsTextFile("./countout")
