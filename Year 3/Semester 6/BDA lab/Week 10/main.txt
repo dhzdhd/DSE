@@ -38,10 +38,11 @@ put 'employee', '6', 'personal_data:age', 29
 put 'employee', '6', 'professional_data:designation', 'Data analyst'
 put 'employee', '6', 'professional_data:salary', 80000
 
+describe 'employee'
+
 # 3
 put 'employee', 3, 'professional_data:salary', 65000
-describe 'employee'
-show 'employee'
+scan 'employee'
 
 # 4
 scan 'employee', {COLUMNS => 'professional_data:salary', FILTER => "ValueFilter(>=, 'binary:70000')"}
