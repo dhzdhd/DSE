@@ -1,0 +1,4 @@
+User ID,From,To
+user1001,user1001@sample.com,{(user003@sample.com),(user004@sample.com),(user006@sample.com)}
+user1002,user1002@sample.com,{(user005@sample.com),(user006@sample.com)}
+user1003,user1003@sample.com,{(user001@sample.com),(user005@sample.com)}
