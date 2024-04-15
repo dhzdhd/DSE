@@ -53,7 +53,9 @@ CREATE EXTERNAL TABLE extpart (
 	STORED AS TEXTFILE
 	LOCATION '/workdir/extpart';
 
-INSERT OVERWRITE TABLE extpart PARTITION(gender) SELECT * FROM extern;
+INSERT OVERWRITE TABLE extpart PARTITION(gender) SELECT employee_id, birthday, first_name, family_name, work_day, gender FROM extern;
+-- LOAD DATA LOCAL INPATH 'data.csv' INTO TABLE extpart PARTITION(gender="M");
+-- LOAD DATA LOCAL INPATH 'data.csv' INTO TABLE extpart PARTITION(gender="F");
 
 -- 6
 CREATE EXTERNAL TABLE extbuc (

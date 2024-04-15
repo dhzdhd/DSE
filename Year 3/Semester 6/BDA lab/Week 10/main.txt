@@ -60,3 +60,5 @@ describe 'employee'
 
 # 8
 alter 'employee', 'delete' => 'personal_data:age'
+
+# scan 'employee', {FILTER => "SingleColumnValueFilter('professional_data', 'salary', >=, 'binary:70000')"}
